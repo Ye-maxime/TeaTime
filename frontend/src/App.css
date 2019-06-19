@@ -50,3 +50,7 @@ body {
 .form {
   margin-bottom: 50px;
 }
+
+.drink-list {
+  max-width: 400px !important;
+}

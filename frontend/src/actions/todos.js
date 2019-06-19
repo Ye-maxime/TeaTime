@@ -9,6 +9,7 @@ export const FETCH_TODOS = 'FETCH_TODOS'
 
 // action creators
 export function addTodo(todo) {
+  console.log("action creators addTodo !!!!")
   return { type: ADD_TODO, todo }
 }
 

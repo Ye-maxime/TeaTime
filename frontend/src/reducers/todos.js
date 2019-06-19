@@ -25,6 +25,7 @@ export default function todos (state = TODOS_DEFAULT_STATE, action) {
     }
 
     case ADD_TODO:
+      console.log("reducers addTodo !!!!")
       return {...state, saving: true}
 
     case ADD_TODO_SUCCESS:
