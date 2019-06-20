@@ -1,7 +1,7 @@
 // action types
-export const LOADED_DRINKS = 'LOADED_TODOS'
-export const FETCH_DRINKS = 'FETCH_TODOS'
-export const DRINKS_FAILURE = 'TODOS_FAILURE'
+export const LOADED_DRINKS = 'LOADED_DRINKS'
+export const FETCH_DRINKS = 'FETCH_DRINKS'
+export const DRINKS_FAILURE = 'DRINKS_FAILURE'
 
 // action creators
 export function fetchDrinks() {

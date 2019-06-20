@@ -20,7 +20,7 @@ class DrinkList extends Component {
             <section className="section full-column">
                 <h1 className="title white">Drinks</h1>
                 <div className="error">{error}</div>
-                <div className="container drink-list">>
+                <div className="container drink-list">
                     {drinks.map((drink) =>
                         <Drink
                             key={drink.id}
