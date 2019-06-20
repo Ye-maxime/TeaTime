@@ -1,0 +1,8 @@
+.navbar-center {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.navbar-item-margin {
+    margin-right: 60px;
+}
