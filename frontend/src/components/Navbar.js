@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import css from '../css/component.css'
-import { Router, Link } from "@reach/router"
 
 class Navbar extends Component {
     render() {
