@@ -15,7 +15,7 @@ export const TODOS_DEFAULT_STATE = {
   items: []
 }
 
-export default function todos (state = TODOS_DEFAULT_STATE, action) {
+export default function reducerTodos (state = TODOS_DEFAULT_STATE, action) {
   switch (action.type) {
     case LOADED_TODOS:
       return {...state, items: action.todos, loading: false}

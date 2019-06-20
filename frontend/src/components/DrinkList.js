@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import 'bulma/css/bulma.css'
 import connect from "react-redux/es/connect/connect";
+import { fetchDrinks } from '../actions/drinks';
 
 const Drink = ({drink, id}) => (
     <div className="box todo-item level is-mobile">
@@ -32,7 +33,7 @@ class DrinkList extends Component {
     }
 }
 
-const mapStateToProps = (state) => { //state is from store
+const mapStateToProps = (state) => { //state is from store (type: DRINKS_DEFAULT_STATE)
     return {
         drinks: state.drinks.items,
         error: state.drinks.error,

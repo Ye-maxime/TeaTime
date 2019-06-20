@@ -8,7 +8,8 @@ import {
     addTodoSuccess,
     todosFailure
 } from '../actions/todos'
-import {loadedDrinks, drinksFailure} from "../actions/drinks";
+
+import {FETCH_DRINKS, loadedDrinks, drinksFailure} from "../actions/drinks";
 
 function* getAllTodos() {
     try {

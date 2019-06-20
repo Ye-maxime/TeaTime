@@ -43,7 +43,7 @@ const server = require('../server')
 
 
 async function create (ctx) {
-  var result = await server.pool.query('insert into users values (\'' + ctx.request.body.description + '\')')
+  const result = await server.pool.query('insert into account values (\'' + ctx.request.body.description + '\')')
   ctx.body = 'ok'
 }
 
