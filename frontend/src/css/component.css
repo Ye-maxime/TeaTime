@@ -6,3 +6,30 @@
 .navbar-item-margin {
     margin-right: 60px;
 }
+
+.menuPage {
+    background-color: black;
+}
+.menuTitle {
+    margin: 100px 0 50px;
+    color: white;
+    font-weight: bolder;
+    font-size: 4rem;
+}
+
+.menu-table-head{
+    border-width: 2px 0 2px !important;
+    border-color: gold !important;
+    color: gold !important;
+    font-size: 20px !important;
+    font-family: cursive !important;
+    background-color: black !important;
+}
+
+.menu-table-list {
+    border-width: 0 !important;
+    background: black !important;
+    font-size: 15px !important;
+    color: white !important;
+    padding: 1.5rem 0.75rem !important;
+}
