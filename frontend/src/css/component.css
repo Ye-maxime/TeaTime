@@ -33,3 +33,8 @@
     color: white !important;
     padding: 1.5rem 0.75rem !important;
 }
+
+.menu-order-button {
+    position: absolute;
+    right: 20px;
+}
