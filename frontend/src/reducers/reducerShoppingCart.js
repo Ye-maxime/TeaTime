@@ -11,7 +11,7 @@ export default function reducerShoppingCart(state = SHOPPING_CART_DEFAULT_STATE,
             console.log("reducers addToShoppingCart !!!!")
             let newProduct = action.product
             const existedItem = getExistedItem(state, newProduct)
-            const newTotal = calculateTotal(state, newProduct)
+            const newTotal = calculateTotal(state,  parseInt(newProduct.price))
             if (existedItem) {
                 existedItem.quantity += 1
                 return {...state, total: newTotal}
