@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import DrinkList from '../components/DrinkList'
 
-class Home extends Component {
+class Menu extends Component {
     render() {
         return (
             <div>
-                <DrinkList/>
+                <h1>Page Menu</h1>
             </div>
         );
     }
 }
 
-export default Home;
+export default Menu;

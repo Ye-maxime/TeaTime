@@ -3,27 +3,30 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware, compose } from 'redux'
+import {Provider} from 'react-redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import rootReducer, { DEFAULT_STATE } from './reducers'
+import rootReducer, {DEFAULT_STATE} from './reducers'
 import rootSaga from './sagas'
+import {BrowserRouter} from 'react-router-dom'
 
 const sagaMiddleware = createSagaMiddleware()
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  rootReducer,
-  DEFAULT_STATE,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+    rootReducer,
+    DEFAULT_STATE,
+    composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
 sagaMiddleware.run(rootSaga)
 
 ReactDOM.render((
-  <Provider store={store}>
-    <App />
-  </Provider>
+    <Provider store={store}>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
+    </Provider>
 ), document.getElementById('root'))
 
 registerServiceWorker();
