@@ -4,11 +4,11 @@ import connect from "react-redux/es/connect/connect";
 import {fetchDrinks, addDrink} from '../actions/drinks';
 import {addToShoppingCart} from "../actions/shoppingCart";
 
-const Drink = ({drink, id, addToShoppingCart}) => (
-    <div className="box todo-item level is-mobile">
+const Drink = ({drink, id, onAddToShoppingCart}) => (
+    <div className="box drink-item level is-mobile">
         <span>{drink.name} {drink.price}</span>
-        <span className="icon">
-          <i className="fas fa-plus-circle has-text-success" onClick={addToShoppingCart}></i>
+        <span className="icon" onClick={onAddToShoppingCart}>
+          <i className="fas fa-plus-circle has-text-success"/>
         </span>
     </div>
 )
@@ -33,7 +33,7 @@ class DrinkList extends Component {
 
     render() {
         let {newDrink} = this.state
-        const {drinks, error, isLoading, isSaving} = this.props
+        const {drinks, error, isLoading, isSaving, addToShoppingCart} = this.props
         return (
             <section className="section full-column">
                 <h1 className="title white">Drinks</h1>
@@ -60,6 +60,7 @@ class DrinkList extends Component {
                             key={drink.id}
                             id={drink.id}
                             drink={drink}
+                            onAddToShoppingCart = {() => addToShoppingCart(drink)}
                         />)}
                 </div>
             </section>

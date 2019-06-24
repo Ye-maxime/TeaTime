@@ -2,7 +2,14 @@ import React, {Component} from 'react'
 import connect from "react-redux/es/connect/connect";
 import {Container,Row,Col,Table,Button} from 'react-bootstrap';
 
-
+const menuitem = ({drink, id, onAddToShoppingCart}) => (
+    <div className="box drink-item level is-mobile">
+        <span>{drink.name} {drink.price}</span>
+        <span className="icon" onClick={onAddToShoppingCart}>
+          <i className="fas fa-plus-circle has-text-success"/>
+        </span>
+    </div>
+)
 class MenuList extends Component {
     state = {drinksOrder: [], price:0}
 
@@ -10,6 +17,7 @@ class MenuList extends Component {
         //this.setState({ value });
     }
     render() {
+        const {browmenu, lulumenu, addToShoppingCart} = this.props
         return (
             <div className="menuPage">
                 <h1 className="menuTitle">
@@ -25,38 +33,13 @@ class MenuList extends Component {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th className="menu-table-list">
-                                    Brown Sugar Deerioca Fresh Milk
-                                        <Button variant="outline-warning" className="menu-order-button" onClick={this.handleClick()}>
-                                            $6   Add
-                                        </Button>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th className="menu-table-list">
-                                    Cocoa Brown Sugar Deerioca Milk
-                                        <Button variant="outline-warning" className="menu-order-button" onClick={this.handleClick()}>
-                                            $6   Add
-                                        </Button>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th className="menu-table-list">
-                                    Matcha Brown Sugar Deerioca Milk
-                                        <Button variant="outline-warning" className="menu-order-button" onClick={this.handleClick()}>
-                                            $6   Add
-                                        </Button>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th className="menu-table-list">
-                                    Crème Brûlée Deerioca Milk
-                                        <Button variant="outline-warning" className="menu-order-button" onClick={this.handleClick()}>
-                                            $6   Add
-                                        </Button>
-                                    </th>
-                                </tr>
+                                {browmenu.map((brow) =>
+                                    <menuitem
+                                        key={brow.id}
+                                        id={brow.id}
+                                        drink={brow}
+                                        onAddToShoppingCart = {() => addToShoppingCart(brow)}
+                                    />)}
                                 </tbody>
                             </Table>
                         </Col>
