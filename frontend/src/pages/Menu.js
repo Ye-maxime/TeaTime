@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-
+import MenuList from '../components/MenuList';
 class Menu extends Component {
     render() {
         return (
             <div>
-                <h1>Page Menu</h1>
+                <MenuList/>
             </div>
         );
     }

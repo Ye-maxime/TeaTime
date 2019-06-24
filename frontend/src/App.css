@@ -13,7 +13,7 @@ body {
   flex-direction: column;
 }
 
-.drink-item {
+.todo-item {
   text-align: left;
 }
 
@@ -39,8 +39,12 @@ body {
   text-decoration-line: line-through;
 }
 
-.drink-description {
+.todo-description {
   cursor: pointer;
+}
+
+.todo-list {
+  max-width: 400px !important;
 }
 
 .form {

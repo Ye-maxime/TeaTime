@@ -35,12 +35,9 @@ class Navbar extends Component {
                                     <a className="navbar-item" href="https://bulma.io/documentation/overview/start/">
                                         my infos
                                     </a>
-                                    <a className="navbar-item" href="https://bulma.io/documentation/overview/start/">
-                                        my commandes
-                                    </a>
+                                    <Link to={'/shopping_cart'} className="navbar-item"> shopping cart </Link>
                                 </div>
                             </div>
-                            <Link to={'/shopping_cart'} className="navbar-item navbar-item-margin"><i className="fas fa-shopping-cart"/></Link>
                         </div>
                     </div>
                 </nav>
