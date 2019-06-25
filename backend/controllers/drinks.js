@@ -1,26 +1,13 @@
 const Drink = require('../models/Drink')
 
-async function findAll (ctx) {
+async function findAll(ctx) {
   const drinks = await Drink.findAll()
   ctx.body = drinks
 }
 
-/*async function findAllBrowMenu (ctx) {
-  const drinks = await server.pool.query("select * from browmenu")
-  ctx.body = drinks.rows
-}*/
-
-/*async function findAllBrowMenus (ctx) {
-  console.log("getAllBrowMenusInBackend")
-  const browMenus = await server.pool.query("select * from browmenu")
-  ctx.body = browMenus.rows
-}*/
-
-async function create (ctx) {
-  // const result = await database.query('insert into drink (name, price) values (\'' + ctx.request.body.name + '\', 12 )')
-  // //return the last record
-  // const drinks = await database.query("select * from drink order by id desc limit 1")
-  // ctx.body = drinks.rows[0]
+async function create(ctx) {
+  const newDrink = await Drink.create({name: ctx.request.body.name, price: 12})
+  ctx.body = newDrink
 }
 
 
