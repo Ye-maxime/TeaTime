@@ -13,22 +13,22 @@ const Store = database.define('store', {
     freezeTableName: true,
   })
 
-Store.sync({force: false})
+
+Store.sync({force: true}) //覆盖若已有的table
   .then(() => {
     console.log("create Store table in db successfully!!")
-    Store.create({
+    //批量插入
+    Store.bulkCreate([{
       name: 'Teatime Opéra',
       address: '55 rue des Petits Champs 75001 Paris',
       telephone: '07 16 25 36 40',
       openTime: 'Monday - Sunday 12h00 - 22h30'
-    }).then( () => {
-      Store.create({
-        name: 'Teatime Bécon',
-        address: '10 rue des Sablière 92400 Courbevoie',
-        telephone: '07 55 85 36 70',
-        openTime: 'Monday - Friday 10h00 - 19h30'
-      })
-    })
+    }, {
+      name: 'Teatime Bécon',
+      address: '10 rue des Sablière 92400 Courbevoie',
+      telephone: '07 55 85 36 70',
+      openTime: 'Monday - Friday 10h00 - 19h30'
+    }])
   })
   .catch(error => console.log("error creating table in db!!" + error))
 

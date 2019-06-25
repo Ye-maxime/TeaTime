@@ -19,7 +19,7 @@ class StoreList extends Component {
     render() {
         const {stores, error, isLoading} = this.props
         return (
-            <div className="container drink-list">
+            <div className="container">
                 {stores.map((store) =>
                     <Store
                         key={store.id}
