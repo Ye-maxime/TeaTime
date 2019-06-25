@@ -42,6 +42,5 @@ async function create (ctx) {
 
 module.exports = {
   findAll,
-  create,
-  findAllBrowMenus
+  create
 }
