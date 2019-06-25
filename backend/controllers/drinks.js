@@ -5,12 +5,19 @@ async function findAll (ctx) {
   ctx.body = drinks.rows
 }
 
+/*async function findAllBrowMenus (ctx) {
+  console.log("getAllBrowMenusInBackend")
+  const browMenus = await server.pool.query("select * from browmenu")
+  ctx.body = browMenus.rows
+}*/
+
 async function create (ctx) {
   const result = await server.pool.query('insert into drink (name, price) values (\'' + ctx.request.body.name + '\', 12 )')
   //return the last record
   const drinks = await server.pool.query("select * from drink order by id desc limit 1")
   ctx.body = drinks.rows[0]
 }
+
 
 // async function destroy (ctx) {
 //   // Get id from url parameters and find Todo in database
@@ -35,5 +42,6 @@ async function create (ctx) {
 
 module.exports = {
   findAll,
-  create
+  create,
+  findAllBrowMenus
 }

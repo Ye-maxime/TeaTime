@@ -17,6 +17,7 @@ class DrinkList extends Component {
     state = {newDrink: ''}
 
     componentDidMount() {
+        console.log("fetch drinks")
         this.props.fetchDrinks()
     }
 

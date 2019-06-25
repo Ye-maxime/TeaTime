@@ -1,5 +1,6 @@
 import {call, put, takeLatest, takeEvery} from 'redux-saga/effects'
 import {FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess} from "../actions/drinks";
+import {FETCH_BROWMENU,menuFailure,loadedBrowMenus} from "../actions/menus";
 
 function* getAllDrinks() {
     try {
@@ -8,6 +9,19 @@ function* getAllDrinks() {
         yield put(loadedDrinks(drinks))
     } catch (e) {
         yield put(drinksFailure(e.message))
+    }
+}
+
+function* getBrowMenus() {
+    console.log("browMenus")
+    try {
+        const res = yield call(fetch, 'v1/browMenus')
+        const browMenus = yield res.json()
+        console.log("browMenus")
+        console.log(browMenus)
+        yield put(loadedBrowMenus(browMenus))
+    } catch (e) {
+        yield put(menuFailure(e.message))
     }
 }
 
@@ -55,6 +69,7 @@ function* rootSaga() {
     console.log("rootSaga !!!!")
     yield takeLatest(FETCH_DRINKS, getAllDrinks);
     yield takeLatest(ADD_DRINK, saveDrink);
+    yield takeLatest(FETCH_BROWMENU,getBrowMenus);
     // yield takeLatest(DELETE_DRINK, deleteDrink);
     // yield takeEvery(TOGGLE_DRINK, updateDrink);
 }

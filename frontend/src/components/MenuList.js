@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
 import connect from "react-redux/es/connect/connect";
 import {Container,Row,Col,Table,Button} from 'react-bootstrap';
+import {fetchBrowMenu} from "../actions/menus";
+import {addDrink, fetchDrinks} from "../actions/drinks";
+import {addToShoppingCart} from "../actions/shoppingCart";
 
-const menuitem = ({drink, id, onAddToShoppingCart}) => (
+const Menuitem = ({drink, id, onAddToShoppingCart}) => (
     <div className="box drink-item level is-mobile">
         <span>{drink.name} {drink.price}</span>
         <span className="icon" onClick={onAddToShoppingCart}>
@@ -11,71 +14,36 @@ const menuitem = ({drink, id, onAddToShoppingCart}) => (
     </div>
 )
 class MenuList extends Component {
-    state = {drinksOrder: [], price:0}
+    //state = {drinksOrder: [], price:0}
 
-    handleClick(event) {
-        //this.setState({ value });
+    componentDidMount() {
+        console.log("menu did mount")
+        this.props.fetchBrowMenu()
     }
+
     render() {
         const {browmenu, lulumenu, addToShoppingCart} = this.props
         return (
-            <div className="menuPage">
-                <h1 className="menuTitle">
-                    MENU
-                </h1>
-                <Container>
-                    <Row>
-                        <Col>
-                            <Table responsive>
-                                <thead>
-                                <tr>
-                                    <th className="menu-table-head">Brown Sugar Deerioca Series</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {browmenu.map((brow) =>
-                                    <menuitem
-                                        key={brow.id}
-                                        id={brow.id}
-                                        drink={brow}
-                                        onAddToShoppingCart = {() => addToShoppingCart(brow)}
-                                    />)}
-                                </tbody>
-                            </Table>
-                        </Col>
-                        <Col>
-                            <Table responsive>
-                                <thead>
-                                    <tr>
-                                        <th className="menu-table-head">
-                                    LULU Fresh Fruit Series
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th className="menu-table-list">
-                                    Snow Strawberry Lulu (Daily limited)
-                                        <Button variant="outline-warning" className="menu-order-button" onClick={this.handleClick()}>
-                                            $6   Add
-                                        </Button>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th className="menu-table-list">
-                                    Orange Lulu
-                                        <Button variant="outline-warning" className="menu-order-button" onClick={this.handleClick()}>
-                                            $6   Add
-                                        </Button>
-                                    </th>
-                                </tr>
-                                </tbody>
-                            </Table>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+            <div></div>
         )
     }
 }
-export default (MenuList);
+
+const mapStateToProps = (state) => { //state is from store (type: DRINKS_DEFAULT_STATE)
+    console.log("mapstateMenu")
+    console.log(this.state);
+    return {
+        browMenus: state.browMenus.items,
+        /*error: state.browMenus.error,
+        isLoading: state.browMenus.loading,*/
+        //isSaving: state.drinks.saving,
+    }
+}
+
+const mapDispatchToProps = {
+    fetchBrowMenu,
+    addToShoppingCart
+    /*addDrink,
+    */
+}
+export default connect(null, mapDispatchToProps)(MenuList);

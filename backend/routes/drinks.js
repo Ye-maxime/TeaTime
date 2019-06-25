@@ -4,6 +4,7 @@ const Ctrl = require('../controllers/drinks')
 
 router.get('/', Ctrl.findAll)
 router.post('/', Ctrl.create)
+//router.get('/getBrowMenu', Ctrl.findAllBrowMenus)
 // router.post('/:id', Ctrl.update)
 // router.delete('/:id', Ctrl.destroy)
 
