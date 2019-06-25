@@ -88,6 +88,10 @@ function* rootSaga() {
     yield takeLatest(FETCH_BROWMENU,getBrowMenus);
     yield takeLatest(FETCH_LULUMENU,getLuluMenus);
     yield takeLatest(FETCH_STORES, getAllStores);
+    yield takeLatest(FETCH_STORES, getAllStores);
+    yield takeLatest(FETCH_BROWMENU,getBrowMenus);
+    yield takeLatest(FETCH_LULUMENU,getLuluMenus);
+    yield takeLatest(FETCH_STORES, getAllStores);
     // yield takeLatest(DELETE_DRINK, deleteDrink);
     // yield takeEvery(TOGGLE_DRINK, updateDrink);
 }

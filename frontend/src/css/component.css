@@ -68,3 +68,19 @@
     width: 72px;
     height: 72px;
 }
+.menuPrice {
+    color: pink;
+    position: absolute;
+    right: 40px;
+}
+
+.addIcon {
+    position: absolute;
+    right: 10px;
+}
+
+.store-card {
+    width: 23rem;
+    float: left;
+    margin: 20px;
+}
