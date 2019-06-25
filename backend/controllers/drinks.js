@@ -1,15 +1,15 @@
-const server = require('../server')
+const Drink = require('../models/Drink')
 
 async function findAll (ctx) {
-  const drinks = await server.pool.query("select * from drink")
-  ctx.body = drinks.rows
+  const drinks = await Drink.findAll()
+  ctx.body = drinks
 }
 
 async function create (ctx) {
-  const result = await server.pool.query('insert into drink (name, price) values (\'' + ctx.request.body.name + '\', 12 )')
-  //return the last record
-  const drinks = await server.pool.query("select * from drink order by id desc limit 1")
-  ctx.body = drinks.rows[0]
+  // const result = await database.query('insert into drink (name, price) values (\'' + ctx.request.body.name + '\', 12 )')
+  // //return the last record
+  // const drinks = await database.query("select * from drink order by id desc limit 1")
+  // ctx.body = drinks.rows[0]
 }
 
 // async function destroy (ctx) {
