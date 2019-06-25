@@ -1,6 +1,7 @@
 import {call, put, takeLatest, takeEvery} from 'redux-saga/effects'
 import {FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess} from "../actions/drinks";
 import {FETCH_BROWMENU, menuFailure, loadedBrowMenus, FETCH_LULUMENU, loadedLuluMenus} from "../actions/menus";
+import {FETCH_STORES, loadedStores, storesFailure} from "../actions/stores";
 
 function* getAllDrinks() {
     try {
@@ -51,6 +52,16 @@ function* saveDrink(action) {
     }
 }
 
+function* getAllStores() {
+    try {
+        const res = yield call(fetch, 'v1/stores')
+        const stores = yield res.json()
+        yield put(loadedStores(stores))
+    } catch (e) {
+        yield put(storesFailure(e.message))
+    }
+}
+
 // function* deleteDrink(action) {
 //     try {
 //         yield call(fetch, `v1/todos/${action.id}`, {method: 'DELETE'})
@@ -68,8 +79,6 @@ function* saveDrink(action) {
 // }
 
 
-
-
 //就在这个rootSaga里面利用takeLatest去监听action的type
 // rootSaga可以理解为是一个监听函数，在创建store中间件的时候就已经执行了
 function* rootSaga() {
@@ -78,6 +87,7 @@ function* rootSaga() {
     yield takeLatest(ADD_DRINK, saveDrink);
     yield takeLatest(FETCH_BROWMENU,getBrowMenus);
     yield takeLatest(FETCH_LULUMENU,getLuluMenus);
+    yield takeLatest(FETCH_STORES, getAllStores);
     // yield takeLatest(DELETE_DRINK, deleteDrink);
     // yield takeEvery(TOGGLE_DRINK, updateDrink);
 }

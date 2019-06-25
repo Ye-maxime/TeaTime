@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import StoreList from '../components/StoreList'
 
 class Store extends Component {
     render() {
         return (
             <div>
-                <h1>Page Store</h1>
+                <StoreList/>
             </div>
         );
     }
