@@ -10,6 +10,7 @@ async function create(ctx) {
   ctx.body = newDrink
 }
 
+
 // async function destroy (ctx) {
 //   // Get id from url parameters and find Todo in database
 //   const id = ctx.params.id
