@@ -4,7 +4,7 @@ import StoreList from '../components/StoreList'
 class Store extends Component {
     render() {
         return (
-            <div>
+            <div style={{marginTop:  '100px'}}>
                 <StoreList/>
             </div>
         );
