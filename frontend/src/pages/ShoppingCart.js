@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
+import '../css/page/shoppingCart.css'
 import { substractQuantity, addQuantity, removeFromCart } from '../actions/shoppingCart'
 
 const Product = ({product, onSubstractQuantity, onAddQuantity, onRemoveFromCart}) => (
@@ -28,7 +29,7 @@ class ShoppingCart extends Component {
         const {products, total, substractQuantity, addQuantity, removeFromCart} = this.props
         return (
             <div>
-                <h2 className="subtitle">Total : {total}</h2>
+                <h2 className="subtitle title-total">Total : {total}</h2>
                 <div className="container drink-list">
                     {products.map((product) =>
                         <Product
