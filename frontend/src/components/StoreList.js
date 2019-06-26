@@ -3,11 +3,17 @@ import {fetchStores} from "../actions/stores";
 import connect from "react-redux/es/connect/connect";
 
 const Store = ({store, id}) => (
-    <div className="box drink-item level is-mobile">
-        <span>{store.name}</span>
-        <span>{store.address}</span>
-        <span>{store.telephone}</span>
-        <span>{store.openTime}</span>
+    <div className="card store-card">
+        <img className="card-img-top" src={'/images/teatime_opera.png'} alt="Card image cap"/>
+        <div className="card-body">
+            <h5 className="card-title">{store.name}</h5>
+            <p className="card-text">{store.address}</p>
+            <p className="card-text">{store.telephone}</p>
+            <p className="card-text">{store.openTime}</p>
+            <a href={store.mapLink} className="btn btn-primary" target="_blank">
+                Google map
+            </a>
+        </div>
     </div>
 )
 
