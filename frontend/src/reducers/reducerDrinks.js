@@ -17,8 +17,6 @@ export const DRINKS_DEFAULT_STATE = {
 export default function reducerDrinks(state = DRINKS_DEFAULT_STATE, action) {
     switch (action.type) {
         case LOADED_DRINKS:
-            console.log("reducerDrinks action = ")
-            console.log(action)
             return {...state, items: action.drinks, loading: false}
 
         case FETCH_DRINKS: {
@@ -26,11 +24,9 @@ export default function reducerDrinks(state = DRINKS_DEFAULT_STATE, action) {
         }
 
         case ADD_DRINK:
-            console.log("reducers addDrink !!!!")
             return {...state, saving: true}
 
         case ADD_DRINK_SUCCESS:
-            console.log("reducers addDrink success !!!!")
             return {
                 ...state,
                 items: state.items.concat(action.drink),
@@ -38,7 +34,6 @@ export default function reducerDrinks(state = DRINKS_DEFAULT_STATE, action) {
             }
 
         case DRINKS_FAILURE:
-            console.log("reducers DRINKS_FAILURE !!!!")
             return {...state, loading: false, saving: false, error: action.error}
 
         case DELETE_DRINK:

@@ -1,10 +1,8 @@
 const Router = require('koa-router')
 const router = new Router()
 const Ctrl = require('../controllers/drinks')
-const CtrlM = require('../controllers/browMenus')
 router.get('/', Ctrl.findAll)
 router.post('/', Ctrl.create)
-//router.get('/getBrowMenu', CtrlM.findAllBrowMenus)
 // router.post('/:id', Ctrl.update)
 // router.delete('/:id', Ctrl.destroy)
 

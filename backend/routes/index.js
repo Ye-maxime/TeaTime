@@ -1,12 +1,7 @@
 module.exports = (router) => {
   router.prefix('/v1')
-  router.use('/drinks', require('./drinks')),
+  router.use('/drinks', require('./drinks'))
   router.use('/browMenus', require('./browMenus'))
+  router.use('/luluMenus', require('./luluMenus'))
 }
 
-/*
-module.exports = (router) => {
-  router.prefix('/v2')
-  router.use('/browMenus', require('./browMenus'))
-}
-*/

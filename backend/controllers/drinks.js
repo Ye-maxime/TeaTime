@@ -5,6 +5,11 @@ async function findAll (ctx) {
   ctx.body = drinks.rows
 }
 
+/*async function findAllBrowMenu (ctx) {
+  const drinks = await server.pool.query("select * from browmenu")
+  ctx.body = drinks.rows
+}*/
+
 /*async function findAllBrowMenus (ctx) {
   console.log("getAllBrowMenusInBackend")
   const browMenus = await server.pool.query("select * from browmenu")

@@ -19,6 +19,8 @@
 
 .menu-table-head{
     border-width: 2px 0 2px !important;
+    border: solid;
+    padding: 12px;
     border-color: gold !important;
     color: gold !important;
     font-size: 20px !important;
@@ -29,6 +31,7 @@
 .menu-table-list {
     border-width: 0 !important;
     background: black !important;
+    font-family: cursive;
     font-size: 15px !important;
     color: white !important;
     padding: 1.5rem 0.75rem !important;
@@ -37,4 +40,15 @@
 .menu-order-button {
     position: absolute;
     right: 20px;
+}
+
+.menuPrice {
+    color: pink;
+    position: absolute;
+    right: 40px;
+}
+
+.addIcon {
+    position: absolute;
+    right: 10px;
 }
