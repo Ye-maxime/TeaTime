@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
 import {changeQuantity, removeFromCart} from '../actions/shoppingCart'
-
+import {Switch, Route, Link} from 'react-router-dom';
+import Home from "../pages/Home";
 class Product extends Component {
     state = {quantity: this.props.product.quantity}
 
@@ -66,7 +67,7 @@ class ShoppingCartList extends Component {
             <div className='container'>
                 <div className='row'>
                     <div className="col-sm-12 col-md-10 col-md-offset-1">
-                        <table className="table table-hover">
+                        { products.length > 0 ? <table className="table table-hover">
                             <thead>
                             <tr>
                                 <th>Product</th>
@@ -97,9 +98,11 @@ class ShoppingCartList extends Component {
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <button type="button" className="btn btn-info">
-                                       Continue Shopping
-                                    </button>
+                                    <Link to={'/'}>
+                                        <button type="button" className="btn btn-info">
+                                           Continue Shopping
+                                        </button>
+                                    </Link>
                                 </td>
                                 <td>
                                     <button type="button" className="btn btn-success">
@@ -109,7 +112,12 @@ class ShoppingCartList extends Component {
                             </tr>
                             </tbody>
                         </table>
+                            : <h3>Your shopping cart is empty</h3>
+                        }
                     </div>
+                    <Switch>
+                        <Route exact path='/' component={Home} />
+                    </Switch>
                 </div>
             </div>
         );
