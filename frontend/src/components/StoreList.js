@@ -7,11 +7,11 @@ const STORE_HAUSSMANN = 'Teatime Haussmann'
 
 class Store extends Component {
     render() {
-        const {store, id} = this.props
+        const {store} = this.props
         const imagePath = getLocalImagePath(store.name)
         return (
             <div className="card store-card">
-                <img className="card-img-top store-google-image" src={imagePath} alt="Card image cap"/>
+                <img className="card-img-top store-google-image" src={imagePath} alt="map screen"/>
                 <div className="card-body">
                     <h5 className="card-title">{store.name}</h5>
                     <p className="card-text">{store.address}</p>
@@ -47,6 +47,7 @@ class StoreList extends Component {
         const {stores, error, isLoading} = this.props
         return (
             <div className="container">
+                <div className="error">{error}</div>
                 {stores.map((store) =>
                     <Store
                         key={store.id}

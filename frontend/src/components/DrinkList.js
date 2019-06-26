@@ -4,7 +4,7 @@ import connect from "react-redux/es/connect/connect";
 import {fetchDrinks, addDrink} from '../actions/drinks';
 import {addToShoppingCart} from "../actions/shoppingCart";
 
-const Drink = ({drink, id, onAddToShoppingCart}) => (
+const Drink = ({drink, onAddToShoppingCart}) => (
     <div className="box drink-item level is-mobile">
         <span>{drink.name} {drink.price}</span>
         <span className="icon" onClick={onAddToShoppingCart}>
