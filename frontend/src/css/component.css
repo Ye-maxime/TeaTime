@@ -38,3 +38,9 @@
     position: absolute;
     right: 20px;
 }
+
+.store-card {
+    width: 23rem;
+    float: left;
+    margin: 20px;
+}
