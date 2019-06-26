@@ -1,4 +1,4 @@
-import {ADD_TO_SHOPPING_CART, SUBSTRACT_QUANTITY, ADD_QUANTITY, REMOVE_FROM_CART} from "../actions/shoppingCart";
+import {ADD_TO_SHOPPING_CART, REMOVE_FROM_CART, CHANGE_QUANTITY} from "../actions/shoppingCart";
 
 export const SHOPPING_CART_DEFAULT_STATE = {
     items: [],
@@ -11,7 +11,7 @@ export default function reducerShoppingCart(state = SHOPPING_CART_DEFAULT_STATE,
             console.log("reducers addToShoppingCart !!!!")
             let newProduct = action.product
             const existedItem = getExistedItem(state, newProduct)
-            const newTotal = calculateTotal(state,  parseInt(newProduct.price))
+            const newTotal = state.total + parseInt(newProduct.price, 0)
             if (existedItem) {
                 existedItem.quantity += 1
                 return {...state, total: newTotal}
@@ -21,32 +21,18 @@ export default function reducerShoppingCart(state = SHOPPING_CART_DEFAULT_STATE,
             }
         }
 
-        case SUBSTRACT_QUANTITY: {
+        case CHANGE_QUANTITY: {
             const product = action.product
             const existedItem = getExistedItem(state, product)
-            const newTotal = calculateTotal(state, parseInt(product.price), false)
-            if (existedItem.quantity > 1) {
-                existedItem.quantity -= 1
-                return {...state, total: newTotal}
-            } else {
-                //quantity 0, should be removed from cart
-                const newItems = state.items.filter(item => item.id !== product.id)
-                return {...state, items: newItems, total: newTotal}
-            }
-        }
-
-        case ADD_QUANTITY: {
-            const product = action.product
-            const existedItem = getExistedItem(state, product)
-            const newTotal = calculateTotal(state, parseInt(product.price))
-            existedItem.quantity += 1
+            existedItem.quantity = product.quantity
+            const newTotal = calculateTotal(state.items)
             return {...state, total: newTotal}
         }
 
         case REMOVE_FROM_CART: {
             const product = action.product
             const existedItem = getExistedItem(state, product)
-            const newTotal = calculateTotal(state, parseInt(existedItem.price)*parseInt(existedItem.quantity), false)
+            const newTotal = state.total - parseInt(existedItem.price, 0)*parseInt(existedItem.quantity, 0)
             const newItems = state.items.filter(item => item.id !== product.id)
             return {...state, items: newItems, total: newTotal}
         }
@@ -61,6 +47,6 @@ function getExistedItem(state, product) {
     return state.items.find(item => item.id === product.id)
 }
 
-function calculateTotal(state, amount, isAdded = true) {
-    return state.total + (isAdded ? amount : -amount)
+function calculateTotal(products) {
+    return products.reduce((sum, product) =>  sum + product.price * product.quantity, 0)
 }
