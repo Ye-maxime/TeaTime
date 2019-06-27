@@ -1,4 +1,5 @@
 const Order = require('../models/Order')
+const DrinkOrder = require('../models/DrinkOrder')
 
 async function findAll(ctx) {
   const orders = await Order.findAll()
@@ -6,10 +7,12 @@ async function findAll(ctx) {
 }
 
 async function create(ctx) {
-  const total = ctx.request.body.total
   console.log("create data = ")
-  console.log(ctx.request.body)
+  const {products, total} = ctx.request.body
+  console.log(products)
+  console.log(total)
   const newOrder = await Order.create({total: total})
+  await products.map((product) => DrinkOrder.create({orderId: newOrder.id, drinkId: product.id}))
   ctx.body = newOrder
 }
 

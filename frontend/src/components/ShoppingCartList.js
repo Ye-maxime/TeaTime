@@ -114,7 +114,7 @@ class ShoppingCartList extends Component {
                             </tr>
                             </tbody>
                         </table>
-                            : <h3>Your shopping cart is empty</h3>
+                            : <h3>Your cart is currently empty</h3>
                         }
                     </div>
                     <Switch>

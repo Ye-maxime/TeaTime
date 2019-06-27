@@ -4,7 +4,7 @@ import OrderList from '../components/OrderList'
 class Order extends Component {
     render() {
         return (
-            <div>
+            <div style={{marginTop:  '100px'}}>
                 <OrderList/>
             </div>
         );
