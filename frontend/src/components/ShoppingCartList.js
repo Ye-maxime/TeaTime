@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
 import {changeQuantity, removeFromCart} from '../actions/shoppingCart'
+import {addOrder} from "../actions/orders";
 import {Switch, Route, Link} from 'react-router-dom';
 import Home from "../pages/Home";
+
 class Product extends Component {
     state = {quantity: this.props.product.quantity}
 
@@ -62,7 +64,7 @@ class Product extends Component {
 
 class ShoppingCartList extends Component {
     render() {
-        const {products, total, changeQuantity, removeFromCart} = this.props
+        const {products, total, changeQuantity, removeFromCart, addOrder} = this.props
         return (
             <div className='container'>
                 <div className='row'>
@@ -105,7 +107,7 @@ class ShoppingCartList extends Component {
                                     </Link>
                                 </td>
                                 <td>
-                                    <button type="button" className="btn btn-success">
+                                    <button type="button" className="btn btn-success" onClick={ () => addOrder(products, total)}>
                                         Checkout <span className="fa fa-arrow-circle-right"></span>
                                     </button>
                                 </td>
@@ -133,7 +135,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     removeFromCart,
-    changeQuantity
+    changeQuantity,
+    addOrder
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCartList)

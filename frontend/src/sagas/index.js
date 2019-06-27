@@ -1,7 +1,9 @@
 import {call, put, takeLatest, takeEvery} from 'redux-saga/effects'
 import {FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess} from "../actions/drinks";
 import {FETCH_STORES, loadedStores, storesFailure} from "../actions/stores";
+import {FETCH_ORDERS, ADD_ORDER, loadedOrders, addOrderSuccess, ordersFailure} from "../actions/orders";
 
+//**********************Drinks*************************
 function* getAllDrinks() {
     try {
         const res = yield call(fetch, 'v1/drinks')
@@ -31,16 +33,6 @@ function* saveDrink(action) {
     }
 }
 
-function* getAllStores() {
-    try {
-        const res = yield call(fetch, 'v1/stores')
-        const stores = yield res.json()
-        yield put(loadedStores(stores))
-    } catch (e) {
-        yield put(storesFailure(e.message))
-    }
-}
-
 // function* deleteDrink(action) {
 //     try {
 //         yield call(fetch, `v1/todos/${action.id}`, {method: 'DELETE'})
@@ -58,15 +50,64 @@ function* getAllStores() {
 // }
 
 
+//**********************Stores*************************
+function* getAllStores() {
+    try {
+        const res = yield call(fetch, 'v1/stores')
+        const stores = yield res.json()
+        yield put(loadedStores(stores))
+    } catch (e) {
+        yield put(storesFailure(e.message))
+    }
+}
+
+
+//**********************ShoppingCart*************************
+function* getAllOrders() {
+    try {
+        const res = yield call(fetch, 'v1/orders')
+        const orders = yield res.json()
+        yield put(loadedOrders(orders))
+    } catch (e) {
+        yield put(ordersFailure(e.message))
+    }
+}
+
+function* saveOrder(action) {
+    try {
+        console.log("saga saveOrder !!!!")
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(action.data),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }
+        const res = yield call(fetch, 'v1/orders', options)
+        const order = yield res.json()
+        yield put(addOrderSuccess(order))
+    } catch (e) {
+        yield put(ordersFailure(e.message))
+    }
+}
+
+
 //就在这个rootSaga里面利用takeLatest去监听action的type
 // rootSaga可以理解为是一个监听函数，在创建store中间件的时候就已经执行了
 function* rootSaga() {
     console.log("rootSaga !!!!")
+    //********************drinks*****************
     yield takeLatest(FETCH_DRINKS, getAllDrinks);
     yield takeLatest(ADD_DRINK, saveDrink);
-    yield takeLatest(FETCH_STORES, getAllStores);
     // yield takeLatest(DELETE_DRINK, deleteDrink);
     // yield takeEvery(TOGGLE_DRINK, updateDrink);
+
+    //********************stores*****************
+    yield takeLatest(FETCH_STORES, getAllStores);
+
+    //********************orders*****************
+    yield takeLatest(FETCH_ORDERS, getAllOrders);
+    yield takeLatest(ADD_ORDER, saveOrder);
 }
 
 export default rootSaga;

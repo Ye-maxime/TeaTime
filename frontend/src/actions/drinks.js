@@ -18,22 +18,22 @@ export function loadedDrinks(drinks) {
 
 export function addDrink(drink) {
     console.log("action creators addDrink !!!!")
-    return { type: ADD_DRINK, drink }
+    return {type: ADD_DRINK, drink}
 }
 
 export function addDrinkSuccess(drink) {
     console.log("action creators addDrinkSuccess !!!!")
-    return { type: ADD_DRINK_SUCCESS, drink }
+    return {type: ADD_DRINK_SUCCESS, drink}
 }
 
 export function drinksFailure(error) {
-    return { type: DRINKS_FAILURE, error }
+    return {type: DRINKS_FAILURE, error}
 }
 
 export function toggleDrink(id) {
-    return { type: TOGGLE_DRINK, id }
+    return {type: TOGGLE_DRINK, id}
 }
 
 export function deleteDrink(id) {
-    return { type: DELETE_DRINK, id }
+    return {type: DELETE_DRINK, id}
 }
