@@ -12,7 +12,16 @@ const LuluMenu = database.define('lulumenu', {
   })
 
 LuluMenu.sync({force: false})
-  .then(() => console.log("create luluMenus table in db successfully!!"))
+  .then(() => {
+    console.log("create luluMenus table in db successfully!!")
+    LuluMenu.bulkCreate([{
+      name: 'Snow Strawberry Lulu (Daily limited) ',
+      price: 12
+    }, {
+      name: 'Orange Lulu ',
+      price: 12
+    }])
+  })
   .catch(error => console.log("error creating table in db!!" + error))
 
 module.exports = LuluMenu
