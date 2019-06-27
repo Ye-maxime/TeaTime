@@ -85,9 +85,6 @@ function* rootSaga() {
     console.log("rootSaga !!!!")
     yield takeLatest(FETCH_DRINKS, getAllDrinks);
     yield takeLatest(ADD_DRINK, saveDrink);
-    yield takeLatest(FETCH_BROWMENU,getBrowMenus);
-    yield takeLatest(FETCH_LULUMENU,getLuluMenus);
-    yield takeLatest(FETCH_STORES, getAllStores);
     yield takeLatest(FETCH_STORES, getAllStores);
     yield takeLatest(FETCH_BROWMENU,getBrowMenus);
     yield takeLatest(FETCH_LULUMENU,getLuluMenus);
