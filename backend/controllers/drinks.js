@@ -1,4 +1,4 @@
-const Drink = require('../models/Drink')
+const { Drink } = require('../models/index')
 
 async function findAll(ctx) {
   const drinks = await Drink.findAll()
