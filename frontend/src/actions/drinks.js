@@ -17,12 +17,10 @@ export function loadedDrinks(drinks) {
 }
 
 export function addDrink(drink) {
-    console.log("action creators addDrink !!!!")
     return { type: ADD_DRINK, drink }
 }
 
 export function addDrinkSuccess(drink) {
-    console.log("action creators addDrinkSuccess !!!!")
     return { type: ADD_DRINK_SUCCESS, drink }
 }
 

@@ -7,7 +7,7 @@ import reducerMenu,{MENUS_DEFAULT_STATE} from "./reducerMenu";
 const rootReducer = combineReducers({
     drinks: reducerDrinks,
     shoppingCart: reducerShoppingCart,
-    menus:reducerMenu
+    menus:reducerMenu,
     stores: reducerStores,
 })
 

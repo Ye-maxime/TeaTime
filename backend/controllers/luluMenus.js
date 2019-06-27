@@ -1,8 +1,8 @@
-const server = require('../server')
+const LuluMenu = require("../models/LuluMenu")
 
 async function findAllLuluMenu (ctx) {
-  const drinks = await server.pool.query("select * from lulumenu")
-  ctx.body = drinks.rows
+  const luluMenus = await LuluMenu.findAll()
+  ctx.body = luluMenus
 }
 
 module.exports = {

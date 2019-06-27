@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import connect from "react-redux/es/connect/connect";
-import {Container,Row,Col,Table,Button} from 'react-bootstrap';
+import {Container,Row,Col} from 'react-bootstrap';
 import {fetchBrowMenu,fetchLuluMenu} from "../actions/menus";
 import {addToShoppingCart} from "../actions/shoppingCart";
 
@@ -20,7 +20,7 @@ class MenuList extends Component {
     }
 
     render() {
-        const {browMenus,error, luluMenus, isLoading,isSaving, addToShoppingCart} = this.props
+        const {browMenus,error, luluMenus, addToShoppingCart} = this.props
         return (
             <div>
                 <div className="menuPage">

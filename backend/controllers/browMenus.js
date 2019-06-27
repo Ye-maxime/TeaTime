@@ -1,10 +1,10 @@
-const server = require('../server')
+const BrowMenus = require('../models/BrowMenu')
 
-async function findAllBrowMenu (ctx) {
-  const drinks = await server.pool.query("select * from browmenu")
-  ctx.body = drinks.rows
+async function findAll(ctx) {
+  const browMenus = await BrowMenus.findAll()
+  ctx.body = browMenus
 }
 
 module.exports = {
-  findAllBrowMenu
+  findAll
 }

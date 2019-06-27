@@ -80,8 +80,7 @@ class ShoppingCartList extends Component {
                             <tbody>
                                 {products.map((product) =>
                                     <Product
-                                        key={product.id}
-                                        id={product.id}
+                                        key={product.name}
                                         product={product}
                                         onRemoveFromCart={() => removeFromCart(product)}
                                         onChangeQuantity={(pro) => changeQuantity(pro)}
