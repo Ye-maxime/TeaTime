@@ -11,7 +11,7 @@ const BrowMenu = database.define('browmenu', {
     freezeTableName: true,
   })
 
-BrowMenu.sync({force: false})
+BrowMenu.sync({force: true})
   .then(() => {
     console.log("create browMenus table in db successfully!!")
     BrowMenu.bulkCreate([{

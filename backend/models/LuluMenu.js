@@ -11,7 +11,7 @@ const LuluMenu = database.define('lulumenu', {
     freezeTableName: true,
   })
 
-LuluMenu.sync({force: false})
+LuluMenu.sync({force: true})
   .then(() => {
     console.log("create luluMenus table in db successfully!!")
     LuluMenu.bulkCreate([{
