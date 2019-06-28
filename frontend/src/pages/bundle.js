@@ -1,0 +1,5 @@
+export {default as Home} from './Home'
+export {default as Store} from './Store'
+export {default as Menu} from './Menu'
+export {default as ShoppingCart} from './ShoppingCart'
+export {default as Order} from './Order'

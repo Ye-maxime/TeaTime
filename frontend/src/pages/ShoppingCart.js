@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ShoppingCartList from '../components/ShoppingCartList'
 
-class ShoppingCart extends Component {
+export default class ShoppingCart extends Component {
     render() {
         return (
             <div style={{marginTop:  '100px'}}>
@@ -10,5 +10,3 @@ class ShoppingCart extends Component {
         );
     }
 }
-
-export default ShoppingCart;

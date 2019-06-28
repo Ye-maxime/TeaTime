@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import MenuList from '../components/MenuList';
-class Menu extends Component {
+export default class Menu extends Component {
     render() {
         return (
             <div>
@@ -10,4 +10,3 @@ class Menu extends Component {
     }
 }
 
-export default Menu;

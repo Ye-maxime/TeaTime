@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import DrinkList from '../components/DrinkList'
 
-class Home extends Component {
+export default class Home extends Component {
     render() {
         return (
             <div>
@@ -10,5 +10,3 @@ class Home extends Component {
         );
     }
 }
-
-export default Home;

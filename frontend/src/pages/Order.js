@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import OrderList from '../components/OrderList'
 
-class Order extends Component {
+export default class Order extends Component {
     render() {
         return (
             <div style={{marginTop:  '100px'}}>
@@ -10,5 +10,3 @@ class Order extends Component {
         );
     }
 }
-
-export default Order;
