@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import connect from "react-redux/es/connect/connect";
-import {Container,Row,Col} from 'react-bootstrap';
-import {fetchBrowMenu,fetchLuluMenu} from "../actions/menus";
+import {Container, Row, Col} from 'react-bootstrap';
+import {fetchBrowMenu, fetchLuluMenu} from "../actions/menus";
 import {addToShoppingCart} from "../actions/shoppingCart";
 
 const Menuitem = ({menuitem, id, onAddToShoppingCart}) => (
@@ -12,6 +12,7 @@ const Menuitem = ({menuitem, id, onAddToShoppingCart}) => (
         </span>
     </div>
 )
+
 class MenuList extends Component {
 
     componentWillMount() {
@@ -20,7 +21,7 @@ class MenuList extends Component {
     }
 
     render() {
-        const {browMenus,error, luluMenus, addToShoppingCart} = this.props
+        const {browMenus, error, luluMenus, addToShoppingCart} = this.props
         return (
             <div>
                 <div className="menuPage">
@@ -37,7 +38,7 @@ class MenuList extends Component {
                                         key={brow.id}
                                         id={brow.id}
                                         menuitem={brow}
-                                        onAddToShoppingCart = {() => addToShoppingCart(brow)}
+                                        onAddToShoppingCart={() => addToShoppingCart(brow)}
                                     />)}
                             </Col>
                             <Col>
@@ -47,7 +48,7 @@ class MenuList extends Component {
                                         key={lulu.id}
                                         id={lulu.id}
                                         menuitem={lulu}
-                                        onAddToShoppingCart = {() => addToShoppingCart(lulu)}
+                                        onAddToShoppingCart={() => addToShoppingCart(lulu)}
                                     />)}
                             </Col>
                         </Row>

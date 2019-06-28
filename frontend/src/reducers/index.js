@@ -17,7 +17,7 @@ export const DEFAULT_STATE = {
     drinks: DRINKS_DEFAULT_STATE,
     shoppingCart: SHOPPING_CART_DEFAULT_STATE,
     stores: STORES_DEFAULT_STATE,
-    menus:MENUS_DEFAULT_STATE
+    menus:MENUS_DEFAULT_STATE,
     orders: ORDERS_DEFAULT_STATE,
 }
 

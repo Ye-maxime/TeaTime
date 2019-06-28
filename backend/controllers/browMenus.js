@@ -1,7 +1,7 @@
-const BrowMenus = require('../models/BrowMenu')
+const  { BrowMenu } = require('../models/index')
 
 async function findAll(ctx) {
-  const browMenus = await BrowMenus.findAll()
+  const browMenus = await BrowMenu.findAll()
   ctx.body = browMenus
 }
 

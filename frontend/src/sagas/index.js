@@ -15,26 +15,6 @@ function* getAllDrinks() {
     }
 }
 
-function* getBrowMenus() {
-    try {
-        const res = yield call(fetch, 'v1/browMenus')
-        const browMenus = yield res.json()
-        yield put(loadedBrowMenus(browMenus))
-    } catch (e) {
-        yield put(menuFailure(e.message))
-    }
-}
-
-function* getLuluMenus() {
-    try {
-        const res = yield call(fetch, 'v1/luluMenus')
-        const luluMenus = yield res.json()
-        yield put(loadedLuluMenus(luluMenus))
-    } catch (e) {
-        yield put(menuFailure(e.message))
-    }
-}
-
 function* saveDrink(action) {
     try {
         console.log("generator saveDrink !!!!")
@@ -70,6 +50,26 @@ function* saveDrink(action) {
 //     }
 // }
 
+//**********************Menus*************************
+function* getBrowMenus() {
+    try {
+        const res = yield call(fetch, 'v1/browMenus')
+        const browMenus = yield res.json()
+        yield put(loadedBrowMenus(browMenus))
+    } catch (e) {
+        yield put(menuFailure(e.message))
+    }
+}
+
+function* getLuluMenus() {
+    try {
+        const res = yield call(fetch, 'v1/luluMenus')
+        const luluMenus = yield res.json()
+        yield put(loadedLuluMenus(luluMenus))
+    } catch (e) {
+        yield put(menuFailure(e.message))
+    }
+}
 
 //**********************Stores*************************
 function* getAllStores() {
@@ -121,10 +121,10 @@ function* rootSaga() {
     yield takeLatest(ADD_DRINK, saveDrink);
     // yield takeLatest(DELETE_DRINK, deleteDrink);
     // yield takeEvery(TOGGLE_DRINK, updateDrink);
-    
+
     //********************menus*****************
-    yield takeLatest(FETCH_BROWMENU,getBrowMenus);
-    yield takeLatest(FETCH_LULUMENU,getLuluMenus);
+    yield takeLatest(FETCH_BROWMENU, getBrowMenus);
+    yield takeLatest(FETCH_LULUMENU, getLuluMenus);
 
     //********************stores*****************
     yield takeLatest(FETCH_STORES, getAllStores);

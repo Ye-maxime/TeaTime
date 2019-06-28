@@ -1,11 +1,9 @@
 // action types
-import {DRINKS_FAILURE} from "./drinks";
-
 export const LOADED_BROWMENU = 'LOADED_BROWMENU'
 export const LOADED_LULUMENU = 'LOADED_LULUMENU'
 export const FETCH_BROWMENU = 'FETCH_BROWMENU'
 export const FETCH_LULUMENU = 'FETCH_LULUMENU'
-export const  MENU_FAILURE = 'MENU_FAILURE'
+export const MENU_FAILURE = 'MENU_FAILURE'
 
 
 // action creators
@@ -26,5 +24,5 @@ export function loadedLuluMenus(luluMenus) {
 }
 
 export function menuFailure(error) {
-    return { type: MENU_FAILURE, error }
+    return {type: MENU_FAILURE, error}
 }
