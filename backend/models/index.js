@@ -4,8 +4,6 @@ const DrinkModel = require('./Drink')
 const OrderModel = require('./Order')
 const StoreModel = require('./Store')
 const DrinkOrderModel = require('./DrinkOrder')
-const BrowMenuModel = require('./BrowMenu')
-const LuluMenuModel = require('./LuluMenu')
 
 
 //create models
@@ -13,8 +11,6 @@ const Drink = DrinkModel(database, Sequelize)
 const Order = OrderModel(database, Sequelize)
 const Store = StoreModel(database, Sequelize)
 const DrinkOrder = DrinkOrderModel(database, Sequelize)
-const BrowMenu = BrowMenuModel(database, Sequelize)
-const LuluMenu = LuluMenuModel(database, Sequelize)
 
 
 //associate relation many to many between table drink and order
@@ -32,8 +28,7 @@ database.sync({force: true})
   .then(() => {
     console.log("create all tables in db successfully!!")
     initStore()
-    initBrowMenu()
-    initLuluMenu()
+    initDrink()
   })
 
 
@@ -56,33 +51,36 @@ function initStore() {
     }])
 }
 
-function initBrowMenu() {
-  BrowMenu.bulkCreate([
+function initDrink() {
+  Drink.bulkCreate([
     {
       name: 'Brown Sugar Deerioca Fresh Milk',
-      price: 12
+      price: 12,
+      collection: 'BROWN'
     }, {
       name: 'Cocoa Brown Sugar Deerioca Milk ',
-      price: 12
+      price: 15,
+      collection: 'BROWN'
     },
     {
       name: 'Matcha Brown Sugar Deerioca Milk',
-      price: 12
+      price: 10,
+      collection: 'BROWN'
     },
     {
       name: 'Crème Brûlée Deerioca Milk ',
-      price: 12
+      price: 8,
+      collection: 'BROWN'
+    },
+    {
+      name: 'Snow Strawberry Lulu (Daily limited) ',
+      price: 11,
+      collection: 'LULU'
+    }, {
+      name: 'Orange Lulu ',
+      price: 16,
+      collection: 'LULU'
     }])
-}
-
-function initLuluMenu() {
-  LuluMenu.bulkCreate([{
-    name: 'Snow Strawberry Lulu (Daily limited) ',
-    price: 12
-  }, {
-    name: 'Orange Lulu ',
-    price: 12
-  }])
 }
 
 module.exports = {
@@ -90,8 +88,6 @@ module.exports = {
   Order,
   Store,
   // DrinkOrder
-  BrowMenu,
-  LuluMenu
 }
 
 

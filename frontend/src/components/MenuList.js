@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import connect from "react-redux/es/connect/connect";
 import {Container, Row, Col} from 'react-bootstrap';
-import {fetchBrowMenu, fetchLuluMenu} from "../actions/menus";
+import {fetchDrinks} from '../actions/drinks';
 import {addToShoppingCart} from "../actions/shoppingCart";
 
-const Menuitem = ({menuitem, id, onAddToShoppingCart}) => (
+const Menuitem = ({menuitem, onAddToShoppingCart}) => (
     <div className="menu-table-list">
         <span>{menuitem.name}</span> <span className="menuPrice">$ {menuitem.price}</span>
         <span className="icon addIcon" onClick={onAddToShoppingCart}>
@@ -16,12 +16,11 @@ const Menuitem = ({menuitem, id, onAddToShoppingCart}) => (
 class MenuList extends Component {
 
     componentWillMount() {
-        this.props.fetchBrowMenu()
-        this.props.fetchLuluMenu()
+        this.props.fetchDrinks()
     }
 
     render() {
-        const {browMenus, error, luluMenus, addToShoppingCart} = this.props
+        const {drinks, error, isLoading, isSaving, addToShoppingCart} = this.props
         return (
             <div>
                 <div className="menuPage">
@@ -33,17 +32,17 @@ class MenuList extends Component {
                         <Row>
                             <Col>
                                 <div className="menu-table-head">Brown Sugar Deerioca Series</div>
-                                {browMenus.map((brow) =>
+                                {drinks.filter((drink) => drink.collection === 'BROWN').map((brown) =>
                                     <Menuitem
-                                        key={brow.id}
-                                        id={brow.id}
-                                        menuitem={brow}
-                                        onAddToShoppingCart={() => addToShoppingCart(brow)}
+                                        key={brown.id}
+                                        id={brown.id}
+                                        menuitem={brown}
+                                        onAddToShoppingCart={() => addToShoppingCart(brown)}
                                     />)}
                             </Col>
                             <Col>
                                 <div className="menu-table-head">LULU Fresh Fruit Series</div>
-                                {luluMenus.map((lulu) =>
+                                {drinks.filter((drink) => drink.collection === 'LULU').map((lulu) =>
                                     <Menuitem
                                         key={lulu.id}
                                         id={lulu.id}
@@ -61,17 +60,15 @@ class MenuList extends Component {
 
 const mapStateToProps = (state) => { //state is from store (type: DRINKS_DEFAULT_STATE)
     return {
-        browMenus: state.menus.browItems,
-        luluMenus: state.menus.luluItems,
-        error: state.menus.error,
-        isLoading: state.menus.loading,
-        isSaving: state.menus.saving,
+        drinks: state.drinks.items,
+        error: state.drinks.error,
+        isLoading: state.drinks.loading,
+        isSaving: state.drinks.saving,
     }
 }
 
 const mapDispatchToProps = {
-    fetchBrowMenu,
-    fetchLuluMenu,
+    fetchDrinks,
     addToShoppingCart
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MenuList);

@@ -6,7 +6,7 @@ async function findAll(ctx) {
 }
 
 async function create(ctx) {
-  const newDrink = await Drink.create({name: ctx.request.body.name, price: 12})
+  const newDrink = await Drink.create({name: ctx.request.body.name, price: 12, collection: 'LULU'})
   ctx.body = newDrink
 }
 

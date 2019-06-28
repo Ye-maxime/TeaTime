@@ -48,7 +48,7 @@ export default function reducerShoppingCart(state = SHOPPING_CART_DEFAULT_STATE,
 }
 
 function getExistedItem(state, product) {
-    return state.items.find(item => item.name === product.name)
+    return state.items.find(item => item.id === product.id)
 }
 
 function calculateTotal(products) {

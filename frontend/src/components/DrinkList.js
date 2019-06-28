@@ -2,14 +2,10 @@ import React, {Component} from 'react'
 import 'bulma/css/bulma.css'
 import connect from "react-redux/es/connect/connect";
 import {fetchDrinks, addDrink} from '../actions/drinks';
-import {addToShoppingCart} from "../actions/shoppingCart";
 
-const Drink = ({drink, onAddToShoppingCart}) => (
+const Drink = ({drink}) => (
     <div className="box drink-item level is-mobile">
         <span>{drink.name} {drink.price}</span>
-        <span className="icon" onClick={onAddToShoppingCart}>
-          <i className="fas fa-plus-circle has-text-success"/>
-        </span>
     </div>
 )
 
@@ -33,7 +29,7 @@ class DrinkList extends Component {
 
     render() {
         let {newDrink} = this.state
-        const {drinks, error, isLoading, isSaving, addToShoppingCart} = this.props
+        const {drinks, error, isLoading, isSaving} = this.props
         return (
             <section className="section full-column">
                 <h1 className="title white">Drinks</h1>
@@ -60,7 +56,6 @@ class DrinkList extends Component {
                             key={drink.id}
                             id={drink.id}
                             drink={drink}
-                            onAddToShoppingCart={() => addToShoppingCart(drink)}
                         />)}
                 </div>
             </section>
@@ -80,7 +75,6 @@ const mapStateToProps = (state) => { //state is from store (type: DRINKS_DEFAULT
 const mapDispatchToProps = {
     fetchDrinks,
     addDrink,
-    addToShoppingCart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrinkList)

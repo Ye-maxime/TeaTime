@@ -1,6 +1,5 @@
 import {call, put, takeLatest, takeEvery} from 'redux-saga/effects'
 import {FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess} from "../actions/drinks";
-import {FETCH_BROWMENU, menuFailure, loadedBrowMenus, FETCH_LULUMENU, loadedLuluMenus} from "../actions/menus";
 import {FETCH_STORES, loadedStores, storesFailure} from "../actions/stores";
 import {FETCH_ORDERS, ADD_ORDER, loadedOrders, addOrderSuccess, ordersFailure} from "../actions/orders";
 
@@ -50,26 +49,6 @@ function* saveDrink(action) {
 //     }
 // }
 
-//**********************Menus*************************
-function* getBrowMenus() {
-    try {
-        const res = yield call(fetch, 'v1/browMenus')
-        const browMenus = yield res.json()
-        yield put(loadedBrowMenus(browMenus))
-    } catch (e) {
-        yield put(menuFailure(e.message))
-    }
-}
-
-function* getLuluMenus() {
-    try {
-        const res = yield call(fetch, 'v1/luluMenus')
-        const luluMenus = yield res.json()
-        yield put(loadedLuluMenus(luluMenus))
-    } catch (e) {
-        yield put(menuFailure(e.message))
-    }
-}
 
 //**********************Stores*************************
 function* getAllStores() {
@@ -121,10 +100,6 @@ function* rootSaga() {
     yield takeLatest(ADD_DRINK, saveDrink);
     // yield takeLatest(DELETE_DRINK, deleteDrink);
     // yield takeEvery(TOGGLE_DRINK, updateDrink);
-
-    //********************menus*****************
-    yield takeLatest(FETCH_BROWMENU, getBrowMenus);
-    yield takeLatest(FETCH_LULUMENU, getLuluMenus);
 
     //********************stores*****************
     yield takeLatest(FETCH_STORES, getAllStores);
