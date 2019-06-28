@@ -5,6 +5,7 @@ import Home from '../pages/Home'
 import Menu from '../pages/Menu'
 import Store from '../pages/Store'
 import ShoppingCart from "../pages/ShoppingCart";
+import Order from "../pages/Order";
 
 class Navbar extends Component {
     render() {
@@ -29,15 +30,15 @@ class Navbar extends Component {
                             <Link to={'/store'} className="navbar-item navbar-item-margin"> STORE </Link>
                             <div className="navbar-item has-dropdown is-hoverable navbar-item-margin">
                                 <a className="navbar-link" href="https://bulma.io/documentation/overview/start/">
-                                    ME
+                                    ACCOUNT
                                 </a>
                                 <div className="navbar-dropdown is-boxed">
                                     <a className="navbar-item" href="https://bulma.io/documentation/overview/start/">
-                                        my infos
+                                        Informations
                                     </a>
-                                    <a className="navbar-item" href="https://bulma.io/documentation/overview/start/">
-                                        my commandes
-                                    </a>
+                                    <Link to={'/order'} className="navbar-item">
+                                        Orders
+                                    </Link>
                                 </div>
                             </div>
                             <Link to={'/shopping_cart'} className="navbar-item navbar-item-margin"><i className="fas fa-shopping-cart"/></Link>
@@ -50,6 +51,7 @@ class Navbar extends Component {
                     <Route path='/menu' component={Menu} />
                     <Route path='/store' component={Store} />
                     <Route path='/shopping_cart' component={ShoppingCart} />
+                    <Route path='/order' component={Order} />
                 </Switch>
             </Router>
         );

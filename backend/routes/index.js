@@ -4,5 +4,6 @@ module.exports = (router) => {
   router.use('/browMenus', require('./browMenus'))
   router.use('/luluMenus', require('./luluMenus'))
   router.use('/stores', require('./stores'))
+  router.use('/orders', require('./orders'))
 }
 

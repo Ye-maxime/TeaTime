@@ -60,7 +60,7 @@ class DrinkList extends Component {
                             key={drink.id}
                             id={drink.id}
                             drink={drink}
-                            onAddToShoppingCart = {() => addToShoppingCart(drink)}
+                            onAddToShoppingCart={() => addToShoppingCart(drink)}
                         />)}
                 </div>
             </section>

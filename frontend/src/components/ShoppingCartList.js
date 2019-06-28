@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
-import {changeQuantity, removeFromCart} from '../actions/shoppingCart'
-import {Switch, Route, Link} from 'react-router-dom';
-import Home from "../pages/Home";
+import {changeQuantity, removeFromCart, cleanCart} from '../actions/shoppingCart'
+import {addOrder} from "../actions/orders";
+import {Link} from 'react-router-dom';
+
 class Product extends Component {
     state = {quantity: this.props.product.quantity}
 
@@ -61,23 +62,29 @@ class Product extends Component {
 
 
 class ShoppingCartList extends Component {
+    checkout() {
+        const {products, total, addOrder, cleanCart} = this.props
+        addOrder(products, total)
+        cleanCart()
+    }
+
     render() {
         const {products, total, changeQuantity, removeFromCart} = this.props
         return (
             <div className='container'>
                 <div className='row'>
                     <div className="col-sm-12 col-md-10 col-md-offset-1">
-                        { products.length > 0 ? <table className="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th className="text-center">Price</th>
-                                <th className="text-center">Total</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        {products.length > 0 ? <table className="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th className="text-center">Price</th>
+                                    <th className="text-center">Total</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 {products.map((product) =>
                                     <Product
                                         key={product.name}
@@ -85,38 +92,38 @@ class ShoppingCartList extends Component {
                                         onRemoveFromCart={() => removeFromCart(product)}
                                         onChangeQuantity={(pro) => changeQuantity(pro)}
                                     />)}
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><h3>Total</h3></td>
-                                <td className="text-right"><h3><strong>{total}€</strong></h3></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <Link to={'/'}>
-                                        <button type="button" className="btn btn-info">
-                                           Continue Shopping
-                                        </button>
-                                    </Link>
-                                </td>
-                                <td>
-                                    <button type="button" className="btn btn-success">
-                                        Checkout <span className="fa fa-arrow-circle-right"></span>
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                            : <h3>Your shopping cart is empty</h3>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><h3>Total</h3></td>
+                                    <td className="text-right"><h3><strong>{total}€</strong></h3></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <Link to={'/'}>
+                                            <button type="button" className="btn btn-info">
+                                                Continue Shopping
+                                            </button>
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        <Link to={'/order'}>
+                                            <button type="button" className="btn btn-success"
+                                                    onClick={this.checkout.bind(this)}>
+                                                Checkout <span className="fa fa-arrow-circle-right"></span>
+                                            </button>
+                                        </Link>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            : <h3>Your cart is currently empty</h3>
                         }
                     </div>
-                    <Switch>
-                        <Route exact path='/' component={Home} />
-                    </Switch>
                 </div>
             </div>
         );
@@ -132,7 +139,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     removeFromCart,
-    changeQuantity
+    changeQuantity,
+    addOrder,
+    cleanCart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCartList)
