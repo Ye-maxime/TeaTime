@@ -19,7 +19,6 @@ export function addOrder(products, total) {
 }
 
 export function addOrderSuccess(order) {
-    console.log("action creators addOrderSuccess !!!!")
     return { type: ADD_ORDER_SUCCESS, order }
 }
 

@@ -3,7 +3,11 @@ import connect from "react-redux/es/connect/connect";
 import {fetchOrders} from "../actions/orders";
 
 const Order = ({order}) => (
-    <li className="list-group-item">{order.uuid} {order.total}</li>
+    <li className="list-group-item justify-content-between">
+        <span><strong>Order ID : </strong>{order.uuid} &nbsp;</span>
+        <span><strong>Amount : </strong>{order.total} &nbsp;</span>
+        <span><strong>Date : </strong>{order.createdAt}</span>
+    </li>
 )
 
 class OrderList extends Component {

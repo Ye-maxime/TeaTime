@@ -75,7 +75,6 @@ function* getAllOrders() {
 
 function* saveOrder(action) {
     try {
-        console.log("saga saveOrder !!!!")
         const options = {
             method: 'POST',
             body: JSON.stringify(action.data),
