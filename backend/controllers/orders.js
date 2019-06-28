@@ -11,7 +11,7 @@ async function create(ctx) {
   const newOrder = await Order.create({total: total})
   products.map(async (product) => {
     const productInDatabase = await Drink.findByPk(product.id)
-    await newOrder.addDrink(productInDatabase)
+    await newOrder.addDrink(productInDatabase, {through: {quantity: product.quantity}})
   })
   ctx.body = newOrder
 }

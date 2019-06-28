@@ -14,17 +14,3 @@ module.exports = (database, Sequelize) => {
       freezeTableName: true,
     })
 }
-
-// Order.associate = () => {
-//   Order.belongsToMany(Drink, {
-//     through: 'DrinkOrder',
-//     // as: 'drink',
-//     foreignKey: 'orderId'
-//   })
-// }
-//
-// Order.sync({force: false})
-//   .then(() => console.log("create Order table in db successfully!!"))
-//   .catch(error => console.log("error creating table in db!!" + error))
-
-// module.exports = Order
