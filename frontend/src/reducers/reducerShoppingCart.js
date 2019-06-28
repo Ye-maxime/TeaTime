@@ -1,4 +1,4 @@
-import {ADD_TO_SHOPPING_CART, REMOVE_FROM_CART, CHANGE_QUANTITY} from "../actions/shoppingCart";
+import {ADD_TO_SHOPPING_CART, REMOVE_FROM_CART, CHANGE_QUANTITY, CLEAN_CART} from "../actions/shoppingCart";
 
 export const SHOPPING_CART_DEFAULT_STATE = {
     items: [],
@@ -35,6 +35,10 @@ export default function reducerShoppingCart(state = SHOPPING_CART_DEFAULT_STATE,
             const newTotal = state.total - parseInt(existedItem.price, 0)*parseInt(existedItem.quantity, 0)
             const newItems = state.items.filter(item => item.id !== product.id)
             return {...state, items: newItems, total: newTotal}
+        }
+
+        case CLEAN_CART: {
+            return {...state, items: [], total: 0}
         }
 
         default:

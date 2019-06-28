@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
-import {changeQuantity, removeFromCart} from '../actions/shoppingCart'
+import {changeQuantity, removeFromCart, cleanCart} from '../actions/shoppingCart'
 import {addOrder} from "../actions/orders";
 import {Link} from 'react-router-dom';
 
@@ -62,8 +62,14 @@ class Product extends Component {
 
 
 class ShoppingCartList extends Component {
+    checkout() {
+        const {products, total, addOrder, cleanCart} = this.props
+        addOrder(products, total)
+        cleanCart()
+    }
+
     render() {
-        const {products, total, changeQuantity, removeFromCart, addOrder} = this.props
+        const {products, total, changeQuantity, removeFromCart} = this.props
         return (
             <div className='container'>
                 <div className='row'>
@@ -108,7 +114,7 @@ class ShoppingCartList extends Component {
                                     <td>
                                         <Link to={'/order'}>
                                             <button type="button" className="btn btn-success"
-                                                    onClick={() => addOrder(products, total)}>
+                                                    onClick={this.checkout.bind(this)}>
                                                 Checkout <span className="fa fa-arrow-circle-right"></span>
                                             </button>
                                         </Link>
@@ -135,7 +141,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     removeFromCart,
     changeQuantity,
-    addOrder
+    addOrder,
+    cleanCart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCartList)

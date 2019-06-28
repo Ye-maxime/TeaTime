@@ -24,7 +24,7 @@ Order.belongsToMany(Drink, {
 
 
 //synchonization the database with models
-database.sync({force: false})
+database.sync({force: true})
   .then(() => {
     console.log("create all tables in db successfully!!")
     Store.bulkCreate([{
