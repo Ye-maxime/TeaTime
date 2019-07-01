@@ -1,15 +1,13 @@
-.navbar-center {
-    flex-grow: 1;
-    justify-content: center !important;
-}
-
-.navbar-item-margin {
+/***************************navbar***************************/
+#navbar li {
     margin-right: 60px;
 }
 
+/***************************menu***************************/
 .menuPage {
     background-color: black;
 }
+
 .menuTitle {
     margin: 100px 0 50px;
     color: white;
@@ -17,7 +15,7 @@
     font-size: 4rem;
 }
 
-.menu-table-head{
+.menu-table-head {
     border-width: 2px 0 2px !important;
     border: solid;
     padding: 12px;
@@ -53,6 +51,7 @@
     right: 10px;
 }
 
+/***************************store***************************/
 .store-card {
     width: 23rem;
     float: left;
@@ -64,23 +63,20 @@
     height: 256px;
 }
 
-.shopping-cart-product-img {
-    width: 72px;
-    height: 72px;
-}
-.menuPrice {
-    color: pink;
-    position: absolute;
-    right: 40px;
-}
-
-.addIcon {
-    position: absolute;
-    right: 10px;
-}
-
 .store-card {
     width: 23rem;
     float: left;
     margin: 20px;
+}
+
+/***************************shopping-cart***************************/
+.shopping-cart-product-img {
+    width: 72px;
+    height: 72px;
+}
+
+/***************************drink***************************/
+.form-add-drink {
+    justify-content: center;
+    margin-bottom: 20px;
 }

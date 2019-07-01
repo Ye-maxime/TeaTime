@@ -19,7 +19,7 @@ class OrderList extends Component {
     render() {
         const {orders, error, isLoading, isSaving} = this.props
         return (
-            <div>
+            <div className='container'>
                 <div className="error">{error}</div>
                 <ul className="list-group">
                     {orders.map((order) =>

@@ -13,10 +13,6 @@ body {
   flex-direction: column;
 }
 
-.drink-item {
-  text-align: left;
-}
-
 .error {
   color: crimson;
 }
@@ -37,16 +33,4 @@ body {
 
 .completed {
   text-decoration-line: line-through;
-}
-
-.drink-description {
-  cursor: pointer;
-}
-
-.form {
-  margin-bottom: 50px;
-}
-
-.drink-list {
-  max-width: 400px !important;
 }

@@ -73,7 +73,7 @@ class ShoppingCartList extends Component {
         return (
             <div className='container'>
                 <div className='row'>
-                    <div className="col-sm-12 col-md-10 col-md-offset-1">
+                    <div className="col-sm-12 col-md-12 col-md-offset-1">
                         {products.length > 0 ? <table className="table table-hover">
                                 <thead>
                                 <tr>
