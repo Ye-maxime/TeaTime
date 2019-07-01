@@ -8,7 +8,6 @@ export const SHOPPING_CART_DEFAULT_STATE = {
 export default function reducerShoppingCart(state = SHOPPING_CART_DEFAULT_STATE, action) {
     switch (action.type) {
         case ADD_TO_SHOPPING_CART: {
-            console.log("reducers addToShoppingCart !!!!")
             let newProduct = action.product
             const existedItem = getExistedItem(state, newProduct)
             const newTotal = state.total + parseInt(newProduct.price, 0)
@@ -42,7 +41,6 @@ export default function reducerShoppingCart(state = SHOPPING_CART_DEFAULT_STATE,
         }
 
         default:
-            console.log("reducerShoppingCart default !!!!")
             return state
     }
 }

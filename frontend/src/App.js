@@ -3,7 +3,7 @@ import './App.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import Navbar from './components/Navbar'
 import {Switch, Route} from 'react-router-dom';
-import {Home, Menu, Store, Order, ShoppingCart} from "./pages/bundle";
+import {Home, Menu, Store, Account, ShoppingCart} from "./pages/bundle";
 
 class App extends Component {
     render() {
@@ -15,7 +15,7 @@ class App extends Component {
                     <Route path='/menu' component={Menu}/>
                     <Route path='/store' component={Store}/>
                     <Route path='/shopping_cart' component={ShoppingCart}/>
-                    <Route path='/order' component={Order}/>
+                    <Route path='/account' component={Account}/>
                 </Switch>
             </div>
         )

@@ -80,3 +80,39 @@
     justify-content: center;
     margin-bottom: 20px;
 }
+
+/***************************left side bar***************************/
+.tab-selected {
+    background-color: lightgrey;
+}
+
+/***************************order list***************************/
+.order-item-card {
+    width: 43rem;
+    margin: 20px;
+}
+
+.order-item-date {
+    text-align: left;
+}
+
+/***************************order detail***************************/
+.order-detail-product-img {
+    height: 150px;
+}
+
+.order-detail-item-card {
+    width: 43rem;
+    margin: 20px;
+    padding: 10px;
+}
+
+.btn-back-to-list {
+    float: left;
+    margin: 20px;
+}
+
+/***************************account***************************/
+.account-tab-content {
+    padding: 0rem;
+}

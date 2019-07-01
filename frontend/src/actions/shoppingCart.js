@@ -6,7 +6,6 @@ export const CLEAN_CART = 'CLEAN_CART'
 
 // action creators
 export function addToShoppingCart(product) {
-    console.log("action creators addToShoppingCart !!!!")
     return { type: ADD_TO_SHOPPING_CART, product }
 }
 

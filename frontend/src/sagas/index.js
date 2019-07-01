@@ -2,6 +2,7 @@ import {call, put, takeLatest, takeEvery} from 'redux-saga/effects'
 import {FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess} from "../actions/drinks";
 import {FETCH_STORES, loadedStores, storesFailure} from "../actions/stores";
 import {FETCH_ORDERS, ADD_ORDER, loadedOrders, addOrderSuccess, ordersFailure} from "../actions/orders";
+import {FETCH_ORDER_DETAIL, loadedOrderDetail, orderDetailFailure} from "../actions/orderDetail";
 
 //**********************Drinks*************************
 function* getAllDrinks() {
@@ -16,7 +17,6 @@ function* getAllDrinks() {
 
 function* saveDrink(action) {
     try {
-        console.log("generator saveDrink !!!!")
         const options = {
             method: 'POST',
             body: JSON.stringify(action.drink),
@@ -62,7 +62,7 @@ function* getAllStores() {
 }
 
 
-//**********************ShoppingCart*************************
+//**********************Orders*************************
 function* getAllOrders() {
     try {
         const res = yield call(fetch, 'v1/orders')
@@ -90,6 +90,18 @@ function* saveOrder(action) {
     }
 }
 
+//**********************OrderDetail*************************
+function* getOrderDetail(action) {
+    try {
+        const res =  yield call(fetch, `v1/order_detail/${action.orderId}`, {method: 'POST'})
+        const products = yield res.json()
+        yield put(loadedOrderDetail(products))
+    } catch (e) {
+        yield put(orderDetailFailure(e.message))
+    }
+}
+
+
 
 //就在这个rootSaga里面利用takeLatest去监听action的type
 // rootSaga可以理解为是一个监听函数，在创建store中间件的时候就已经执行了
@@ -107,6 +119,10 @@ function* rootSaga() {
     //********************orders*****************
     yield takeLatest(FETCH_ORDERS, getAllOrders);
     yield takeLatest(ADD_ORDER, saveOrder);
+
+    //********************order_detail*****************
+    yield takeLatest(FETCH_ORDER_DETAIL, getOrderDetail);
+
 }
 
 export default rootSaga;

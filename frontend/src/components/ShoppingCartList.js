@@ -111,7 +111,7 @@ class ShoppingCartList extends Component {
                                         </Link>
                                     </td>
                                     <td>
-                                        <Link to={'/order'}>
+                                        <Link to={'/account'}>
                                             <button type="button" className="btn btn-success"
                                                     onClick={this.checkout.bind(this)}>
                                                 Checkout <span className="fa fa-arrow-circle-right"></span>

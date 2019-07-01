@@ -6,7 +6,6 @@ async function findAll(ctx) {
 }
 
 async function create(ctx) {
-  console.log("create data = ")
   const {products, total} = ctx.request.body
   const newOrder = await Order.create({total: total})
   products.map(async (product) => {

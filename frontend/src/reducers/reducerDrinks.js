@@ -40,7 +40,7 @@ export default function reducerDrinks(state = DRINKS_DEFAULT_STATE, action) {
             return {
                 ...state,
                 items: state.items.reduce((items, drink) =>
-                    drink._id !== action.id ? items.concat(drink) : items, []
+                    drink.id !== action.id ? items.concat(drink) : items, []
                 )
             }
 

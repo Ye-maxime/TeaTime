@@ -21,15 +21,8 @@ class Navbar extends Component {
                         <li className="nav-item">
                             <Link to={'/store'} className="nav-link"> STORE </Link>
                         </li>
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle"
-                               href="https://bulma.io/documentation/overview/start/" id="navbarDropdownAccountLink"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                ACCOUNT
-                            </a>
-                            <div className="dropdown-menu" aria-labelledby="navbarDropdownAccountLink">
-                                <Link to={'/order'} className="dropdown-item"> Order </Link>
-                            </div>
+                        <li className="nav-item">
+                            <Link to={'/account'} className="nav-link"> ACCOUNT </Link>
                         </li>
                         <li className="nav-item">
                             <Link to={'/shopping_cart'} className="nav-link"><i
