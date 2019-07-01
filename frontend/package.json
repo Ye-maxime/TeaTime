@@ -26,5 +26,17 @@
     "@fortawesome/fontawesome-free": "^5.9.0",
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.14.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
