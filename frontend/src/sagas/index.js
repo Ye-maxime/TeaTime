@@ -1,4 +1,4 @@
-import {call, put, takeLatest, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest, /*takeEvery*/} from 'redux-saga/effects'
 import {FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess} from "../actions/drinks";
 import {FETCH_STORES, loadedStores, storesFailure} from "../actions/stores";
 import {FETCH_ORDERS, ADD_ORDER, loadedOrders, addOrderSuccess, ordersFailure} from "../actions/orders";

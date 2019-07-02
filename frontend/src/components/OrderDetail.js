@@ -32,15 +32,18 @@ class OrderDetail extends Component {
         return (
             <div className='container'>
                 <div className="error">{error}</div>
-                <button className='btn btn-outline-secondary btn-back-to-list'
-                        onClick={clickBackToOrderList}>Back to my orders
-                </button>
-                {products.map((product) =>
-                    <ProductDetail
-                        key={product.id}
-                        id={product.id}
-                        product={product}
-                    />)}
+                {isLoading ? <div className="spinner-border text-primary" role="status"/>
+                    : <div>
+                        <button className='btn btn-outline-secondary btn-back-to-list'
+                                onClick={clickBackToOrderList}>Back to my orders
+                        </button>
+                        {products.map((product) =>
+                            <ProductDetail
+                                key={product.id}
+                                id={product.id}
+                                product={product}
+                            />)}
+                    </div>}
             </div>
         );
     }

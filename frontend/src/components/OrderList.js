@@ -46,17 +46,20 @@ class OrderList extends Component {
 
     render() {
         let {showDetail, currentOrderId} = this.state
-        const {orders, error, isLoading, isSaving} = this.props
+        const {orders, error, isLoading} = this.props
         return (
             <div className='container'>
                 <div className="error">{error}</div>
-                {!showDetail ? orders.map((order) =>
-                        <Order
-                            key={order.id}
-                            id={order.id}
-                            order={order}
-                            onClickSeeDetail={() => this.clickSeeDetail(order.id)}
-                        />)
+                {!showDetail ?
+                    (isLoading ? <div className="spinner-border text-primary" role="status"/>
+                        :
+                        orders.map((order) =>
+                            <Order
+                                key={order.id}
+                                id={order.id}
+                                order={order}
+                                onClickSeeDetail={() => this.clickSeeDetail(order.id)}
+                            />))
                     :
                     <OrderDetail
                         orderId={currentOrderId}
@@ -72,7 +75,6 @@ const mapStateToProps = (state) => {
         orders: state.orders.items,
         error: state.orders.error,
         isLoading: state.orders.loading,
-        isSaving: state.orders.saving,
     }
 }
 

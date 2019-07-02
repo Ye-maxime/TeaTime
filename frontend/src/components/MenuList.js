@@ -20,7 +20,7 @@ class MenuList extends Component {
     }
 
     render() {
-        const {drinks, error, isLoading, isSaving, addToShoppingCart} = this.props
+        const {drinks, error, isLoading, addToShoppingCart} = this.props
         return (
             <div>
                 <div className="menuPage">
@@ -28,30 +28,32 @@ class MenuList extends Component {
                         MENU
                     </h1>
                     <div className="error">{error}</div>
-                    <Container>
-                        <Row>
-                            <Col>
-                                <div className="menu-table-head">Brown Sugar Deerioca Series</div>
-                                {drinks.filter((drink) => drink.collection === 'BROWN').map((brown) =>
-                                    <Menuitem
-                                        key={brown.id}
-                                        id={brown.id}
-                                        menuitem={brown}
-                                        onAddToShoppingCart={() => addToShoppingCart(brown)}
-                                    />)}
-                            </Col>
-                            <Col>
-                                <div className="menu-table-head">LULU Fresh Fruit Series</div>
-                                {drinks.filter((drink) => drink.collection === 'LULU').map((lulu) =>
-                                    <Menuitem
-                                        key={lulu.id}
-                                        id={lulu.id}
-                                        menuitem={lulu}
-                                        onAddToShoppingCart={() => addToShoppingCart(lulu)}
-                                    />)}
-                            </Col>
-                        </Row>
-                    </Container>
+                    {isLoading ? <div className="spinner-border text-primary" role="status"/>
+                        :
+                        <Container>
+                            <Row>
+                                <Col>
+                                    <div className="menu-table-head">Brown Sugar Deerioca Series</div>
+                                    {drinks.filter((drink) => drink.collection === 'BROWN').map((brown) =>
+                                        <Menuitem
+                                            key={brown.id}
+                                            id={brown.id}
+                                            menuitem={brown}
+                                            onAddToShoppingCart={() => addToShoppingCart(brown)}
+                                        />)}
+                                </Col>
+                                <Col>
+                                    <div className="menu-table-head">LULU Fresh Fruit Series</div>
+                                    {drinks.filter((drink) => drink.collection === 'LULU').map((lulu) =>
+                                        <Menuitem
+                                            key={lulu.id}
+                                            id={lulu.id}
+                                            menuitem={lulu}
+                                            onAddToShoppingCart={() => addToShoppingCart(lulu)}
+                                        />)}
+                                </Col>
+                            </Row>
+                        </Container>}
                 </div>
             </div>
         )
@@ -63,7 +65,6 @@ const mapStateToProps = (state) => { //state is from store (type: DRINKS_DEFAULT
         drinks: state.drinks.items,
         error: state.drinks.error,
         isLoading: state.drinks.loading,
-        isSaving: state.drinks.saving,
     }
 }
 

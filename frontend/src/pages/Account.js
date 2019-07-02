@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import LeftSideBar from '../components/LeftSideBar'
 import OrderList from "../components/OrderList";
+import '../css/page.css'
 
 const tabs = {
     INFOS: 'Informations',
