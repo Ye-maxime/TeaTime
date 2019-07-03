@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import './App.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import Navbar from './components/Navbar'
+import Chatbox from './components/ChatBox'
 import {Switch, Route} from 'react-router-dom';
 import {Home, Menu, Store, Account, ShoppingCart} from "./pages/bundle";
 
@@ -10,6 +11,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Navbar/>
+                <Chatbox/>
                 <Switch>
                     <Route exact path='/' component={Home}/>
                     <Route path='/menu' component={Menu}/>
