@@ -1,42 +1,22 @@
 import React, {Component} from 'react';
-import {fetchStores} from "../actions/stores";
+import {fetchStores,showStore,clickStore} from "../actions/stores";
 import connect from "react-redux/es/connect/connect";
-
-const STORE_OPERA = 'Teatime Opéra'
-const STORE_HAUSSMANN = 'Teatime Haussmann'
+import {Container,Row,Col} from 'react-bootstrap';
+import StoreMap from "./GoogleMap";
 
 class Store extends Component {
     render() {
-        const {store} = this.props
-        const imagePath = getLocalImagePath(store.name)
+        const {store,selectedStore,clickStore} = this.props
         return (
-            <div className="card store-card">
-                <img className="card-img-top store-google-image" src={imagePath} alt="map screen"/>
-                <div className="card-body">
-                    <h5 className="card-title">{store.name}</h5>
-                    <p className="card-text">{store.address}</p>
-                    <p className="card-text">{store.telephone}</p>
-                    <p className="card-text">{store.openTime}</p>
-                    <a href={store.mapLink} className="btn btn-primary" target="_blank">
-                        Google map
-                    </a>
-                </div>
+            <div className={"store-card " + (selectedStore===store.id ? 'storeSelected' : '')} onClick={clickStore}>
+                <p className="store-title">{store.name}</p>
+                <p className="store-text">{store.address}</p>
+                <p className="store-text">{store.telephone}</p>
+                <p className="store-text">{store.openTime}</p>
             </div>
         );
     }
 }
-
-function getLocalImagePath(storeName) {
-    switch (storeName) {
-        case STORE_OPERA:
-            return '/images/teatime_opera.png'
-        case STORE_HAUSSMANN:
-            return '/images/teatime_haussmann.png'
-        default:
-            return '/images/teatime_opera.png'
-    }
-}
-
 
 class StoreList extends Component {
     componentDidMount() {
@@ -44,17 +24,30 @@ class StoreList extends Component {
     }
 
     render() {
-        const {stores, error, isLoading} = this.props
+        const {stores, error, showStore, storeSelected, clickStore} = this.props
+
         return (
-            <div className="container">
+            <Container className="store-contrainer">
                 <div className="error">{error}</div>
-                {stores.map((store) =>
-                    <Store
-                        key={store.id}
-                        id={store.id}
-                        store={store}
-                    />)}
-            </div>
+                    <Row className="store-page">
+                        <Col>
+                            <StoreMap stores={stores} showStore={showStore} storeSelected={storeSelected}/>
+                        </Col>
+                        <Col className="store-list">
+                            <div className="store-list-title"> Paris</div>
+                            <Row className="store-list">
+                            {stores.map((store) =>
+                                <Store
+                                    key={store.id}
+                                    id={store.id}
+                                    store={store}
+                                    selectedStore={storeSelected}
+                                    clickStore={() => clickStore(store)}
+                                />)}
+                            </Row>
+                        </Col>
+                    </Row>
+            </Container>
         );
     }
 }
@@ -64,11 +57,14 @@ const mapStateToProps = (state) => {
         stores: state.stores.items,
         error: state.stores.error,
         isLoading: state.stores.loading,
+        storeSelected:state.stores.storeSelected,
     }
 }
 
 const mapDispatchToProps = {
-    fetchStores
+    fetchStores,
+    showStore,
+    clickStore
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StoreList)

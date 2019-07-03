@@ -110,4 +110,47 @@
 .btn-back-to-list {
     float: left;
     margin: 20px;
+    text-align: left;
+}
+
+.store-list-title {
+    position: absolute;
+    left: 20px;
+    font-size: 30px;
+}
+
+.store-list {
+    margin-top: 70px;
+}
+
+.store-title {
+    font-family: cursive;
+    margin-bottom: 1.2rem;
+}
+
+.store-text {
+    font-family: monospace;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.storeSelected {
+    background: antiquewhite;
+}
+
+.store-page {
+    height: 80vh;
+}
+
+.store-contrainer {
+    max-width: 1519px !important;
+}
+
+.store-list {
+    left: 100px;
+}
+
+.mapStyles {
+    width: 100%;
+    height: 100%;
 }
