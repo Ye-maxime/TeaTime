@@ -40,14 +40,18 @@ function initStore() {
       telephone: '07 16 25 36 40',
       openTime: 'Monday - Sunday 12h00 - 22h30',
       mapLink: 'https://www.google.com/maps/place/55+Rue+des+Petits+Champs,+75001+Paris/@48.8672005,2.332562,17z/data=!3m1!4b1!4m5!3m4!1s0x47e66e3aa53f2723:0xc4a52b6226b73bd9!8m2!3d48.8672005!4d2.3347507',
-      imagePath: '../assets/teatime_opera.png'
+      imagePath: '../assets/teatime_opera.png',
+      latitude: 48.867361,
+      longitude: 2.334740
     }, {
       name: 'Teatime Haussmann',
       address: '13 Boulevard Haussmann 75009 Paris',
       telephone: '07 55 85 36 70',
       openTime: 'Monday - Friday 10h00 - 19h30',
       mapLink: 'https://www.google.com/maps/place/13+Boulevard+Haussmann,+75009+Paris/@48.8724175,2.3333617,17z/data=!3m1!4b1!4m5!3m4!1s0x47e66e39e91dfc61:0x7d044a484552d631!8m2!3d48.8724175!4d2.3355504',
-      imagePath: '../assets/teatime_haussmann.png'
+      imagePath: '../assets/teatime_haussmann.png',
+      latitude: 48.876215,
+      longitude: 2.335634
     }])
 }
 
