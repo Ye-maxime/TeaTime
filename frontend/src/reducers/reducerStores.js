@@ -3,8 +3,8 @@ import {LOADED_STORES, FETCH_STORES, SHOW_STORE, CLICK_STORE} from "../actions/s
 export const STORES_DEFAULT_STATE = {
     loading: false,
     error: '',
-    storeSelected:0,
-    storeClicked:0,
+    storeSelected: 0,
+    storeClicked: 0,
     items: []
 }
 
@@ -20,10 +20,10 @@ export default function reducerStores(state = STORES_DEFAULT_STATE, action) {
             const storeFind = state.items.find((store) => {
                 return store.latitude === action.store.lat && store.longitude === action.store.lng
             })
-            return {...state, storeSelected: storeFind.id, loading:true}
+            return {...state, storeSelected: storeFind.id, loading: true}
         }
         case CLICK_STORE : {
-            return {...state, storeSelected: action.store.id, loading:false}
+            return {...state, storeSelected: action.store.id, loading: false}
         }
 
         default:

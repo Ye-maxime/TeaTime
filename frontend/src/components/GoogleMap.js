@@ -1,28 +1,28 @@
 import React, {Component} from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import {Map, GoogleApiWrapper, Marker} from 'google-maps-react';
 import clickIcon from '../assets/images/icon_position_click.png'
 import defaultIcon from '../assets/images/icon_position_default.png'
-
+import {googleMapApiKey} from '../config/config'
 
 class StoreMap extends Component {
     state = {
-        zoomValue : 12,
-        center : { lat: 48.88, lng: 2.33},
+        zoomValue: 12,
+        center: {lat: 48.88, lng: 2.33},
     }
 
     onMarkerClick = (props) => {
         this.props.showStore(props.position)
         this.setState({
-            zoomValue : 15,
-            center:props.position
+            zoomValue: 15,
+            center: props.position
         })
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.storeSelected !=0) {
+        if (nextProps.storeSelected !== 0) {
             this.setState({
-                center:this.getPositionFromId(nextProps.storeSelected),
-                zoomValue : 15
+                center: this.getPositionFromId(nextProps.storeSelected),
+                zoomValue: 15
             })
         }
     }
@@ -31,7 +31,7 @@ class StoreMap extends Component {
         const storeFind = this.props.stores.find((store) => {
             return store.id === id
         });
-        return {lat:storeFind.latitude,lng:storeFind.longitude}
+        return {lat: storeFind.latitude, lng: storeFind.longitude}
     }
 
 
@@ -40,14 +40,14 @@ class StoreMap extends Component {
             return <Marker
                 key={index}
                 id={index}
-                position={{lat: store.latitude,lng: store.longitude}}
+                position={{lat: store.latitude, lng: store.longitude}}
                 onClick={this.onMarkerClick}
-                icon={this.props.storeSelected===store.id ? clickIcon : defaultIcon}/>
+                icon={this.props.storeSelected === store.id ? clickIcon : defaultIcon}/>
         })
     }
 
     render() {
-        const {zoomValue, center } = this.state
+        const {zoomValue, center} = this.state
         return (
             <Map
                 google={this.props.google}
@@ -62,5 +62,5 @@ class StoreMap extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyDsoIOMeRORTvxaH9MjZvStnynRGizs5_Y'
+    apiKey: googleMapApiKey
 })(StoreMap);
