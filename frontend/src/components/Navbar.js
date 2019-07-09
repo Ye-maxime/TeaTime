@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import '../css/component.css'
 import {Link} from 'react-router-dom';
+import teatime_logo from '../assets/images/teatime_logo.png'
 
 class Navbar extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to={'/'} className="navbar-brand">
-                    <img src="/images/teatime_logo.png" className='rounded'
+                    <img src={teatime_logo} className='rounded'
                          alt="teatime logo" width="150" height="60"/>
                 </Link>
                 <div className="collapse navbar-collapse" id="navbar">

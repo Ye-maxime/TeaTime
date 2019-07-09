@@ -12,7 +12,7 @@ export default class ChatBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            endpoint: 'http://localhost:3000/',
+            endpoint: 'http://localhost:4000/',  //服務器的端口4000
             messageList: [],
             newMessagesCount: 0,
             isOpen: false,
@@ -75,7 +75,7 @@ export default class ChatBox extends Component {
                 <Launcher
                     agentProfile={{
                         teamName: 'Customer service',
-                        imageUrl: '/images/teatime_chatbox.png'
+                        imageUrl: 'src/assets/images/teatime_chatbox.png'
                     }}
                     onMessageWasSent={this.onMessageWasSent.bind(this)}
                     handleClick={this.handleClick.bind(this)}
