@@ -8,15 +8,12 @@ module.exports = {
         filename: 'bundle.js',
         path: path.join(__dirname, '/dist')  //会自动打包成一个bundle.js文件 并在index.html里面引用
     },
-    // resolve: {
-    //     extensions: [".ts", ".tsx", ".js", ".jsx"]
-    // },
     module: {
         rules: [
             {
                 test: /\.js|jsx$/,
                 exclude: /node_modules/,
-                use:['babel-loader']
+                use: ['babel-loader']
             },
             {
                 test: /\.css$/,
@@ -24,7 +21,14 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpg|gif|mp3)$/,
-                use: ['file-loader']
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'img/',
+                        publicPath: 'img/'
+                    }
+                }]
             }
         ]
     },
@@ -41,7 +45,7 @@ module.exports = {
         // port: 8080,
         proxy: {
             '/v1/**': {
-                target: 'http://localhost:4000/',  //http://localhost:3000/v1/...会被代理到请求 http://localhost:4000/v1/...
+                target: 'http://localhost:4000/',  //http://localhost:8080/v1/...会被代理到请求 http://localhost:4000/v1/...
             }
         }
     }

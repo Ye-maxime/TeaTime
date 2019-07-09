@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import connect from "react-redux/es/connect/connect";
+import { connect } from "react-redux";
 import {changeQuantity, removeFromCart, cleanCart} from '../actions/shoppingCart'
 import {addOrder} from "../actions/orders";
 import {Link} from 'react-router-dom';

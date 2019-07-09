@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import connect from "react-redux/es/connect/connect";
+import { connect } from "react-redux";
 import {Container, Row, Col} from 'react-bootstrap';
 import {fetchDrinks} from '../actions/drinks';
 import {addToShoppingCart} from "../actions/shoppingCart";

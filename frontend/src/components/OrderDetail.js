@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import connect from "react-redux/es/connect/connect";
+import { connect } from "react-redux";
 import {fetchOrderDetail} from '../actions/orderDetail'
 
 const ProductDetail = ({product}) => (

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import connect from "react-redux/es/connect/connect";
+import { connect } from "react-redux";
 import {fetchOrders} from "../actions/orders";
 import OrderDetail from "./OrderDetail";
 

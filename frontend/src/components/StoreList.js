@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {fetchStores, showStore, clickStore} from "../actions/stores";
-import connect from "react-redux/es/connect/connect";
+import { connect } from "react-redux";
 import {Container, Row, Col} from 'react-bootstrap';
 import StoreMap from "./GoogleMap";
 
