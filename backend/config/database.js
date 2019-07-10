@@ -4,7 +4,6 @@ const config = require('./config');
 module.exports =  new Sequelize(config.database, config.username, config.password, {
   host: 'localhost',
   dialect: 'postgres',
-  operatorsAliases: false,
 
   pool: {
     max: 5,

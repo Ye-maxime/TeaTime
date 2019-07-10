@@ -20,7 +20,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index",
-    "start": "cross-env NODE_ENVIRONMENT=production node index"
+    "start": "cross-env NODE_ENVIRONMENT=production node index",
+    "test": "jest --verbose",
+    "test:coverage": "jest --verbose --coverage"
   },
   "dependencies": {
     "@koa/cors": "2",
@@ -40,6 +42,8 @@
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-plugin-html": "^5.0.5",
-    "eslint-plugin-react": "^7.13.0"
+    "eslint-plugin-react": "^7.13.0",
+    "jest": "^24.8.0",
+    "supertest": "^4.0.2"
   }
 }

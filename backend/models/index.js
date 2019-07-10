@@ -24,12 +24,12 @@ Order.belongsToMany(Drink, {
 
 
 //synchonization the database with models
-database.sync({force: true})
-  .then(() => {
-    console.log("create all tables in db successfully!!")
-    initStore()
-    initDrink()
-  })
+// database.sync({force: true})
+//   .then(() => {
+//     console.log("create all tables in db successfully!!")
+//     initStore()
+//     initDrink()
+//   })
 
 
 function initStore() {
@@ -92,6 +92,8 @@ module.exports = {
   Order,
   Store,
   // DrinkOrder
+  initStore,
+  initDrink
 }
 
 
