@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import '../css/component.css'
+import '../assets/css/component.css'
 import {Link} from 'react-router-dom';
 import teatime_logo from '../assets/images/teatime_logo.png'
 

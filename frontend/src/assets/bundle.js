@@ -1,0 +1,6 @@
+export {default as brown_sugar_deerioca_fresh} from './images/brown_sugar_deerioca_fresh.png'
+export {default as cocoa_brown_sugar_deerioca} from './images/cocoa_brown_sugar_deerioca.png'
+export {default as matcha_sugar_deerioca} from './images/matcha_sugar_deerioca.png'
+export {default as creme_brulee_deerioca} from './images/creme_brulee_deerioca.png'
+export {default as snow_strawberry_lulu} from './images/snow_strawberry_lulu.png'
+export {default as orange_lulu} from './images/orange_lulu.png'

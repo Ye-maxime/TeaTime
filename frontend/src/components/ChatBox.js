@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Launcher} from 'react-chat-window'
 import socketIOClient from 'socket.io-client'
+import teatime_chatbox from '../assets/images/teatime_chatbox.png'
 
 const message_type = {
     CONNECTED: 'connected',
@@ -75,7 +76,7 @@ export default class ChatBox extends Component {
                 <Launcher
                     agentProfile={{
                         teamName: 'Customer service',
-                        imageUrl: 'src/assets/images/teatime_chatbox.png'
+                        imageUrl: teatime_chatbox //or 'src/assets/images/teatime_chatbox.png'
                     }}
                     onMessageWasSent={this.onMessageWasSent.bind(this)}
                     handleClick={this.handleClick.bind(this)}

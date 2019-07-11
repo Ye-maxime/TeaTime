@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {fetchOrderDetail} from '../actions/orderDetail'
+import {getCorrespondDrinkImage} from "../util/ComponentUtil";
 
 const ProductDetail = ({product}) => (
     <div className="card order-detail-item-card">
         <div className='row align-items-center'>
             <img className="col-md-3 order-detail-product-img"
-                 src={`src/assets/images/${product.image}`}
+                 src={getCorrespondDrinkImage(product.image)}
                  alt='product'/>
             <div className='col-md-3'>
                 <p className="card-text">{product.name}</p>

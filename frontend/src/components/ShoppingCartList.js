@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import {changeQuantity, removeFromCart, cleanCart} from '../actions/shoppingCart'
 import {addOrder} from "../actions/orders";
 import {Link} from 'react-router-dom';
+import {getCorrespondDrinkImage} from "../util/ComponentUtil";
 
 class Product extends Component {
     state = {quantity: this.props.product.quantity}
@@ -27,7 +28,7 @@ class Product extends Component {
                 <td className="col-sm-8 col-md-6">
                     <div className="media">
                         <img className="mr-3 shopping-cart-product-img"
-                             src={`src/assets/images/${product.image}`}
+                             src={getCorrespondDrinkImage(product.image)}
                              alt='product'/>
                         <div className="media-body">
                             <h4 className="mt-0">{product.name}</h4>
