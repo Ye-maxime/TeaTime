@@ -39,4 +39,4 @@ database.authenticate()
   .then(() => console.log("database connected "))
   .catch(error => console.log(error))
 
-module.exports = { app, database }
+module.exports = {app, database}

@@ -3,8 +3,6 @@ const request = require("supertest")
 const database = require('../config/database')
 const {initStore, initDrink} = require('../models/index')
 
-let socket
-
 // close the server after all test
 afterAll(() => {
   server.close();
