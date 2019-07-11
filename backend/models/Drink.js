@@ -4,6 +4,7 @@ module.exports = (database, Sequelize) => {
       name: {type: Sequelize.STRING, allowNull: false},
       price: {type: Sequelize.DECIMAL, allowNull: false},
       collection: {type: Sequelize.ENUM, values: ['LULU', 'BROWN'], allowNull: false},
+      image: {type: Sequelize.STRING, allowNull: true},
     },
     {
       timestamps: false,

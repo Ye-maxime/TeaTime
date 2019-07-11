@@ -5,8 +5,6 @@ module.exports = (database, Sequelize) => {
       address: {type: Sequelize.STRING, allowNull: false},
       telephone: {type: Sequelize.STRING, allowNull: false},
       openTime: {type: Sequelize.STRING, allowNull: false},
-      mapLink: {type: Sequelize.STRING, allowNull: true},
-      imagePath: {type: Sequelize.STRING, allowNull: true},
       latitude: {type: Sequelize.FLOAT, allowNull: true},
       longitude: {type: Sequelize.FLOAT, allowNull: true}
     },

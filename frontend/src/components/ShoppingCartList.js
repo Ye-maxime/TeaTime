@@ -27,7 +27,7 @@ class Product extends Component {
                 <td className="col-sm-8 col-md-6">
                     <div className="media">
                         <img className="mr-3 shopping-cart-product-img"
-                             src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
+                             src={`src/assets/images/${product.image}`}
                              alt='product'/>
                         <div className="media-body">
                             <h4 className="mt-0">{product.name}</h4>

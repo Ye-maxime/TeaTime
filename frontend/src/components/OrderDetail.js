@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import {fetchOrderDetail} from '../actions/orderDetail'
 
 const ProductDetail = ({product}) => (
     <div className="card order-detail-item-card">
         <div className='row align-items-center'>
             <img className="col-md-3 order-detail-product-img"
-                 src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
+                 src={`src/assets/images/${product.image}`}
                  alt='product'/>
             <div className='col-md-3'>
                 <p className="card-text">{product.name}</p>
