@@ -3,10 +3,10 @@ import Enzyme, {shallow, mount} from "enzyme";
 import Adapter from 'enzyme-adapter-react-16';
 import {Account, Menu, Store, ShoppingCart, Home} from "../pages/bundle";
 import MenuList from '../components/MenuList';
-import configureStore  from "redux-mock-store";
+import configureMockStore  from "redux-mock-store";
 
 Enzyme.configure({adapter: new Adapter()});
-const mockStore = configureStore();
+const mockStore = configureMockStore();
 
 describe("Account page", () => {
     test("renders", () => {
@@ -51,7 +51,7 @@ describe("ShoppingCart page", () => {
 });
 
 describe("MenuList", () => {
-    const mockStore = configureMockStore();
+    //const mockStore = configureMockStore();
     let wrapper, store;
 
     const drink1 =  {
