@@ -1,11 +1,7 @@
 import React from "react";
 import Enzyme, {shallow, mount} from "enzyme";
 import Adapter from 'enzyme-adapter-react-16';
-import {Account} from "../pages/bundle";
-import {Menu} from "../pages/bundle";
-import {Store} from "../pages/bundle";
-import {ShoppingCart} from "../pages/bundle";
-import {Home} from "../pages/bundle";
+import {Account, Menu, Store, ShoppingCart, Home} from "../pages/bundle";
 import MenuList from '../components/MenuList';
 import {Provider} from "react-redux";
 import configureMockStore from "redux-mock-store";
@@ -26,7 +22,7 @@ describe("Account page", () => {
     });
 
 
-    test("click left side bar is echoed", ()=> {
+    test("click left side bar is echoed", () => {
         const wrapper = mount(<Account/>);
         wrapper.find('LeftSideBar').find('TabItem').last().simulate('click');
         expect(wrapper.state().tabSelectedId).toBe(4);
@@ -40,17 +36,17 @@ describe("Menu page", () => {
         expect(wrapper.exists()).toBe(true)
     });
 
-   /* test("should add drink to shopping card", ()=> {
-        //const store = createStore()
-        const wrapper = shallow(<Provider store={store}>
-                                    <MenuList/>
-                                </Provider>);
-        console.log("!!!!!!!!!!!!!")
-        wrapper.setProps({drinks: {collection:'BROWN', id:1}})
-        console.log(wrapper.find('MenuList').find('Menuitem'))
-        wrapper.find('MenuList').find('Menuitem').find(".addIcon").simulate('click');
-        expect(wrapper.find('MenuList').props().addToShoppingCart).toHaveBeenCalled();
-    })*/
+    /* test("should add drink to shopping card", ()=> {
+         //const store = createStore()
+         const wrapper = shallow(<Provider store={store}>
+                                     <MenuList/>
+                                 </Provider>);
+         console.log("!!!!!!!!!!!!!")
+         wrapper.setProps({drinks: {collection:'BROWN', id:1}})
+         console.log(wrapper.find('MenuList').find('Menuitem'))
+         wrapper.find('MenuList').find('Menuitem').find(".addIcon").simulate('click');
+         expect(wrapper.find('MenuList').props().addToShoppingCart).toHaveBeenCalled();
+     })*/
 });
 
 describe("Store page", () => {
@@ -74,9 +70,8 @@ describe("ShoppingCart page", () => {
     });
 });
 
-const mockStore = configureMockStore();
-
 describe("MenuList", () => {
+    const mockStore = configureMockStore();
     let wrapper, store;
 
     beforeEach(() => {
@@ -84,44 +79,49 @@ describe("MenuList", () => {
             drinks: {
                 items: [
                     {
-                        collection:'BROWN',
-                        name:'first drink brown',
+                        collection: 'BROWN',
+                        name: 'first drink brown',
                         price: 12,
-                        id:1
+                        id: 1
                     },
                     {
-                        collection:'BROWN',
-                        name:'second drink brown',
+                        collection: 'BROWN',
+                        name: 'second drink brown',
                         price: 12,
-                        id:2
+                        id: 2
                     }
-                ]
+                ],
+                loading: false,
+                saving: false,
+                error: '',
             }
         };
         store = mockStore(initialState);
         // Shallow render the container passing in the mock store
-        wrapper = shallow(
-            <MenuList store={store} />
+        wrapper = mount(
+            <MenuList store={store}/>
         );
+        console.log(wrapper.debug({verbose: true}))
+        console.log(wrapper.childAt(0).prop('drinks'))
+        // console.log(wrapper.childAt(0).props())
+        // console.log(wrapper.debug())
     });
 
     it('should show drink props', () => {
-        expect(wrapper.props().drinks[0].id).toBe(1);
+        expect(wrapper.childAt(0).prop('drinks')[0].id).toBe(1)
     });
 
-/*    it('should show menuItems', () => {
-        console.log("!!!!!!!")
-        console.log(wrapper.find("Menuitem"))
+    it('should show menuItems', () => {
+        expect(wrapper.find('Menuitem')).toBeDefined();
         expect(wrapper.find('Menuitem').length).toBe(2);
-        //expect(wrapper.find(Menuitem));
-    });*/
+    });
 
-/*    it('should add drink to shipping card when button is clicked', () => {
-        // test that the component events dispatch the expected actions
-        wrapper.simulate('fetchDrinks');
-        const actions = store.getActions();
-        console.log("!!!!!!!")
-        console.log(actions)
-        expect(actions).toEqual([ { type: 'FETCH_DRINKS' } ]);
-    });*/
+    /*    it('should add drink to shipping card when button is clicked', () => {
+            // test that the component events dispatch the expected actions
+            wrapper.simulate('fetchDrinks');
+            const actions = store.getActions();
+            console.log("!!!!!!!")
+            console.log(actions)
+            expect(actions).toEqual([ { type: 'FETCH_DRINKS' } ]);
+        });*/
 });
