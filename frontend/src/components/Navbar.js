@@ -48,9 +48,9 @@ class Navbar extends Component {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={'/shopping_cart'} className="nav-link"><i
-                                className='fas fa-shopping-cart' />
-                                <span className="shopping-card-red-icon">{{ products }.products.length}</span>
+                            <Link to={'/shopping_cart'} className="nav-link">
+                                <i className='fas fa-shopping-cart' />
+                                <span className="shopping-card-red-icon">{products.length}</span>
                             </Link>
                         </li>
                         <li className="nav-item flags">
