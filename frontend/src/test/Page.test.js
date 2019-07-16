@@ -4,10 +4,23 @@ import Adapter from 'enzyme-adapter-react-16';
 import {Account, Menu, Store, ShoppingCart, Home} from "../pages/bundle";
 import MenuList from '../components/MenuList';
 import configureMockStore  from "redux-mock-store";
+import ShoppingCartList from "../components/ShoppingCartList";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 Enzyme.configure({adapter: new Adapter()});
 const mockStore = configureMockStore();
-
+const drink1 =  {
+    collection:'BROWN',
+    name:'first drink brown',
+    price: 12,
+    id:1
+}
+const drink2 = {
+    collection:'LULU',
+    name:'second drink brown',
+    price: 12,
+    id:2
+}
 describe("Account page", () => {
     test("renders", () => {
         const wrapper = shallow(<Account/>);
@@ -53,19 +66,6 @@ describe("ShoppingCart page", () => {
 describe("MenuList", () => {
     //const mockStore = configureMockStore();
     let wrapper, store;
-
-    const drink1 =  {
-        collection:'BROWN',
-        name:'first drink brown',
-        price: 12,
-        id:1
-    }
-    const drink2 = {
-        collection:'LULU',
-        name:'second drink brown',
-        price: 12,
-        id:2
-    }
     function prepareForTestWhenIsLoaded(){
         const initialState = {
             drinks: {
@@ -115,4 +115,102 @@ describe("MenuList", () => {
         prepareForTestWhenIsNotLoaded();
         expect(wrapper.find(".spinner-border").exists()).toBe(true)
     });
+});
+
+
+describe("ShoppingCartList", () => {
+    let wrapper, store;
+    function prepareForTestWhenCardNotNull(){
+        const initialState = {
+            shoppingCart: {
+                items: [ drink1, drink2 ],
+                total:24
+            }
+        };
+        store = mockStore(initialState);
+        // Shallow render the container passing in the mock store
+        wrapper = mount (
+            <Router>
+                <ShoppingCartList store={store} />
+            </Router>
+        );
+    }
+
+    function prepareForTestWhenCardIsNull(){
+        const initialState = {
+            shoppingCart: {
+                items: [],
+                total: 0
+            }
+        };
+        store = mockStore(initialState);
+        // Shallow render the container passing in the mock store
+        wrapper = mount (
+            <Router>
+                <ShoppingCartList store={store} />
+            </Router>
+        );
+    }
+
+    it('should show products props', () => {
+        prepareForTestWhenCardNotNull();
+        expect(wrapper.find("ShoppingCartList").props().products.length).toBe(2);
+    });
+
+    it('should show productItems', () => {
+        prepareForTestWhenCardNotNull();
+        expect(wrapper.find('Product')).toBeDefined();
+        expect(wrapper.find('Product').length).toBe(2);
+    });
+
+    it('should checkout account', () => {
+        prepareForTestWhenCardNotNull();
+        wrapper.find(".btn-success").simulate("click")
+        const actions = store.getActions();
+        expect(actions[0].type).toBe('ADD_ORDER');
+        expect(actions[1].type).toBe('CLEAN_CART');
+    });
+
+    it('should handle change number for products ', () => {
+        prepareForTestWhenCardNotNull();
+        const event = {
+            preventDefault() {},
+            target: { value: 2 }
+        };
+        wrapper.find("Product").first().setState({quantity : 1});
+        wrapper.find("input").first().simulate('change', event);
+        const actions = store.getActions();
+        expect(actions[0].type).toBe('CHANGE_QUANTITY');
+    });
+
+    it('should handle key down event for products ', () => {
+        prepareForTestWhenCardNotNull();
+        let isKeyDown = false;
+        const event = {
+            preventDefault() {isKeyDown = true},
+            keyCode: 2
+        };
+        wrapper.find("input").first().simulate('keyDown', event);
+        const actions = store.getActions();
+        expect(isKeyDown).toBe(true);
+    });
+
+    it('should remove product from card ', () => {
+        prepareForTestWhenCardNotNull();
+        const event = {
+            preventDefault() {}
+        };
+        wrapper.find("Product").first().find("button").simulate('click', event);
+        const actions = store.getActions();
+        expect(actions[0].type).toBe('REMOVE_FROM_CART');
+    });
+
+    it('should show menu when card is null', () => {
+        prepareForTestWhenCardIsNull();
+        expect(wrapper.find("h3").first().props().children).toBe("Your cart is currently empty")
+    });
+
+
+
+
 });
