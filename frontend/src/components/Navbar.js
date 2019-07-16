@@ -10,7 +10,7 @@ import { setLocale } from '../actions/locale';
 
 class Navbar extends Component {
     render() {
-        const { setLocale } = this.props
+        const { products, setLocale } = this.props
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to={'/'} className="navbar-brand">
@@ -49,11 +49,13 @@ class Navbar extends Component {
                         </li>
                         <li className="nav-item">
                             <Link to={'/shopping_cart'} className="nav-link"><i
-                                className='fas fa-shopping-cart' /></Link>
+                                className='fas fa-shopping-cart' />
+                                <span className="shopping-card-red-icon">{{ products }.products.length}</span>
+                            </Link>
                         </li>
                         <li className="nav-item flags">
-                            <img src={uk_flag} className='flag-img' alt="lang_english" onClick={() => setLocale('en')}/>
-                            <img src={fr_flag} className='flag-img' alt="lang_french" onClick={() => setLocale('fr')}/>
+                            <img src={uk_flag} className='flag-img' alt="lang_english" onClick={() => setLocale('en')} />
+                            <img src={fr_flag} className='flag-img' alt="lang_french" onClick={() => setLocale('fr')} />
                         </li>
                     </ul>
                 </div>
@@ -62,8 +64,9 @@ class Navbar extends Component {
     }
 }
 
-const mapStateToProps = (state) => { //state is from store (type: DRINKS_DEFAULT_STATE)
+const mapStateToProps = (state) => {
     return {
+        products: state.shoppingCart.items,
     }
 }
 
