@@ -1,6 +1,4 @@
 ## Install environment modules
-
-
 - [root repository]
   - [npm i]
 - [frontend repository]
