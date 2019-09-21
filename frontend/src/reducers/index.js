@@ -1,9 +1,10 @@
-import {combineReducers} from 'redux'
-import reducerDrinks, {DRINKS_DEFAULT_STATE} from "./reducerDrinks";
-import reducerShoppingCart, {SHOPPING_CART_DEFAULT_STATE} from "./reducerShoppingCart";
-import reducerStores, {STORES_DEFAULT_STATE} from "./reducerStores";
-import reducerOrders, {ORDERS_DEFAULT_STATE} from "./reducerOrders";
-import reducerOrderDetail, {ORDER_DETAIL_DEFAULT_STATE} from "./reducerOrderDetail"
+import { combineReducers } from 'redux'
+import reducerDrinks, { DRINKS_DEFAULT_STATE } from "./reducerDrinks";
+import reducerShoppingCart, { SHOPPING_CART_DEFAULT_STATE } from "./reducerShoppingCart";
+import reducerStores, { STORES_DEFAULT_STATE } from "./reducerStores";
+import reducerOrders, { ORDERS_DEFAULT_STATE } from "./reducerOrders";
+import reducerOrderDetail, { ORDER_DETAIL_DEFAULT_STATE } from "./reducerOrderDetail";
+import reducerLocale, { LOCALE_DEFAULT_STATE } from "./reducerLocale";
 
 const rootReducer = combineReducers({
     drinks: reducerDrinks,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     stores: reducerStores,
     orders: reducerOrders,
     orderDetail: reducerOrderDetail,
+    locale: reducerLocale,
 })
 
 export const DEFAULT_STATE = {
@@ -19,6 +21,7 @@ export const DEFAULT_STATE = {
     stores: STORES_DEFAULT_STATE,
     orders: ORDERS_DEFAULT_STATE,
     orderDetail: ORDER_DETAIL_DEFAULT_STATE,
+    locale: LOCALE_DEFAULT_STATE,
 }
 
 export default rootReducer

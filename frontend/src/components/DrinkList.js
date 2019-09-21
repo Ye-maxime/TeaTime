@@ -1,15 +1,16 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { connect } from "react-redux";
-import {fetchDrinks, addDrink} from '../actions/drinks';
+import { fetchDrinks, addDrink } from '../actions/drinks';
+import { FormattedMessage } from 'react-intl';
 
-const Drink = ({drink}) => (
+const Drink = ({ drink }) => (
     <li className="list-group-item justify-content-between">
         <span>{drink.name} {drink.price}</span>
     </li>
 )
 
 class DrinkList extends Component {
-    state = {newDrink: ''}
+    state = { newDrink: '' }
 
     componentDidMount() {
         this.props.fetchDrinks()
@@ -17,31 +18,35 @@ class DrinkList extends Component {
 
     addNewDrink(event) {
         event.preventDefault() // Prevent form from reloading page
-        const {newDrink} = this.state
+        const { newDrink } = this.state
 
         if (newDrink) {
-            const drink = {name: newDrink}
+            const drink = { name: newDrink }
             this.props.addDrink(drink)
-            this.setState({newDrink: ''})
+            this.setState({ newDrink: '' })
         }
     }
 
     render() {
-        let {newDrink} = this.state
-        const {drinks, error, isLoading, isSaving} = this.props
+        let { newDrink } = this.state
+        const { drinks, error, isLoading, isSaving } = this.props
         return (
             <div className="container">
-                <h1>Drinks</h1>
+                <h1>
+                    <FormattedMessage
+                        id='drinkList.title'
+                        defaultMessage='DEFAULT' />
+                </h1>
                 <div className="error">{error}</div>
                 <form className="form-inline form-add-drink" onSubmit={this.addNewDrink.bind(this)}>
                     <input className="form-control"
-                           value={newDrink}
-                           placeholder="New drink name"
-                           onChange={(e) => this.setState({newDrink: e.target.value})}/>
+                        value={newDrink}
+                        placeholder="New drink name"
+                        onChange={(e) => this.setState({ newDrink: e.target.value })} />
 
-                    {(isLoading || isSaving) ? <div className="spinner-border text-primary" role="status"/> :
+                    {(isLoading || isSaving) ? <div className="spinner-border text-primary" role="status" /> :
                         <button className='btn btn-success'
-                                disabled={isLoading || isSaving}>Add
+                            disabled={isLoading || isSaving}>Add
                         </button>}
                 </form>
                 <ul className="list-group">

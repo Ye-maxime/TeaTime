@@ -3,6 +3,17 @@
     margin-right: 60px;
 }
 
+#navbar .flag-img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+#navbar .flags {
+    position: absolute;
+    right: 10px;
+}
+
 /***************************menu***************************/
 .menuPage {
     background-color: black;
