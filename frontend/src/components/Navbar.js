@@ -10,7 +10,15 @@ import { setLocale } from '../actions/locale';
 
 class Navbar extends Component {
     render() {
-        const { products, setLocale } = this.props
+        const { shoppingCart, setLocale } = this.props;
+        const calculateCartItems = () => {
+            let items = 0;
+            if (shoppingCart.items.length > 0) {
+                shoppingCart.items.forEach((product) => items += product.quantity)
+            }
+            return items;
+        }
+
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to={'/'} className="navbar-brand">
@@ -50,7 +58,9 @@ class Navbar extends Component {
                         <li className="nav-item">
                             <Link to={'/shopping_cart'} className="nav-link">
                                 <i className='fas fa-shopping-cart' />
-                                <span className="shopping-card-red-icon">{products.length}</span>
+                                <span className="shopping-card-red-icon">
+                                    {calculateCartItems()}
+                                </span>
                             </Link>
                         </li>
                         <li className="nav-item flags">
@@ -66,7 +76,7 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        products: state.shoppingCart.items,
+        shoppingCart: state.shoppingCart, // use the whole state in stead of the 'items' in shoppingCart, because modify the quantity does not force to rerender the page
     }
 }
 
