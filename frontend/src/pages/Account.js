@@ -1,18 +1,27 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import LeftSideBar from '../components/LeftSideBar'
 import OrderList from "../components/OrderList";
-import '../assets/css/page.css'
+import '../assets/css/page.css';
+import { FormattedMessage } from 'react-intl';
 
 const tabs = {
-    INFOS: 'Informations',
-    ORDERS: 'Orders',
-    PAYMENT: 'Payment',
-    PREFERENCE: 'Preferences'
+    INFOS: <FormattedMessage
+        id='account.tab.informations'
+        defaultMessage='DEFAULT' />,
+    ORDERS: <FormattedMessage
+        id='account.tab.orders'
+        defaultMessage='DEFAULT' />,
+    PAYMENT: <FormattedMessage
+        id='account.tab.payment'
+        defaultMessage='DEFAULT' />,
+    PREFERENCE: <FormattedMessage
+        id='account.tab.preferences'
+        defaultMessage='DEFAULT' />
 }
 
 const SHOW_TAB_STATES = {
     1: <h1>My infos</h1>,
-    2: <OrderList/>,
+    2: <OrderList />,
     3: <h1>My payment</h1>,
     4: <h1>My preferences</h1>,
 }
@@ -56,9 +65,9 @@ export default class Account extends Component {
     }
 
     render() {
-        const {tabSelectedId, tabList} = this.state
+        const { tabSelectedId, tabList } = this.state
         return (
-            <div className='container' style={{marginTop: '60px'}}>
+            <div className='container' style={{ marginTop: '60px' }}>
                 <div className='row'>
                     <div className='col-md-4'>
                         <LeftSideBar
