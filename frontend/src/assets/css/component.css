@@ -29,15 +29,10 @@
 }
 
 /***************************menu***************************/
-.menuPage {
-    background-color: black;
-}
-
 .menuTitle {
-    margin: 100px 0 50px;
-    color: white;
+    margin: 10px 0 50px;
     font-weight: bolder;
-    font-size: 4rem;
+    font-size: 2.5rem;
 }
 
 .menu-table-head {
@@ -48,15 +43,15 @@
     color: gold !important;
     font-size: 20px !important;
     font-family: cursive !important;
-    background-color: black !important;
 }
 
 .menu-table-list {
+    display: flex;
+    align-items: center;
     border-width: 0 !important;
-    background: black !important;
     font-family: cursive;
     font-size: 15px !important;
-    color: white !important;
+    color: black !important;
     padding: 1.5rem 0.75rem !important;
 }
 
@@ -68,12 +63,12 @@
 .menuPrice {
     color: pink;
     position: absolute;
-    right: 40px;
+    right: 60px;
 }
 
 .addIcon {
     position: absolute;
-    right: 10px;
+    right: 20px;
 }
 
 /***************************shopping-cart***************************/

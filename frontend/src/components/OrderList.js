@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
-import {fetchOrders} from "../actions/orders";
+import { fetchOrders } from "../actions/orders";
 import OrderDetail from "./OrderDetail";
 
-const Order = ({order, onClickSeeDetail}) => (
+const Order = ({ order, onClickSeeDetail }) => (
     <div className="card order-item-card">
         <div className="card-body">
             <h5 className="card-title">Order n°{order.uuid}</h5>
-            <hr/>
+            <hr />
             <p className="card-text order-item-date">Date : {order.createdAt}</p>
             <div className='row'>
                 <div className='col-md-9'>
@@ -45,13 +45,13 @@ class OrderList extends Component {
     }
 
     render() {
-        let {showDetail, currentOrderId} = this.state
-        const {orders, error, isLoading} = this.props
+        let { showDetail, currentOrderId } = this.state
+        const { orders, error, isLoading } = this.props
         return (
             <div className='container'>
                 <div className="error">{error}</div>
                 {!showDetail ?
-                    (isLoading ? <div className="spinner-border text-primary" role="status"/>
+                    (isLoading ? <div className="spinner-border text-primary" role="status" />
                         :
                         orders.map((order) =>
                             <Order
