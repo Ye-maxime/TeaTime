@@ -1,4 +1,4 @@
-const {Order} = require('../models/index')
+const { Order } = require('../models/index')
 
 class ProductOrderDTO {
   constructor(id, name, price, quantity, image) {

@@ -1,8 +1,8 @@
-import {call, put, takeLatest, /*takeEvery*/} from 'redux-saga/effects'
-import {FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess} from "../actions/drinks";
-import {FETCH_STORES, loadedStores, storesFailure} from "../actions/stores";
-import {FETCH_ORDERS, ADD_ORDER, loadedOrders, addOrderSuccess, ordersFailure} from "../actions/orders";
-import {FETCH_ORDER_DETAIL, loadedOrderDetail, orderDetailFailure} from "../actions/orderDetail";
+import { call, put, takeLatest, /*takeEvery*/ } from 'redux-saga/effects'
+import { FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess } from "../actions/drinks";
+import { FETCH_STORES, loadedStores, storesFailure } from "../actions/stores";
+import { FETCH_ORDERS, ADD_ORDER, loadedOrders, addOrderSuccess, ordersFailure } from "../actions/orders";
+import { FETCH_ORDER_DETAIL, loadedOrderDetail, orderDetailFailure } from "../actions/orderDetail";
 
 //**********************Drinks*************************
 function* getAllDrinks() {
@@ -93,7 +93,7 @@ function* saveOrder(action) {
 //**********************OrderDetail*************************
 function* getOrderDetail(action) {
     try {
-        const res =  yield call(fetch, `v1/order_detail/${action.orderId}`, {method: 'POST'})
+        const res = yield call(fetch, `v1/order_detail/${action.orderId}`, { method: 'POST' })
         const products = yield res.json()
         yield put(loadedOrderDetail(products))
     } catch (e) {

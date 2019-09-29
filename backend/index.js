@@ -1,5 +1,5 @@
 require('dotenv').config();
-const {app} = require('./server')
+const { app } = require('./server')
 
 const port = process.env.PORT || 4000
 const server = app.listen(port, () => console.log(`API server started on ${port}`))
@@ -34,4 +34,4 @@ io.on('connection', (socket) => {
   })
 })
 
-module.exports = {server}
+module.exports = { server }

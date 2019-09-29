@@ -1,12 +1,14 @@
-const {Drink} = require('../models/index')
+const { Drink } = require('../models/index')
 
 async function findAll(ctx) {
-  const drinks = await Drink.findAll()
+  const drinks = await Drink.findAll({
+    raw: true, // raw: true => get only dataValues from Sequelize ORM
+  });
   ctx.body = drinks
 }
 
 async function create(ctx) {
-  const newDrink = await Drink.create({name: ctx.request.body.name, price: 12, collection: 'LULU'})
+  const newDrink = await Drink.create({ name: ctx.request.body.name, price: 12, collection: 'LULU' })
   ctx.body = newDrink
 }
 
