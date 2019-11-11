@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { fetchOrders } from "../actions/orders";
 import OrderDetail from "./OrderDetail";
+import history from '../history';
 
 const Order = ({ order, onClickSeeDetail }) => (
     <div className="card order-item-card">
@@ -42,6 +43,13 @@ class OrderList extends Component {
 
     componentDidMount() {
         this.props.fetchOrders()
+    }
+
+    componentDidUpdate() {
+        if (this.props.error) {
+            // user not logged in
+            history.push('/login');
+        }
     }
 
     render() {

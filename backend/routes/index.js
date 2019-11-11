@@ -4,5 +4,6 @@ module.exports = (router) => {
   router.use('/stores', require('./stores'))
   router.use('/orders', require('./orders'))
   router.use('/order_detail', require('./orderDetail'))
+  router.use('/account', require('./account'))
 }
 

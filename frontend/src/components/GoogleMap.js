@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
-import {Map, GoogleApiWrapper, Marker} from 'google-maps-react';
-import clickIcon from '../assets/images/icon_position_click.png'
-import defaultIcon from '../assets/images/icon_position_default.png'
-import {googleMapApiKey} from '../config/config'
+import React, { Component } from 'react';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import { clickIcon, defaultIcon } from '../assets/bundle';
+import { googleMapApiKey } from '../config/config'
 
 class StoreMap extends Component {
     state = {
         zoomValue: 12,
-        center: {lat: 48.88, lng: 2.33},
+        center: { lat: 48.88, lng: 2.33 },
     }
 
     onMarkerClick = (props) => {
@@ -31,7 +30,7 @@ class StoreMap extends Component {
         const storeFind = this.props.stores.find((store) => {
             return store.id === id
         });
-        return {lat: storeFind.latitude, lng: storeFind.longitude}
+        return { lat: storeFind.latitude, lng: storeFind.longitude }
     }
 
 
@@ -40,14 +39,14 @@ class StoreMap extends Component {
             return <Marker
                 key={index}
                 id={index}
-                position={{lat: store.latitude, lng: store.longitude}}
+                position={{ lat: store.latitude, lng: store.longitude }}
                 onClick={this.onMarkerClick}
-                icon={this.props.storeSelected === store.id ? clickIcon : defaultIcon}/>
+                icon={this.props.storeSelected === store.id ? clickIcon : defaultIcon} />
         })
     }
 
     render() {
-        const {zoomValue, center} = this.state
+        const { zoomValue, center } = this.state
         return (
             <Map
                 google={this.props.google}

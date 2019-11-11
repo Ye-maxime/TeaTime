@@ -7,15 +7,15 @@ export const ORDERS_FAILURE = 'ORDERS_FAILURE'
 
 // action creators
 export function fetchOrders() {
-    return {type: FETCH_ORDERS}
+    return { type: FETCH_ORDERS }
 }
 
 export function loadedOrders(orders) {
-    return {type: LOADED_ORDERS, orders}
+    return { type: LOADED_ORDERS, orders }
 }
 
 export function addOrder(products, total) {
-    return { type: ADD_ORDER, data: { products: products, total: total} }
+    return { type: ADD_ORDER, data: { products: products, total: total } }
 }
 
 export function addOrderSuccess(order) {

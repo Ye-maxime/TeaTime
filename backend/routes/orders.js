@@ -2,7 +2,7 @@ const Router = require('koa-router')
 const router = new Router()
 const Ctrl = require('../controllers/orders')
 
-router.get('/', Ctrl.findAll)
-router.post('/', Ctrl.create)
+router.post('/getOrders', Ctrl.findAll)
+router.post('/saveOrder', Ctrl.create)
 
 module.exports = router.routes()

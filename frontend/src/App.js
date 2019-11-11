@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 import Navbar from './components/Navbar';
 import Chatbox from './components/ChatBox';
 import { Switch, Route } from 'react-router-dom';
-import { Home, Menu, Store, Account, ShoppingCart } from "./pages/bundle";
+import { Home, Menu, Store, Account, ShoppingCart, Login } from "./pages/bundle";
 import messages from './locale/messages';
 
 class App extends Component {
@@ -19,6 +19,7 @@ class App extends Component {
                     <Chatbox />
                     <Switch>
                         <Route exact path='/' component={Home} />
+                        <Route exact path='/login' component={Login} />
                         <Route path='/menu' component={Menu} />
                         <Route path='/store' component={Store} />
                         <Route path='/shopping_cart' component={ShoppingCart} />

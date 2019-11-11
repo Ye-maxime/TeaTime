@@ -4,6 +4,7 @@ const DrinkModel = require('./Drink')
 const OrderModel = require('./Order')
 const StoreModel = require('./Store')
 const DrinkOrderModel = require('./DrinkOrder')
+const AccountModel = require('./Account')
 
 
 //create models
@@ -11,6 +12,7 @@ const Drink = DrinkModel(database, Sequelize)
 const Order = OrderModel(database, Sequelize)
 const Store = StoreModel(database, Sequelize)
 const DrinkOrder = DrinkOrderModel(database, Sequelize)
+const Account = AccountModel(database, Sequelize)
 
 
 //associate relation many to many between table drink and order
@@ -22,10 +24,12 @@ Order.belongsToMany(Drink, {
   through: DrinkOrder,
 })
 
+//associate relation one to many between table account and order
+Account.hasMany(Order, { as: 'Orders' })
 
 // synchonization the database with models
 //mettre en commentaire ce block quand lance test
-database.sync({force: true})
+database.sync({ force: true })
   .then(() => {
     console.log("create all tables in db successfully!!")
     initStore()
@@ -95,6 +99,7 @@ module.exports = {
   Drink,
   Order,
   Store,
+  Account,
   // DrinkOrder
   initStore,
   initDrink

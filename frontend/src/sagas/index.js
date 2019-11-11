@@ -3,6 +3,9 @@ import { FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess }
 import { FETCH_STORES, loadedStores, storesFailure } from "../actions/stores";
 import { FETCH_ORDERS, ADD_ORDER, loadedOrders, addOrderSuccess, ordersFailure } from "../actions/orders";
 import { FETCH_ORDER_DETAIL, loadedOrderDetail, orderDetailFailure } from "../actions/orderDetail";
+import { SIGN_UP, signupSuccess, signupFailure, GET_INFOS, getAccountInfosSuccess, getAccountInfosFailure, LOGIN, loginSuccess, loginFailure } from "../actions/account";
+import Utils from '../util/Utils';
+import Cookies from 'js-cookie';
 
 //**********************Drinks*************************
 function* getAllDrinks() {
@@ -63,28 +66,54 @@ function* getAllStores() {
 
 
 //**********************Orders*************************
-function* getAllOrders() {
+function* getAllOrders(action) {
     try {
-        const res = yield call(fetch, 'v1/orders')
-        const orders = yield res.json()
-        yield put(loadedOrders(orders))
+        // const token = Cookies.get('jwt');
+        const id = Utils.getAccountIdFromLocalStorage();
+        if (id) {
+            const options = {
+                method: 'POST',
+                body: JSON.stringify({ accountId: id }),
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.token}`
+                })
+            }
+            const res = yield call(fetch, 'v1/orders/getOrders', options)
+            if (res.ok === false) {
+                // error comes from the jwt part in backend/server.js 
+                throw Error("getAllOrders : No user logged in!!")
+            }
+            const orders = yield res.json()
+            yield put(loadedOrders(orders))
+        } else {
+            throw Error("getAllOrders : No user logged in!!")
+        }
     } catch (e) {
+        console.log('catch = ' + e);
         yield put(ordersFailure(e.message))
     }
 }
 
 function* saveOrder(action) {
     try {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(action.data),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
+        const id = Utils.getAccountIdFromLocalStorage();
+        if (id) {
+            action.data.accountId = id;
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(action.data),
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.token}`
+                })
+            }
+            const res = yield call(fetch, 'v1/orders/saveOrder', options)
+            const order = yield res.json()
+            yield put(addOrderSuccess(order))
+        } else {
+            throw Error("saveOrder : No user logged in!!")
         }
-        const res = yield call(fetch, 'v1/orders', options)
-        const order = yield res.json()
-        yield put(addOrderSuccess(order))
     } catch (e) {
         yield put(ordersFailure(e.message))
     }
@@ -93,7 +122,13 @@ function* saveOrder(action) {
 //**********************OrderDetail*************************
 function* getOrderDetail(action) {
     try {
-        const res = yield call(fetch, `v1/order_detail/${action.orderId}`, { method: 'POST' })
+        const options = {
+            method: 'POST',
+            headers: new Headers({
+                'Authorization': `Bearer ${localStorage.token}`
+            })
+        }
+        const res = yield call(fetch, `v1/order_detail/${action.orderId}`, options)
         const products = yield res.json()
         yield put(loadedOrderDetail(products))
     } catch (e) {
@@ -101,6 +136,77 @@ function* getOrderDetail(action) {
     }
 }
 
+//**********************Account*************************
+function* signup(action) {
+    try {
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(action.data),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }
+        const res = yield call(fetch, 'v1/account/signup', options)
+        const result = yield res.json()
+        if (result.success) {
+            const { success, token, ...account } = result;
+            console.log(`saga signup account = ${JSON.stringify(account)}`)
+            yield put(signupSuccess(account, token))
+        } else {
+            yield put(signupFailure(result.error))
+        }
+    } catch (e) {
+        yield put(signupFailure(e.message))
+    }
+}
+
+function* login(action) {
+    try {
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(action.data),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }
+        const res = yield call(fetch, 'v1/account/login', options)
+        const result = yield res.json()
+        if (result.success) {
+            const { success, token, ...account } = result;
+            console.log(`saga login account = ${JSON.stringify(account)}`)
+            yield put(loginSuccess(account, token))
+        } else {
+            yield put(loginFailure(result.error))
+        }
+    } catch (e) {
+        yield put(loginFailure(e.message))
+    }
+}
+
+function* getAccountInfomations(action) {
+    try {
+        const id = Utils.getAccountIdFromLocalStorage();
+        if (id) {
+            const data = { id: id }
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: new Headers({
+                    'Authorization': `Bearer ${localStorage.token}`
+                })
+            }
+            const res = yield call(fetch, 'v1/account/getAccountInfos', options)
+            const result = yield res.json()
+            const { ...account } = result;
+            console.log(`saga getAccountInfomations account = ${JSON.stringify(account)}`)
+            yield put(getAccountInfosSuccess(account))
+        } else {
+            throw Error("getAccountInfomations : No user logged in!!")
+        }
+    } catch (e) {
+        yield put(getAccountInfosFailure(e.message))
+    }
+}
 
 
 //就在这个rootSaga里面利用takeLatest去监听action的type
@@ -122,6 +228,11 @@ function* rootSaga() {
 
     //********************order_detail*****************
     yield takeLatest(FETCH_ORDER_DETAIL, getOrderDetail);
+
+    //********************account*****************
+    yield takeLatest(SIGN_UP, signup);
+    yield takeLatest(LOGIN, login);
+    yield takeLatest(GET_INFOS, getAccountInfomations);
 
 }
 

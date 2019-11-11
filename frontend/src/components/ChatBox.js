@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Launcher} from 'react-chat-window'
+import React, { Component } from 'react';
+import { Launcher } from 'react-chat-window'
 import socketIOClient from 'socket.io-client'
-import teatime_chatbox from '../assets/images/teatime_chatbox.png'
+import { teatime_chatbox } from '../assets/bundle';
 
 const message_type = {
     CONNECTED: 'connected',
@@ -18,11 +18,11 @@ export default class ChatBox extends Component {
             newMessagesCount: 0,
             isOpen: false,
         };
-        socket = socketIOClient(this.state.endpoint, {transports: ['polling']});
+        socket = socketIOClient(this.state.endpoint, { transports: ['polling'] });
     }
 
     componentDidMount() {
-        this.emitMessage({user: 'Maxime'}, message_type.CONNECTED)
+        this.emitMessage({ user: 'Maxime' }, message_type.CONNECTED)
 
         //listen server message
         socket.on('connected', (message) => {
@@ -34,7 +34,7 @@ export default class ChatBox extends Component {
     }
 
     emitMessage(message, typeMessage) {
-        socket.emit(typeMessage, {message: message})
+        socket.emit(typeMessage, { message: message })
     }
 
     addNewMessageToList(message) {
@@ -70,7 +70,7 @@ export default class ChatBox extends Component {
     }
 
     render() {
-        const {messageList, newMessagesCount, isOpen} = this.state
+        const { messageList, newMessagesCount, isOpen } = this.state
         return (
             <div className='chat-box'>
                 <Launcher
