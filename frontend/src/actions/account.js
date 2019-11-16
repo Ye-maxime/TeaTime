@@ -45,13 +45,10 @@ export function loginFailure(error) {
 }
 
 export function getAccountInfos() {
-    console.log("getAccountInfos !!!")
     return { type: GET_INFOS }
 }
 
 export function getAccountInfosSuccess(account) {
-    // localStorage.account = JSON.stringify(account);
-    // localStorage.token = token;
     return { type: GET_INFOS_SUCCESS, account }
 }
 

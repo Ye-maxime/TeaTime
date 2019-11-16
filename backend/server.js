@@ -51,7 +51,7 @@ app.use(jwt({ secret: 'secret' }).unless({
   path: [ // 数组中的路径不需要通过jwt验证 
     /^\/v1\/account\/login/,
     /^\/v1\/account\/signup/,
-    /^\/v1\/drinks\/*/, 
+    /^\/v1\/drinks\/*/,
     /^\/v1\/stores\/*/
     // account info not available for no logged user
   ]
@@ -62,7 +62,6 @@ require('./routes')(router)
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.use(require('koa-static')('./build'))
-
 
 database.authenticate()
   .then(() => console.log("database connected "))

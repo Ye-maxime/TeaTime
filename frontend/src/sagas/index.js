@@ -12,6 +12,8 @@ function* getAllDrinks() {
     try {
         const res = yield call(fetch, 'v1/drinks')
         const drinks = yield res.json()
+        console.log("front !!!")
+        console.log(drinks)
         yield put(loadedDrinks(drinks))
     } catch (e) {
         yield put(drinksFailure(e.message))
@@ -125,6 +127,7 @@ function* getOrderDetail(action) {
         const options = {
             method: 'POST',
             headers: new Headers({
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.token}`
             })
         }
@@ -187,15 +190,20 @@ function* getAccountInfomations(action) {
     try {
         const id = Utils.getAccountIdFromLocalStorage();
         if (id) {
-            const data = { id: id }
+            const data = { accountId: id }
             const options = {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: new Headers({
+                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.token}`
                 })
             }
             const res = yield call(fetch, 'v1/account/getAccountInfos', options)
+            if (res.ok === false) {
+                // error comes from the jwt part in backend/server.js 
+                throw Error("getAccountInfomations : No user logged in!!")
+            }
             const result = yield res.json()
             const { ...account } = result;
             console.log(`saga getAccountInfomations account = ${JSON.stringify(account)}`)

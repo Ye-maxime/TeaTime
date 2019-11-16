@@ -15,7 +15,7 @@ export const ACCOUNT_DEFAULT_STATE = {
     loading: false,
     redirect: false,
     error: '',
-    account: { id: '', email: '' }
+    account: { id: '', firstname: '', lastname: '', email: '' }
 }
 
 export default function reducerAccount(state = ACCOUNT_DEFAULT_STATE, action) {
@@ -45,13 +45,15 @@ export default function reducerAccount(state = ACCOUNT_DEFAULT_STATE, action) {
                 ...state,
                 account: action.account,
                 loading: false,
-                redirect: true
+                redirect: false,
+                error: ''
             }
 
         case RESET_REDIRECT_STATE:
             return {
                 ...state,
-                redirect: false
+                redirect: false,
+                error: ''
             }
         default:
             return state

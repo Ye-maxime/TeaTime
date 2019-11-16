@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LeftSideBar from '../components/LeftSideBar'
 import OrderList from "../components/OrderList";
+import AccountInfo from "../components/AccountInfo";
 import '../assets/css/page.css';
 import { FormattedMessage } from 'react-intl';
 import { connect } from "react-redux";
@@ -25,7 +26,7 @@ const tabs = {
 }
 
 const SHOW_TAB_STATES = {
-    1: <h1>My infos</h1>,
+    1: <AccountInfo />,
     2: <OrderList />,
     3: <h1>My payment</h1>,
     4: <h1>My preferences</h1>,
