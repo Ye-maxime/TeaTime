@@ -22,10 +22,15 @@ class AccountInfo extends Component {
         return (
             <div className='container'>
                 <div className="error">{error}</div>
-                <h1>My infos</h1>
-                <h2>firstname: {account.firstname}</h2>
-                <h2>lastname: {account.lastname}</h2>
-                <h2>email: {account.email}</h2>
+                <div className="row">
+                    <div className="col-sm-6 col-md-4 infos">
+                        <h3>{account.firstname} {account.lastname}</h3>
+                        <p>
+                            <i className="fas fa-envelope iconStyle"></i>
+                            {account.email}
+                        </p>
+                    </div>
+                </div>
             </div>
         );
     }

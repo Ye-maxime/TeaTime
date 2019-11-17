@@ -216,3 +216,13 @@
     height: 500px;
     background-color: lightgrey;
 }
+
+/***************************account***************************/
+.infos {
+    text-align: left;
+    margin: 20px;
+}
+
+.iconStyle {
+    margin-right: 10px;
+}

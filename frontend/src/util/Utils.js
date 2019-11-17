@@ -50,4 +50,11 @@ export default class Utils {
         const accountInStorage = localStorage.account && JSON.parse(localStorage.account);
         return accountInStorage && accountInStorage.id;
     }
+
+    static formatOrderDate(dateInString) {
+        const dates = dateInString.split('T');
+        const date = dates[0];
+        const time = dates[1] && dates[1].split('.')[0];
+        return time ? date + ' ' + time : date;
+    }
 };

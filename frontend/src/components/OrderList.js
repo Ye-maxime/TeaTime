@@ -3,13 +3,14 @@ import { connect } from "react-redux";
 import { fetchOrders } from "../actions/orders";
 import OrderDetail from "./OrderDetail";
 import history from '../history';
+import Utils from '../util/Utils';
 
 const Order = ({ order, onClickSeeDetail }) => (
     <div className="card order-item-card">
         <div className="card-body">
             <h5 className="card-title">Order n°{order.uuid}</h5>
             <hr />
-            <p className="card-text order-item-date">Date : {order.createdAt}</p>
+            <p className="card-text order-item-date">Date : {Utils.formatOrderDate(order.createdAt)}</p>
             <div className='row'>
                 <div className='col-md-9'>
                     <p className="card-text order-item-date">Amount : {order.total}€</p>
