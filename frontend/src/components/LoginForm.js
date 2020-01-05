@@ -86,7 +86,10 @@ class LoginForm extends Component {
                             </button>
                         </form>
                     </div>
-                    <div className='dividingLine'></div>
+                    <div className='dividingLine'>
+                    </div>
+                    <hr></hr>
+
                     <div className="col-md-5">
                         <h6 className="subtitle-login">
                             <FormattedMessage

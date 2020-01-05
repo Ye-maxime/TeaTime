@@ -217,6 +217,24 @@
     background-color: lightgrey;
 }
 
+@media only screen and (max-width: 767px) {
+    .dividingLine {
+        display: none;
+    }
+}
+
+hr {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (min-width: 768px) {
+    hr {
+        display: none;
+    }
+}
+
 /***************************account***************************/
 .infos {
     text-align: left;

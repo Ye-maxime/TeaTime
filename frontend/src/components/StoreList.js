@@ -1,22 +1,17 @@
-import React, {Component} from 'react';
-import {fetchStores, showStore, clickStore} from "../actions/stores";
+import React, { Component } from 'react';
+import { fetchStores, showStore, clickStore } from "../actions/stores";
 import { connect } from "react-redux";
-import {Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import StoreMap from "./GoogleMap";
 
-class Store extends Component {
-    render() {
-        const {store, selectedStore, clickStore} = this.props
-        return (
-            <div className={"store-card " + (selectedStore === store.id ? 'storeSelected' : '')} onClick={clickStore}>
-                <p className="store-title">{store.name}</p>
-                <p className="store-text">{store.address}</p>
-                <p className="store-text">{store.telephone}</p>
-                <p className="store-text">{store.openTime}</p>
-            </div>
-        );
-    }
-}
+const Store = ({ store, selectedStore, clickStore }) => (
+    <div className={"store-card " + (selectedStore === store.id ? 'storeSelected' : '')} onClick={clickStore}>
+        <p className="store-title">{store.name}</p>
+        <p className="store-text">{store.address}</p>
+        <p className="store-text">{store.telephone}</p>
+        <p className="store-text">{store.openTime}</p>
+    </div>
+)
 
 class StoreList extends Component {
     componentDidMount() {
@@ -24,14 +19,14 @@ class StoreList extends Component {
     }
 
     render() {
-        const {stores, error, showStore, storeSelected, clickStore} = this.props
+        const { stores, error, showStore, storeSelected, clickStore } = this.props
 
         return (
             <Container className="store-contrainer">
                 <div className="error">{error}</div>
                 <Row className="store-page">
                     <Col>
-                        <StoreMap stores={stores} showStore={showStore} storeSelected={storeSelected}/>
+                        <StoreMap stores={stores} showStore={showStore} storeSelected={storeSelected} />
                     </Col>
                     <Col className="store-list">
                         <div className="store-list-title"> Paris</div>
