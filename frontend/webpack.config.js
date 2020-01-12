@@ -9,7 +9,7 @@ module.exports = {
     entry: path.join(__dirname, '/src/index.js'),
     mode: 'development',
     output: {
-        filename: 'bundle.js',
+        filename: 'bundle.[hash].js',
         path: path.join(__dirname, '/dist')  //会自动打包成一个bundle.js文件 并在index.html里面引用
     },
     module: {
@@ -31,13 +31,51 @@ module.exports = {
             {
                 test: /\.(png|svg|jpg|gif|mp3)$/,
                 use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[ext]',
-                        outputPath: 'img/',
-                        publicPath: 'img/'
-                    }
-                }]
+                        loader: 'url-loader',
+                        options: {
+                            // 具体配置见插件官网
+                            limit: 10000,
+                            name: '[name]-[hash:5].[ext]',
+                            outputPath: 'img/', // outputPath所设置的路径，是相对于 webpack 的输出目录。
+                            publicPath: 'img/'// publicPath 选项则被许多webpack的插件用于在生产模式下更新内嵌到css、html文件内的 url , 如CDN地址
+                        },
+                    },
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            mozjpeg: {
+                                progressive: true,
+                                quality: 65
+                            },
+                            // optipng.enabled: false will disable optipng
+                            optipng: {
+                                enabled: false,
+                            },
+                            pngquant: {
+                                quality: [0.65, 0.90],
+                                speed: 4
+                            },
+                            gifsicle: {
+                                interlaced: false,
+                            },
+                            // the webp option will enable WEBP, bug here!!!
+                            // webp: {  
+                            //     quality: 70
+                            // }
+                        }
+                    }]
+            },
+            {
+                // 字体
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    // 文件大小小于limit参数，url-loader将会把文件转为DataUR
+                    limit: 10000,
+                    name: '[name]-[hash:5].[ext]',
+                    output: 'fonts/',
+                    // publicPath: '', 多用于CDN
+                }
             }
         ]
     },

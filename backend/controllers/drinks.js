@@ -4,6 +4,8 @@ async function findAll(ctx) {
   const drinks = await Drink.findAll({
     raw: true, // raw: true => get only dataValues from Sequelize ORM
   });
+  // 如果想清空这个cache-control, 可以勾选chrome network里面的disable cache！！！
+  ctx.set('Cache-Control', 'public, max-age=3600');
   ctx.body = drinks
 }
 
