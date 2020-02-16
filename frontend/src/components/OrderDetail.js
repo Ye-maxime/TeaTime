@@ -34,7 +34,7 @@ class OrderDetail extends Component {
             <div className='container'>
                 <div className="error">{error}</div>
                 {isLoading ? <div className="spinner-border text-primary" role="status" />
-                    : <div>
+                    : <div className='order-detail-content'>
                         <button className='btn btn-outline-secondary btn-back-to-list'
                             onClick={clickBackToOrderList}>Back to my orders
                         </button>
