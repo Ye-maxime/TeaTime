@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
 module.exports = {
     entry: path.join(__dirname, '/src/index.js'),
@@ -31,39 +32,39 @@ module.exports = {
             {
                 test: /\.(png|svg|jpg|gif|mp3)$/,
                 use: [{
-                        loader: 'url-loader',
-                        options: {
-                            // 具体配置见插件官网
-                            limit: 10000,
-                            name: '[name]-[hash:5].[ext]',
-                            outputPath: 'img/', // outputPath所设置的路径，是相对于 webpack 的输出目录。
-                            publicPath: 'img/'// publicPath 选项则被许多webpack的插件用于在生产模式下更新内嵌到css、html文件内的 url , 如CDN地址
-                        },
+                    loader: 'url-loader',
+                    options: {
+                        // 具体配置见插件官网
+                        limit: 10000,
+                        name: '[name]-[hash:5].[ext]',
+                        outputPath: 'img/', // outputPath所设置的路径，是相对于 webpack 的输出目录。
+                        publicPath: 'img/'// publicPath 选项则被许多webpack的插件用于在生产模式下更新内嵌到css、html文件内的 url , 如CDN地址
                     },
-                    {
-                        loader: 'image-webpack-loader',
-                        options: {
-                            mozjpeg: {
-                                progressive: true,
-                                quality: 65
-                            },
-                            // optipng.enabled: false will disable optipng
-                            optipng: {
-                                enabled: false,
-                            },
-                            pngquant: {
-                                quality: [0.65, 0.90],
-                                speed: 4
-                            },
-                            gifsicle: {
-                                interlaced: false,
-                            },
-                            // the webp option will enable WEBP, bug here!!!
-                            // webp: {  
-                            //     quality: 70
-                            // }
-                        }
-                    }]
+                },
+                {
+                    loader: 'image-webpack-loader',
+                    options: {
+                        mozjpeg: {
+                            progressive: true,
+                            quality: 65
+                        },
+                        // optipng.enabled: false will disable optipng
+                        optipng: {
+                            enabled: false,
+                        },
+                        pngquant: {
+                            quality: [0.65, 0.90],
+                            speed: 4
+                        },
+                        gifsicle: {
+                            interlaced: false,
+                        },
+                        // the webp option will enable WEBP, bug here!!!
+                        // webp: {  
+                        //     quality: 70
+                        // }
+                    }
+                }]
             },
             {
                 // 字体
@@ -108,7 +109,11 @@ module.exports = {
         new OptimizeCssAssetsPlugin({
             assetNameRegExp: /\.css$/g,
             cssProcessor: require('cssnano'), // 引入cssnano配置压缩选项
-        })
+        }),
+        new ServiceWorkerWebpackPlugin({
+            entry: path.join(__dirname, '/src/serviceworker/sw.js'),
+            excludes: ['**/.*', '**/*.map', '*.html'],
+        }),
     ],
     optimization: {
         minimize: true, //production 模式下，这里默认是 true
@@ -125,10 +130,10 @@ module.exports = {
         // contentBase: path.join(__dirname, '/dist'),
         historyApiFallback: true,
         compress: true,
-        // port: 8080,
+        port: 8080,  //Project is running at http://localhost:8080/   控制浏览器url的端口
         proxy: {
             '/v1/**': {
-                target: 'http://localhost:4000/',  //http://localhost:8080/v1/...会被代理到请求 http://localhost:4000/v1/...
+                target: 'http://localhost:4000/',  //http://localhost:8080/v1/...会被代理到请求 http://localhost:4000/v1/...  不行改成google.com试下
             }
         }
     }
