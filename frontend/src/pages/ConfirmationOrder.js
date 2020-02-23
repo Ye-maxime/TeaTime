@@ -18,10 +18,8 @@ class ConfirmationOrder extends Component {
     }
 }
 
-const mapStateToProps = (state) => { }
-
 const mapDispatchToProps = {
     cleanCart
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConfirmationOrder)
+export default connect(null, mapDispatchToProps)(ConfirmationOrder)
