@@ -5,7 +5,7 @@ import { FETCH_ORDERS, ADD_ORDER, loadedOrders, addOrderSuccess, ordersFailure }
 import { FETCH_ORDER_DETAIL, loadedOrderDetail, orderDetailFailure } from "../actions/orderDetail";
 import { SIGN_UP, signupSuccess, signupFailure, GET_INFOS, getAccountInfosSuccess, getAccountInfosFailure, LOGIN, loginSuccess, loginFailure } from "../actions/account";
 import Utils from '../util/Utils';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
 //**********************Drinks*************************
 function* getAllDrinks() {
@@ -97,29 +97,29 @@ function* getAllOrders(action) {
     }
 }
 
-function* saveOrder(action) {
-    try {
-        const id = Utils.getAccountIdFromLocalStorage();
-        if (id) {
-            action.data.accountId = id;
-            const options = {
-                method: 'POST',
-                body: JSON.stringify(action.data),
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.token}`
-                })
-            }
-            const res = yield call(fetch, 'v1/orders/saveOrder', options)
-            const order = yield res.json()
-            yield put(addOrderSuccess(order))
-        } else {
-            throw Error("saveOrder : No user logged in!!")
-        }
-    } catch (e) {
-        yield put(ordersFailure(e.message))
-    }
-}
+// function* saveOrder(action) {
+//     try {
+//         const id = Utils.getAccountIdFromLocalStorage();
+//         if (id) {
+//             action.data.accountId = id;
+//             const options = {
+//                 method: 'POST',
+//                 body: JSON.stringify(action.data),
+//                 headers: new Headers({
+//                     'Content-Type': 'application/json',
+//                     'Authorization': `Bearer ${localStorage.token}`
+//                 })
+//             }
+//             const res = yield call(fetch, 'v1/orders/saveOrder', options)
+//             const order = yield res.json()
+//             yield put(addOrderSuccess(order))
+//         } else {
+//             throw Error("saveOrder : No user logged in!!")
+//         }
+//     } catch (e) {
+//         yield put(ordersFailure(e.message))
+//     }
+// }
 
 //**********************OrderDetail*************************
 function* getOrderDetail(action) {
@@ -232,7 +232,7 @@ function* rootSaga() {
 
     //********************orders*****************
     yield takeLatest(FETCH_ORDERS, getAllOrders);
-    yield takeLatest(ADD_ORDER, saveOrder);
+    // yield takeLatest(ADD_ORDER, saveOrder);
 
     //********************order_detail*****************
     yield takeLatest(FETCH_ORDER_DETAIL, getOrderDetail);

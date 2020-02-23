@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { changeQuantity, removeFromCart, cleanCart } from '../actions/shoppingCart'
-import { addOrder } from "../actions/orders";
+import { changeQuantity, removeFromCart } from '../actions/shoppingCart'
 import { Link } from 'react-router-dom';
 import { getCorrespondDrinkImage } from "../util/ComponentUtil";
 
@@ -63,12 +62,6 @@ class Product extends Component {
 
 
 class ShoppingCartList extends Component {
-    checkout() {
-        const { products, total, addOrder, cleanCart } = this.props
-        addOrder(products, total)
-        cleanCart()
-    }
-
     render() {
         const { products, total, changeQuantity, removeFromCart } = this.props
         return (
@@ -112,10 +105,10 @@ class ShoppingCartList extends Component {
                                         </Link>
                                     </td>
                                     <td>
-                                        <Link to={'/account'}>
-                                            <button type="button" className="btn btn-success"
-                                                onClick={this.checkout.bind(this)}>
-                                                Checkout <span className="fa fa-arrow-circle-right"></span>
+                                        <Link to={'/onepagecheckout'}>
+                                            <button type="button" className="btn btn-success">
+                                                Checkout
+                                                <span className="fa fa-arrow-circle-right"></span>
                                             </button>
                                         </Link>
                                     </td>
@@ -141,8 +134,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     removeFromCart,
     changeQuantity,
-    addOrder,
-    cleanCart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCartList)

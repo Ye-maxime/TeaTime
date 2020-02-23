@@ -249,3 +249,24 @@ hr {
 .iconStyle {
     margin-right: 10px;
 }
+
+/***************************onepagecheckout***************************/
+.checkout-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0 10px;
+}
+
+.btn-place-order {
+    width: fit-content;
+}
+
+.checkout-summary {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0 10px;
+}
