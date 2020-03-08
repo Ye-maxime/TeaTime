@@ -36,7 +36,7 @@ class CheckoutForm extends Component {
                     // Call your server to save the transaction
                     const id = Utils.getAccountIdFromLocalStorage();
                     if (id) {
-                        return fetch('v1/orders/saveOrder', {
+                        return fetch('http://localhost:4000/v1/orders/saveOrder', {
                             method: 'post',
                             headers: {
                                 'content-type': 'application/json',

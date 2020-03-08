@@ -2,6 +2,7 @@ const amqp = require('amqplib/callback_api');
 const RabbitmqConstants = require('./RabbitmqConstants');
 
 function connectConRabbitmq() {
+    console.log('Rabbitmq consumer start !!!');
     amqp.connect(RabbitmqConstants.CONN_URL, (connError, connection) => {
         if (connError) {
             console.log('consumer connError: ', connError);

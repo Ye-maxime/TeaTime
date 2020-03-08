@@ -29,6 +29,7 @@ async function create(ctx) {
             await newOrder.addDrink(productInDatabase, { through: { quantity: product.quantity } })
         })
 
+        console.log('OrderController create !!');
         // publish placed order message to rabbitmq
         await publishToQueue(RabbitmqConstants.QUEUE_NAME, `orderId: ${newOrder.uuid}`);
         ctx.body = newOrder;

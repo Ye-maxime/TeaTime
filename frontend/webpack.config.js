@@ -126,7 +126,7 @@ module.exports = {
             }),
         ]
     },
-    devServer: {
+    devServer: { //本地开发环境（webpack-dev-server）
         // contentBase: path.join(__dirname, '/dist'),
         historyApiFallback: true,
         compress: true,

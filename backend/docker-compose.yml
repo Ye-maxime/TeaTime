@@ -1,0 +1,25 @@
+#暂时无用，只是为了单个调试用！！！！！！！！！！！
+version: '3.1'
+services:
+  teatime-server: #后端项目的service name
+    container_name: server #容器名称
+    restart: always
+    build: . #根据backend目录 (也就是当前目录)下面的Dockerfile构建镜像
+    ports:
+      - '8081:4000'
+    links:
+      - postgres
+      - redis
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+        POSTGRES_PASSWORD: root
+    ports:
+      - '5433:5432' #访问本地 localhost 5433端口即可访问容器内5432端口
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - 6389:6379

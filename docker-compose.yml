@@ -1,0 +1,69 @@
+version: '3'
+services:
+  teatime-client:
+    container_name: client  #容器名称
+    image: nginx  #指定镜像
+    restart: always
+    ports:
+        - 8082:8082
+    volumes: 
+        - ./nginx.conf:/etc/nginx/nginx.conf  #挂载nginx配置
+        - ./frontend/dist:/usr/share/nginx/html/    #挂载dist文件夹项目  
+    depends_on:
+        - teatime-server
+    networks:
+        - app-test
+  teatime-server: #后端项目的service name
+    container_name: server #容器名称
+    restart: always
+    build: ./backend #根据backend目录 (也就是当前目录)下面的Dockerfile构建镜像
+    environment:
+        # DATABASE_URL: postgres://postgres:root@postgres:5432/teatime
+        DB_HOST: postgres
+        REDIS_HOST: redis
+        WAIT_HOSTS: postgres:5432, redis:6379, rabbitmq:15672, rabbitmq:5672
+    depends_on:
+        - postgres
+        - redis
+        - rabbitmq
+    ports:
+        - 4000:4000
+    networks:
+        - app-test
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+        POSTGRES_DB: teatime
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: root
+    ports:
+        - '5433:5432' #访问本地 localhost 5433端口即可访问容器内5432端口
+    networks:
+        - app-test
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+        - 6389:6379 #容器的6379端口映射到了本机的6389
+    networks:
+        - app-test
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    environment:
+        - RABBITMQ_DEFAULT_USER=guest
+        - RABBITMQ_DEFAULT_PASS=Yzm217930
+    restart: always
+    ports:
+        - 15672:15672
+        - 5672:5672
+    networks:
+        - app-test
+
+networks:
+    app-test:
+        driver: bridge

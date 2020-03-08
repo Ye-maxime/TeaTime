@@ -9,11 +9,11 @@ export const DELETE_DRINK = 'DELETE_DRINK'
 
 // action creators
 export function fetchDrinks() {
-    return {type: FETCH_DRINKS}
+    return { type: FETCH_DRINKS }
 }
 
 export function loadedDrinks(drinks) {
-    return {type: LOADED_DRINKS, drinks}
+    return { type: LOADED_DRINKS, drinks }
 }
 
 export function addDrink(drink) {
@@ -25,13 +25,13 @@ export function addDrinkSuccess(drink) {
 }
 
 export function drinksFailure(error) {
-    return {type: DRINKS_FAILURE, error}
+    return { type: DRINKS_FAILURE, error }
 }
 
 export function toggleDrink(id) {
-    return {type: TOGGLE_DRINK, id}
+    return { type: TOGGLE_DRINK, id }
 }
 
 export function deleteDrink(id) {
-    return {type: DELETE_DRINK, id}
+    return { type: DELETE_DRINK, id }
 }
