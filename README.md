@@ -9,3 +9,5 @@
 ## Start application
 - root repository
   - npm run start
+
+![image](https://github.com/Ye-maxime/Teatime/blob/master/ProjectAssets/architecture.png)
