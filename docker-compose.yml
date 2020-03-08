@@ -11,17 +11,16 @@ services:
         - ./frontend/dist:/usr/share/nginx/html/    #挂载dist文件夹项目  
     depends_on:
         - teatime-server
-    networks:
+    networks: #所有的container都通过这个network来进行通信
         - app-test
   teatime-server: #后端项目的service name
     container_name: server #容器名称
     restart: always
     build: ./backend #根据backend目录 (也就是当前目录)下面的Dockerfile构建镜像
     environment:
-        # DATABASE_URL: postgres://postgres:root@postgres:5432/teatime
-        DB_HOST: postgres
-        REDIS_HOST: redis
-        WAIT_HOSTS: postgres:5432, redis:6379, rabbitmq:15672, rabbitmq:5672
+        DB_HOST: postgres #process.env.DB_HOST
+        REDIS_HOST: redis #process.env.REDIS_HOST
+        WAIT_HOSTS: postgres:5432, redis:6379, rabbitmq:15672, rabbitmq:5672 #等待这几个container先加载好，再去加载server这个container
     depends_on:
         - postgres
         - redis
@@ -64,6 +63,6 @@ services:
     networks:
         - app-test
 
-networks:
+networks: #创建网络
     app-test:
         driver: bridge
