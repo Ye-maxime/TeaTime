@@ -8,4 +8,4 @@
 
 ## Start application
 - root repository
-  - npm start
+  - npm run start
