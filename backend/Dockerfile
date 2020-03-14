@@ -2,6 +2,7 @@ FROM node:latest
 
 WORKDIR /usr/src/app
 
+# 首次添加package.json 和 package-lock.json两个文件，充分利用缓存
 COPY package*.json ./
 
 RUN npm install
