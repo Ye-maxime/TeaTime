@@ -2,7 +2,6 @@
 // https://developers.google.com/web/fundamentals/primers/service-workers
 // https://github.com/oliviertassinari/serviceworker-webpack-plugin
 // service worker目的: 无网络情况下 从缓存读取文件 显示页面 
-const DEBUG = false;
 
 // When the user navigates to your site,
 // the browser tries to redownload the script file that defined the service
@@ -22,9 +21,7 @@ assetsToCache = assetsToCache.map(path => {
 // When the service worker is first added to a computer.
 self.addEventListener('install', event => {
     // Perform install steps.
-    if (DEBUG) {
-        console.log(`[SW] install!!!!`);
-    }
+    console.log(`[SW] install!!!!`);
 
     // Add core website files to cache during serviceworker installation.  
     // global => Node.js 全局对象
@@ -35,9 +32,7 @@ self.addEventListener('install', event => {
                 return cache.addAll(assetsToCache);
             })
             .then(() => {
-                if (DEBUG) {
-                    console.log('Cached assets: main', assetsToCache);
-                }
+                console.log('[SW] Cached assets: main', assetsToCache);
             })
             .catch(error => {
                 console.error(error);
@@ -48,9 +43,7 @@ self.addEventListener('install', event => {
 
 // After the install event.
 self.addEventListener('activate', event => {
-    if (DEBUG) {
-        console.log(`[SW] activate!!!!`);
-    }
+    console.log(`[SW] activate!!!!`);
 
     // Clean the caches
     event.waitUntil(
@@ -68,9 +61,7 @@ self.addEventListener('activate', event => {
 })
 
 self.addEventListener('message', event => {
-    if (DEBUG) {
-        console.log(`[SW] message!!!!`);
-    }
+    console.log(`[SW] message!!!!`);
     switch (event.data.action) {
         case 'skipWaiting':
             if (self.skipWaiting) {
@@ -85,16 +76,12 @@ self.addEventListener('message', event => {
 
 self.addEventListener('fetch', event => {
     //在安装 Service Worker 且用户转至其他页面或刷新当前页面后，Service Worker 将开始接收 fetch 事件
-    if (DEBUG) {
-        console.log(`[SW] fetch!!!!`);
-    }
+    console.log(`[SW] fetch!!!!`);
     const request = event.request;
 
     // Ignore not GET request.
     if (request.method !== 'GET') {
-        if (DEBUG) {
-            console.log(`[SW] Ignore non GET request ${request.method}`);
-        }
+        console.log(`[SW] Ignore non GET request ${request.method}`);
         return;
     }
 
@@ -102,9 +89,7 @@ self.addEventListener('fetch', event => {
 
     // Ignore difference origin.
     if (requestUrl.origin !== location.origin) {
-        if (DEBUG) {
-            console.log(`[SW] Ignore difference origin ${requestUrl.origin}`);
-        }
+        console.log(`[SW] Ignore difference origin ${requestUrl.origin}`);
         return;
     }
 
@@ -113,10 +98,7 @@ self.addEventListener('fetch', event => {
 
         if (response) {
             // 匹配到已有的cache 是在chrome => application => cache storage 找到所有被缓存的文件!!!
-            if (DEBUG) {
-                console.log(`[SW] fetch URL ${requestUrl.href} from cache`);
-            }
-
+            console.log(`[SW] fetch URL ${requestUrl.href} from cache`);
             return response;
         }
 
@@ -126,17 +108,12 @@ self.addEventListener('fetch', event => {
             .then(responseNetwork => {
                 // Check if we received a valid response
                 if (!responseNetwork || !responseNetwork.ok) {
-                    if (DEBUG) {
-                        console.log(`[SW] URL [${requestUrl.toString()}] wrong responseNetwork: ${responseNetwork.status} ${responseNetwork.type}`);
-                    }
+                    console.log(`[SW] URL [${requestUrl.toString()}] wrong responseNetwork: ${responseNetwork.status} ${responseNetwork.type}`);
 
                     return responseNetwork;
                 }
 
-                if (DEBUG) {
-                    console.log(`[SW] URL ${requestUrl.href} fetched`);
-                }
-
+                console.log(`[SW] URL ${requestUrl.href} fetched`);
                 const responseCache = responseNetwork.clone();
 
                 global.caches
@@ -145,9 +122,7 @@ self.addEventListener('fetch', event => {
                         return cache.put(request, responseCache);
                     })
                     .then(() => {
-                        if (DEBUG) {
-                            console.log(`[SW] Cache asset: ${requestUrl.href}`);
-                        }
+                        console.log(`[SW] Cache asset: ${requestUrl.href}`);
                     })
 
                 return responseNetwork;

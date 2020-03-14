@@ -1,4 +1,4 @@
-const { Drink } = require('../models/index')
+const { Drink } = require('../models/index');
 
 async function findAll(ctx) {
     const drinks = await Drink.findAll({
@@ -6,12 +6,12 @@ async function findAll(ctx) {
     });
     // 如果想清空这个cache-control, 可以勾选chrome network里面的disable cache！！！
     ctx.set('Cache-Control', 'public, max-age=3600');
-    ctx.body = drinks
+    ctx.body = drinks;
 }
 
 async function create(ctx) {
-    const newDrink = await Drink.create({ name: ctx.request.body.name, price: 12, collection: 'LULU' })
-    ctx.body = newDrink
+    const newDrink = await Drink.create({ name: ctx.request.body.name, price: 12, collection: 'LULU' });
+    ctx.body = newDrink;
 }
 
 // async function destroy (ctx) {

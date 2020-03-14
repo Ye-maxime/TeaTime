@@ -35,8 +35,8 @@ module.exports = {
                     loader: 'url-loader',
                     options: {
                         // 具体配置见插件官网
-                        limit: 10000,
-                        name: '[name]-[hash:5].[ext]',
+                        limit: 15000, //表示低于16000字节（15KB）的图片会以 base64编码, 大于则不打包
+                        name: '[name]-[hash:5].[ext]', // 输出的文件名称, 其中【ext】占位符是 表示文件的后缀名的
                         outputPath: 'img/', // outputPath所设置的路径，是相对于 webpack 的输出目录。
                         publicPath: 'img/'// publicPath 选项则被许多webpack的插件用于在生产模式下更新内嵌到css、html文件内的 url , 如CDN地址
                     },
@@ -99,7 +99,7 @@ module.exports = {
             },
             chunksSortMode: 'dependency'
         }),
-        new CleanWebpackPlugin(),
+        new CleanWebpackPlugin(), //每次打包前清空dist目录
         // 打包导出 CSS 到独立文件 main.css
         new MiniCssExtractPlugin({
             filename: "[name].css",
@@ -111,7 +111,9 @@ module.exports = {
             cssProcessor: require('cssnano'), // 引入cssnano配置压缩选项
         }),
         new ServiceWorkerWebpackPlugin({
-            entry: path.join(__dirname, '/src/serviceworker/sw.js'),
+            entry: path.join(__dirname, '/src/serviceworker/sw.js'), 
+            //自定义的sw.js文件所在路径, ServiceWorkerWebpackPlugin 会把要cache的文件列表(其实即使dist目录所有文件)注入到生成的dist目录下的 sw.js 中
+            //这样子frontend/src/serviceworker/registerServiceWorker.js中的sw.js就会指向dist目录下的sw.js文件
             excludes: ['**/.*', '**/*.map', '*.html'],
         }),
     ],

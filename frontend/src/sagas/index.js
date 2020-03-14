@@ -12,8 +12,6 @@ function* getAllDrinks() {
     try {
         const res = yield call(fetch, 'http://localhost:4000/v1/drinks')
         const drinks = yield res.json()
-        console.log("front !!!")
-        console.log(drinks)
         yield put(loadedDrinks(drinks))
     } catch (e) {
         yield put(drinksFailure(e.message))
