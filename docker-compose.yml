@@ -59,8 +59,8 @@ services:
         RABBITMQ_DEFAULT_PASS: guest #rabbitmq浏览器登录界面输入的密码
     restart: always
     ports:
-        - 15672:15672
-        - 5672:5672
+        - 15673:15672
+        - 5673:5672
     networks:
         - app-test
 
