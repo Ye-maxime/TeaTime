@@ -20,8 +20,9 @@ services:
     environment:
         DB_HOST: postgres #process.env.DB_HOST
         REDIS_HOST: redis #process.env.REDIS_HOST
+        WAIT_BEFORE_HOSTS: 20 #server 等待20秒后再开启
         WAIT_HOSTS: postgres:5432, redis:6379, rabbitmq:15672, rabbitmq:5672 #等待这几个container先加载好，再去加载server这个container
-    depends_on:
+    depends_on: #在启动web这个容器前，并不会等待postgres,redis, rabbitmq容器进入ready状态，而只是等到它们被启动状态了。
         - postgres
         - redis
         - rabbitmq
@@ -54,8 +55,8 @@ services:
     image: rabbitmq:management
     container_name: rabbitmq
     environment:
-        - RABBITMQ_DEFAULT_USER=guest
-        - RABBITMQ_DEFAULT_PASS=Yzm217930
+        RABBITMQ_DEFAULT_USER: guest
+        RABBITMQ_DEFAULT_PASS: guest #rabbitmq浏览器登录界面输入的密码
     restart: always
     ports:
         - 15672:15672
