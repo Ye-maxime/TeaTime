@@ -15,6 +15,6 @@ EXPOSE 4000
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
 RUN chmod +x /wait
 
-CMD /wait && npm run dev
+CMD /wait && npm run start
 # 该wait命令是为了可以在 Teatime/docker-compose.yml 里面使得server在redis 和postgres 执行好之后再执行
 # https://dev.to/hugodias/wait-for-mongodb-to-start-on-docker-3h8b

@@ -1,7 +1,7 @@
-require('dotenv').config();
 const { app } = require('./server')
+const config = require('./config/config');
 
-const port = process.env.PORT || 4000
+const port = config.port || 4000
 const server = app.listen(port, () => console.log(`API server started on ${port}`))
 
 //socket.io instantiation

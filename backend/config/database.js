@@ -1,14 +1,17 @@
 const Sequelize = require('sequelize');
 const config = require('./config');
 
-module.exports =  new Sequelize(config.database, config.username, config.password, {
-  host: process.env.DB_HOST || 'localhost',
-  dialect: 'postgres',
+console.log(`all environment variables!!! nodeEnv = ${config.nodeEnv}, dbHost = ${config.dbHost}, 
+redisHost = ${config.redisHost}, rabbitmqConnURL=${config.rabbitmqConnURL}`);
 
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
+module.exports = new Sequelize(config.dbName, config.dbUserName, config.dbUserPwd, {
+    host: config.dbHost || 'localhost',
+    dialect: 'postgres',
+
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    },
 });
