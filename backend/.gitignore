@@ -9,6 +9,8 @@ npm-debug.log*
 
 # dotenv
 .env
+.env.development
+.env.production
 
 # Runtime data
 pids
