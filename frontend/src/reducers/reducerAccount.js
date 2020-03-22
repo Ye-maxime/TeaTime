@@ -14,7 +14,9 @@ import {
 export const ACCOUNT_DEFAULT_STATE = {
     loading: false,
     redirect: false,
-    error: '',
+    errorSignUp: '',
+    errorLogin: '',
+    errorAccountInfo: '',
     account: { id: '', firstname: '', lastname: '', email: '' }
 }
 
@@ -23,7 +25,7 @@ export default function reducerAccount(state = ACCOUNT_DEFAULT_STATE, action) {
         case SIGN_UP:
         case LOGIN:
         case GET_INFOS:
-            return { ...state, loading: true, redirect: false, error: '' }
+            return { ...state, loading: true, redirect: false, errorSignUp: '', errorLogin: '', errorAccountInfo: '' }
 
         case SIGN_UP_SUCCESS:
         case LOGIN_SUCCESS:
@@ -32,13 +34,14 @@ export default function reducerAccount(state = ACCOUNT_DEFAULT_STATE, action) {
                 account: action.account,
                 loading: false,
                 redirect: true,
-                error: ''
             }
 
         case SIGN_UP_FAILURE:
+            return { ...state, loading: false, redirect: false, errorSignUp: action.error }
         case LOGIN_FAILURE:
+            return { ...state, loading: false, redirect: false, errorLogin: action.error }
         case GET_INFOS_FAILURE:
-            return { ...state, loading: false, redirect: false, error: action.error }
+            return { ...state, loading: false, redirect: false, errorAccountInfo: action.error }
 
         case GET_INFOS_SUCCESS:
             return {
@@ -46,14 +49,12 @@ export default function reducerAccount(state = ACCOUNT_DEFAULT_STATE, action) {
                 account: action.account,
                 loading: false,
                 redirect: false,
-                error: ''
             }
 
         case RESET_REDIRECT_STATE:
             return {
                 ...state,
                 redirect: false,
-                error: ''
             }
         default:
             return state

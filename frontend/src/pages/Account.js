@@ -87,7 +87,7 @@ class Account extends Component {
 
     render() {
         const { tabSelectedId, tabList } = this.state
-        const { account, error, isLoading } = this.props
+        const { account, isLoading } = this.props
         return (
             <div className='container' style={{ marginTop: '60px' }}>
                 <div className='row'>
@@ -110,7 +110,6 @@ class Account extends Component {
 const mapStateToProps = (state) => { //state is from store (type: ACCOUNT_DEFAULT_STATE)
     return {
         account: state.account.account,
-        error: state.account.error,
         isLoading: state.account.loading,
         redirect: state.account.redirect
     }

@@ -9,7 +9,7 @@ class AccountInfo extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.error) {
+        if (this.props.errorAccountInfo) {
             this.props.resetRedirectState();
             // user not logged in
             history.push('/login');
@@ -18,10 +18,10 @@ class AccountInfo extends Component {
 
     render() {
         // let { showDetail, currentOrderId } = this.state
-        const { account, error, isLoading } = this.props
+        const { account, errorAccountInfo, isLoading } = this.props
         return (
             <div className='container'>
-                <div className="error">{error}</div>
+                <div className="error">{errorAccountInfo}</div>
                 <div className="row">
                     <div className="col-sm-6 col-md-4 infos">
                         <h3>{account.firstname} {account.lastname}</h3>
@@ -39,7 +39,7 @@ class AccountInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         account: state.account.account,
-        error: state.account.error,
+        errorAccountInfo: state.account.errorAccountInfo, // error of getting account infos from backend
         isLoading: state.account.loading
     }
 }

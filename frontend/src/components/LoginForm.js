@@ -55,7 +55,7 @@ class LoginForm extends Component {
 
     render() {
         let { signUpFirstname, signUpLastname, signUpEmail, signUpPassword, confirmPassword, loginEmail, loginPassword, errorMsgSignUp, errorMsgLogin } = this.state;
-        const { account, error, isLoading, redirect } = this.props;
+        const { account, errorSignUp, errorLogin, isLoading, redirect } = this.props;
         return (
             <div className="container">
                 <div className="row row-form">
@@ -70,8 +70,7 @@ class LoginForm extends Component {
                                 id='loginForm.title'
                                 defaultMessage='DEFAULT' />
                         </h4>
-                        <div className="error">{error}</div>
-                        <div className="error">{errorMsgLogin}</div>
+                        <div className="error">{errorMsgLogin || errorLogin}</div>
                         <form className="form-login" onSubmit={this.login.bind(this)}>
                             <input className="form-control input-login"
                                 value={loginEmail}
@@ -101,8 +100,7 @@ class LoginForm extends Component {
                                 id='register.title'
                                 defaultMessage='DEFAULT' />
                         </h4>
-                        <div className="error">{error}</div>
-                        <div className="error">{errorMsgSignUp}</div>
+                        <div className="error">{errorMsgSignUp || errorSignUp}</div>
                         <form className="form-login" onSubmit={this.signup.bind(this)}>
                             <input className="form-control input-login"
                                 value={signUpFirstname}
@@ -138,7 +136,8 @@ class LoginForm extends Component {
 const mapStateToProps = (state) => { //state is from store (type: ACCOUNT_DEFAULT_STATE)
     return {
         account: state.account.account,
-        error: state.account.error,
+        errorSignUp: state.account.errorSignUp, // error of sign up from backend
+        errorLogin: state.account.errorLogin, // error of login from backend
         isLoading: state.account.loading,
         redirect: state.account.redirect
     }
