@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
 module.exports = {
@@ -111,11 +112,13 @@ module.exports = {
             cssProcessor: require('cssnano'), // 引入cssnano配置压缩选项
         }),
         new ServiceWorkerWebpackPlugin({
-            entry: path.join(__dirname, '/src/serviceworker/sw.js'), 
+            entry: path.join(__dirname, '/src/serviceworker/sw.js'),
             //自定义的sw.js文件所在路径, ServiceWorkerWebpackPlugin 会把要cache的文件列表(其实即使dist目录所有文件)注入到生成的dist目录下的 sw.js 中
             //这样子frontend/src/serviceworker/registerServiceWorker.js中的sw.js就会指向dist目录下的sw.js文件
             excludes: ['**/.*', '**/*.map', '*.html'],
         }),
+        // 针对manifest.json 文件
+        new ManifestPlugin()
     ],
     optimization: {
         minimize: true, //production 模式下，这里默认是 true
@@ -128,7 +131,7 @@ module.exports = {
             }),
         ]
     },
-    devServer: { //本地开发环境（webpack-dev-server）
+    devServer: { //本地开发环境（webpack-dev-server）对应于frontend/package.json  start
         // contentBase: path.join(__dirname, '/dist'),
         historyApiFallback: true,
         compress: true,
