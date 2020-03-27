@@ -66,59 +66,55 @@ class ShoppingCartList extends Component {
         const { products, total, changeQuantity, removeFromCart } = this.props
         return (
             <div className='container'>
-                <div className='row'>
-                    <div className="col-sm-12 col-md-12 col-md-offset-1">
-                        {products.length > 0 ? <table className="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th className="text-center">Price</th>
-                                    <th className="text-center">Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {products.map((product) =>
-                                    <Product
-                                        key={product.name}
-                                        product={product}
-                                        onRemoveFromCart={() => removeFromCart(product)}
-                                        onChangeQuantity={(pro) => changeQuantity(pro)}
-                                    />)}
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><h3>Total</h3></td>
-                                    <td className="text-right"><h3><strong>{total}€</strong></h3></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <Link to={'/'}>
-                                            <button type="button" className="btn btn-info">
-                                                Continue Shopping
+                {products.length > 0 ? <table className="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th className="text-center">Price</th>
+                            <th className="text-center">Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {products.map((product) =>
+                            <Product
+                                key={product.name}
+                                product={product}
+                                onRemoveFromCart={() => removeFromCart(product)}
+                                onChangeQuantity={(pro) => changeQuantity(pro)}
+                            />)}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><h3>Total</h3></td>
+                            <td className="text-right"><h3><strong>{total}€</strong></h3></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <Link to={'/'}>
+                                    <button type="button" className="btn btn-info">
+                                        Continue Shopping
                                             </button>
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={'/onepagecheckout'}>
-                                            <button type="button" className="btn btn-success">
-                                                Checkout
+                                </Link>
+                            </td>
+                            <td>
+                                <Link to={'/onepagecheckout'}>
+                                    <button type="button" className="btn btn-success">
+                                        Checkout
                                                 <span className="fa fa-arrow-circle-right"></span>
-                                            </button>
-                                        </Link>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                            : <h3>Your cart is currently empty</h3>
-                        }
-                    </div>
-                </div>
+                                    </button>
+                                </Link>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                    : <h3>Your cart is currently empty</h3>
+                }
             </div>
         );
     }

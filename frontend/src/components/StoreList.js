@@ -22,7 +22,7 @@ class StoreList extends Component {
         const { stores, error, showStore, storeSelected, clickStore } = this.props
 
         return (
-            <Container className="store-contrainer">
+            <Container>
                 <div className="error">{error}</div>
                 <div className="store-page">
                     <div className="col-md-5 store-map">
