@@ -4,7 +4,7 @@ import LoginForm from '../components/LoginForm'
 export default class Login extends Component {
     render() {
         return (
-            <div style={{marginTop: '60px'}}>
+            <div className="custom-content">
                 <LoginForm />
             </div>
         );

@@ -24,24 +24,22 @@ class StoreList extends Component {
         return (
             <Container className="store-contrainer">
                 <div className="error">{error}</div>
-                <Row className="store-page">
-                    <Col>
+                <div className="store-page">
+                    <div className="col-md-5 store-map">
                         <StoreMap stores={stores} showStore={showStore} storeSelected={storeSelected} />
-                    </Col>
-                    <Col className="store-list">
+                    </div>
+                    <div className="col-md-5 store-list">
                         <div className="store-list-title"> Paris</div>
-                        <Row className="store-list">
-                            {stores.map((store) =>
-                                <Store
-                                    key={store.id}
-                                    id={store.id}
-                                    store={store}
-                                    selectedStore={storeSelected}
-                                    clickStore={() => clickStore(store)}
-                                />)}
-                        </Row>
-                    </Col>
-                </Row>
+                        {stores.map((store) =>
+                            <Store
+                                key={store.id}
+                                id={store.id}
+                                store={store}
+                                selectedStore={storeSelected}
+                                clickStore={() => clickStore(store)}
+                            />)}
+                    </div>
+                </div>
             </Container>
         );
     }

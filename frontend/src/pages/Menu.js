@@ -3,7 +3,7 @@ import MenuList from '../components/MenuList';
 export default class Menu extends Component {
     render() {
         return (
-            <div>
+            <div className="custom-content">
                 <MenuList/>
             </div>
         );

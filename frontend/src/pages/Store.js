@@ -4,7 +4,7 @@ import StoreList from '../components/StoreList'
 export default class Store extends Component {
     render() {
         return (
-            <div style={{marginTop: '60px'}}>
+            <div className="custom-content">
                 <StoreList/>
             </div>
         );

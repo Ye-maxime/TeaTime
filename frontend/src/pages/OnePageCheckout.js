@@ -4,7 +4,7 @@ import CheckoutForm from '../components/CheckoutForm'
 export default class OnePageCheckout extends Component {
     render() {
         return (
-            <div style={{marginTop: '100px'}}>
+            <div className="custom-content">
                 <CheckoutForm/>
             </div>
         );

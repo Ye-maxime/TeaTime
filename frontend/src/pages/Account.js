@@ -89,7 +89,7 @@ class Account extends Component {
         const { tabSelectedId, tabList } = this.state
         const { account, isLoading } = this.props
         return (
-            <div className='container' style={{ marginTop: '60px' }}>
+            <div className='container custom-content'>
                 <div className='row'>
                     <div className='col-md-4'>
                         <LeftSideBar

@@ -9,7 +9,7 @@ class ConfirmationOrder extends Component {
 
     render() {
         return (
-            <div style={{ marginTop: '100px' }}>
+            <div className="custom-content">
                 Confirmation of your order {this.props.location.state.orderId}.
                 <br></br>
                 Thanks for your purchase!

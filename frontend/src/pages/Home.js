@@ -4,7 +4,7 @@ import DrinkList from '../components/DrinkList'
 export default class Home extends Component {
     render() {
         return (
-            <div>
+            <div className="custom-content">
                 <DrinkList />
             </div>
         );

@@ -78,6 +78,10 @@
     }
 }
 
+.custom-content {
+    margin-top: 120px;
+}
+
 /***************************menu***************************/
 .menuTitle {
     margin: 10px 0 50px;
@@ -172,13 +176,11 @@
 
 /***************************store***************************/
 .store-card {
-    width: 23rem;
     float: left;
     margin: 20px;
 }
 
 .store-list-title {
-    position: absolute;
     left: 20px;
     font-size: 30px;
 }
@@ -186,6 +188,12 @@
 .store-list {
     margin-top: 30px;
     left: 100px;
+}
+
+@media only screen and (max-width: 767px) {
+    .store-list {
+        left: 0;
+    }
 }
 
 .store-title {
@@ -204,17 +212,26 @@
 }
 
 .store-page {
+    display: flex;
+    flex-wrap: wrap;
     height: 80vh;
     margin-bottom: 30px;
-}
-
-.store-contrainer {
-    max-width: 1519px !important;
 }
 
 .mapStyles {
     width: 100%;
     height: 100%;
+}
+
+.store-map {
+    height: 60%;
+    width: 90%;
+}
+
+@media only screen and (max-width: 767px) {
+    .store-map {
+        height: 40%;
+    }
 }
 
 /***************************chat box***************************/
