@@ -1,4 +1,6 @@
 /***************************account***************************/
 .account-tab-content {
     padding: 0rem;
+    height: 76vh;
+    overflow-y: scroll;
 }

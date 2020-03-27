@@ -40,12 +40,15 @@ class Navbar extends Component {
         };
 
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-light">
                 <Link to={'/'} className="navbar-brand">
                     <img src={teatime_logo} className='rounded'
                         alt="teatime logo" width="150" height="60" />
                 </Link>
-                <div className="collapse navbar-collapse" id="navbar">
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse bg-light" id="navbarCollapse">
                     <ul className="navbar-nav">
                         <li className="nav-item active">
                             <Link to={'/'} className="nav-link">
@@ -76,8 +79,10 @@ class Navbar extends Component {
                                 </span>
                             </Link>
                         </li>
-                        <li className="nav-item flags">
+                        <li className="nav-item">
                             <img src={getUserAvatarImage()} alt="Avatar" className="avatar" onClick={this.renderLink.bind(this)}></img>
+                        </li>
+                        <li className="nav-item flags">
                             <img src={uk_flag} className='flag-img' alt="lang_english" onClick={() => setLocale('en')} />
                             <img src={fr_flag} className='flag-img' alt="lang_french" onClick={() => setLocale('fr')} />
                         </li>

@@ -6,24 +6,22 @@
     flex: 1 1 auto !important;
 }
 
-#navbar li {
+#navbarCollapse li {
     margin-right: 60px;
 }
 
-#navbar .flags {
-    display: flex;
-    align-items: center;
+#navbarCollapse .flags {
     position: absolute;
     right: 10px;
 }
 
-#navbar .flags .flag-img {
+#navbarCollapse .flags .flag-img {
     width: 30px;
     height: 30px;
     margin-right: 10px;
 }
 
-#navbar .flags .avatar {
+#navbarCollapse .avatar {
     vertical-align: middle;
     width: 30px;
     height: 30px;
@@ -43,6 +41,41 @@
     position: relative;
     left: -10px;
     top: -15px;
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        display: block;
+        position: absolute;
+        top: 54px;
+        right: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        margin-top: 32px;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .navbar-collapse.collapsing {
+        height: auto !important;
+        margin-right: 50%;
+        transition: all 0.3s ease;
+        display: block;
+    }
+
+    .navbar-collapse.show {
+        right: 0;
+    }
+
+    #navbarCollapse .flags {
+        position: unset;
+        margin-top: 10px;
+    }
+
+    #navbarCollapse li {
+        margin-right: 0;
+    }
 }
 
 /***************************menu***************************/
@@ -204,7 +237,7 @@
 
 .input-login {
     align-items: center;
-    margin-bottom: 20px;;
+    margin-bottom: 20px;
 }
 
 .subtitle-login {
