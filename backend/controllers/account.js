@@ -50,13 +50,9 @@ async function getAccountInfos(ctx) {
     if (!accountInfos) {
         console.log("!!!!getAccountInfos in controller from db")
         const accountId = ctx.request.body.accountId;
-        const isJwtError = auth.verify(ctx.headers.authorization);
-        console.log('isJwtError = ' + isJwtError)
-        if (!isJwtError) {
-            const currentAccount = await Account.findByPk(accountId);
-            console.log('currentAccount = ' + currentAccount);
-            ctx.body = { id: currentAccount.id, firstname: currentAccount.firstname, lastname: currentAccount.lastname, email: currentAccount.email };
-        }
+        const currentAccount = await Account.findByPk(accountId);
+        console.log('currentAccount = ' + currentAccount);
+        ctx.body = { id: currentAccount.id, firstname: currentAccount.firstname, lastname: currentAccount.lastname, email: currentAccount.email };
     } else {
         console.log("!!!!getAccountInfos in controller from redis = " + accountInfos)
         ctx.body = accountInfos;
