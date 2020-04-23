@@ -79,7 +79,7 @@
 }
 
 .custom-content {
-    margin-top: 120px;
+    padding-top: 40px;
 }
 
 /***************************menu***************************/
@@ -312,22 +312,19 @@
 
 .form-login {
     display: inline-block;
-    margin-top: 20px;
-    margin-bottom: 20px;
     width: 60%;
 }
 
 .input-login {
-    align-items: center;
-    margin-bottom: 20px;
+   height: 40px;
 }
 
 .subtitle-login {
     color: rgb(187, 184, 184);
 }
 
-.button-login {
-    margin: 0 10px 0 10px;
+.signup-reset-btn {
+    margin: 0 10px;
 }
 
 .dividingLine {

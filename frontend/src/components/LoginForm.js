@@ -3,22 +3,17 @@ import { connect } from "react-redux";
 import { signup, login, resetRedirectState } from '../actions/account';
 import { FormattedMessage } from 'react-intl';
 import history from '../history';
-import Utils from '../util/Utils';
+import { Form, Input, Button } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 class LoginForm extends Component {
-    state = {
-        // fields for signup
-        signUpFirstname: '',
-        signUpLastname: '',
-        signUpEmail: '',
-        signUpPassword: '',
-        confirmPassword: '',
-        // fields for login
-        loginEmail: '',
-        loginPassword: '',
-        errorMsgSignUp: '',
-        errorMsgLogin: ''
-    }
+    signupFormRef = React.createRef();
+
+    validateMessages = {
+        types: {
+            email: 'It\'s not a validate email!',
+        },
+    };
 
     componentDidUpdate() {
         if (this.props.redirect) {
@@ -29,32 +24,19 @@ class LoginForm extends Component {
         }
     }
 
-    signup(event) {
-        event.preventDefault(); // Prevent form from reloading page
-        const { signUpFirstname, signUpLastname, signUpEmail, signUpPassword, confirmPassword } = this.state;
-        const validateInfo = Utils.validateSignupForm(signUpFirstname, signUpLastname, signUpEmail, signUpPassword, confirmPassword);
-        if (validateInfo.validated) {
-            this.props.signup(signUpFirstname, signUpLastname, signUpEmail, signUpPassword);
-            this.setState({ signUpPassword: '', confirmPassword: '', errorMsgSignUp: '' });
-        } else {
-            this.setState({ errorMsgSignUp: validateInfo.errorMsg });
-        }
-    }
+    onFinishLogin = values => {
+        this.props.login(values.loginEmail, values.loginPassword);
+    };
 
-    login(event) {
-        event.preventDefault(); // Prevent form from reloading page
-        const { loginEmail, loginPassword } = this.state;
-        const validateInfo = Utils.validateLoginForm(loginEmail, loginPassword);
-        if (validateInfo.validated) {
-            this.props.login(loginEmail, loginPassword);
-            this.setState({ loginPassword: '', errorMsgLogin: '' });
-        } else {
-            this.setState({ errorMsgLogin: validateInfo.errorMsg });
-        }
-    }
+    onFinishSignup = values => {
+        this.props.signup(values.signUpFirstname, values.signUpLastname, values.signUpEmail, values.signUpPassword);
+    };
+
+    onReset = () => {
+        this.signupFormRef.current.resetFields();
+    };
 
     render() {
-        let { signUpFirstname, signUpLastname, signUpEmail, signUpPassword, confirmPassword, loginEmail, loginPassword, errorMsgSignUp, errorMsgLogin } = this.state;
         const { account, errorSignUp, errorLogin, isLoading, redirect } = this.props;
         return (
             <div className="container">
@@ -70,20 +52,55 @@ class LoginForm extends Component {
                                 id='loginForm.title'
                                 defaultMessage='DEFAULT' />
                         </h4>
-                        <div className="error">{errorMsgLogin || errorLogin}</div>
-                        <form className="form-login" onSubmit={this.login.bind(this)}>
-                            <input className="form-control input-login"
-                                value={loginEmail}
-                                placeholder="Email Address"
-                                onChange={(e) => this.setState({ loginEmail: e.target.value })} />
-                            <input className="form-control input-login"
-                                value={loginPassword}
-                                placeholder="Password"
-                                onChange={(e) => this.setState({ loginPassword: e.target.value })} />
-                            <button type="submit" className="btn btn-info button-login">
-                                Login
-                            </button>
-                        </form>
+                        <div className="error">{errorLogin}</div>
+                        <Form
+                            className="form-login"
+                            name="loginForm"
+                            ref={this.loginFormRef}
+                            onFinish={this.onFinishLogin}
+                            validateMessages={this.validateMessages}>
+                            <Form.Item
+                                name="loginEmail"
+                                hasFeedback
+                                rules={[
+                                    {
+                                        type: 'email',
+                                        message: 'The input is not valid E-mail!',
+                                    },
+                                    {
+                                        required: true,
+                                        message: 'Please input your E-mail!',
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    className="input-login"
+                                    prefix={<UserOutlined className="site-form-item-icon" />}
+                                    placeholder="Email Address"
+                                    id="loginEmail" />
+                            </Form.Item>
+                            <Form.Item
+                                name="loginPassword"
+                                hasFeedback
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password!',
+                                    },
+                                ]}
+                            >
+                                <Input.Password
+                                    prefix={<LockOutlined className="site-form-item-icon" />}
+                                    className="input-login"
+                                    placeholder="Your password"
+                                    id="loginPassword" />
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit">
+                                    Login
+                                </Button>
+                            </Form.Item>
+                        </Form>
                     </div>
                     <div className='dividingLine'>
                     </div>
@@ -100,32 +117,105 @@ class LoginForm extends Component {
                                 id='register.title'
                                 defaultMessage='DEFAULT' />
                         </h4>
-                        <div className="error">{errorMsgSignUp || errorSignUp}</div>
-                        <form className="form-login" onSubmit={this.signup.bind(this)}>
-                            <input className="form-control input-login"
-                                value={signUpFirstname}
-                                placeholder="First name"
-                                onChange={(e) => this.setState({ signUpFirstname: e.target.value })} />
-                            <input className="form-control input-login"
-                                value={signUpLastname}
-                                placeholder="Last name"
-                                onChange={(e) => this.setState({ signUpLastname: e.target.value })} />
-                            <input className="form-control input-login"
-                                value={signUpEmail}
-                                placeholder="Email Address"
-                                onChange={(e) => this.setState({ signUpEmail: e.target.value })} />
-                            <input className="form-control input-login"
-                                value={signUpPassword}
-                                placeholder="Password"
-                                onChange={(e) => this.setState({ signUpPassword: e.target.value })} />
-                            <input className="form-control input-login"
-                                value={confirmPassword}
-                                placeholder="Confirm Password"
-                                onChange={(e) => this.setState({ confirmPassword: e.target.value })} />
-                            <button type="submit" className="btn btn-info button-login">
-                                Sign up
-                            </button>
-                        </form>
+                        <div className="error">{errorSignUp}</div>
+                        <Form
+                            className="form-login"
+                            name="signupForm"
+                            ref={this.signupFormRef}
+                            onFinish={this.onFinishSignup}
+                            validateMessages={this.validateMessages}>
+                            <Form.Item
+                                name="signUpFirstname"
+                                hasFeedback
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your firstname!',
+                                    },
+                                ]}
+                            >
+                                <Input className="input-login" placeholder="Firstname" id="signUpFirstname" />
+                            </Form.Item>
+                            <Form.Item
+                                name="signUpLastname"
+                                hasFeedback
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your lastname!',
+                                    },
+                                ]}
+                            >
+                                <Input className="input-login" placeholder="Lastname" id="signUpLastname" />
+                            </Form.Item>
+                            <Form.Item
+                                name="signUpEmail"
+                                hasFeedback
+                                rules={[
+                                    {
+                                        type: 'email',
+                                        message: 'The input is not valid E-mail!',
+                                    },
+                                    {
+                                        required: true,
+                                        message: 'Please input your E-mail!',
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    className="input-login"
+                                    placeholder="Email Address"
+                                    id="signUpEmail" />
+                            </Form.Item>
+                            <Form.Item
+                                name="signUpPassword"
+                                hasFeedback
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password!',
+                                    },
+                                ]}
+                            >
+                                <Input.Password
+                                    className="input-login"
+                                    placeholder="Your password"
+                                    id="signUpPassword" />
+                            </Form.Item>
+                            <Form.Item
+                                name="confirmPassword"
+                                dependencies={['signUpPassword']}
+                                hasFeedback
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please confirm your password!',
+                                    },
+                                    ({ getFieldValue }) => ({
+                                        validator(rule, value) {
+                                            if (!value || getFieldValue('signUpPassword') === value) {
+                                                return Promise.resolve();
+                                            }
+
+                                            return Promise.reject('The two passwords that you entered do not match!');
+                                        },
+                                    }),
+                                ]}
+                            >
+                                <Input.Password
+                                    className="input-login"
+                                    placeholder="Your confirm password"
+                                    id="confirmPassword" />
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit">
+                                    Signup
+                                </Button>
+                                <Button className="signup-reset-btn" type="secondary" htmlType="button" onClick={this.onReset}>
+                                    Reset
+                                </Button>
+                            </Form.Item>
+                        </Form>
                     </div>
                 </div>
             </div>

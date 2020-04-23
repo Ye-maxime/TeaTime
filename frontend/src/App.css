@@ -1,9 +1,13 @@
+@import '~antd/dist/antd.css';
+
 html {
   background-color: #222222;
 }
 
 body {
   background: cornflowerblue;
+  margin-top: 86px !important;
+  height: fit-content !important;
 }
 
 .App {
