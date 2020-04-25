@@ -10,8 +10,6 @@ class ConfirmationOrder extends Component {
     render() {
         return (
             <div className="custom-content">
-                Confirmation of your order {this.props.location.state.orderId}.
-                <br></br>
                 Thanks for your purchase!
             </div>
         );

@@ -63,35 +63,41 @@ function initDrink() {
       name: 'Brown Sugar Deerioca Fresh Milk',
       price: 12,
       collection: 'BROWN',
-      image: 'brown_sugar_deerioca_fresh.png'
+      image: 'brown_sugar_deerioca_fresh.png',
+      stock: 2
     }, {
       name: 'Cocoa Brown Sugar Deerioca Milk ',
       price: 15,
       collection: 'BROWN',
-      image: 'cocoa_brown_sugar_deerioca.png'
+      image: 'cocoa_brown_sugar_deerioca.png',
+      stock: 4
     },
     {
       name: 'Matcha Brown Sugar Deerioca Milk',
       price: 10,
       collection: 'BROWN',
-      image: 'matcha_sugar_deerioca.png'
+      image: 'matcha_sugar_deerioca.png',
+      stock: 6
     },
     {
       name: 'Crème Brûlée Deerioca Milk ',
       price: 8,
       collection: 'BROWN',
-      image: 'creme_brulee_deerioca.png'
+      image: 'creme_brulee_deerioca.png',
+      stock: 8
     },
     {
       name: 'Snow Strawberry Lulu (Daily limited) ',
       price: 11,
       collection: 'LULU',
-      image: 'snow_strawberry_lulu.png'
+      image: 'snow_strawberry_lulu.png',
+      stock: 10
     }, {
       name: 'Orange Lulu ',
       price: 16,
       collection: 'LULU',
-      image: 'orange_lulu.png'
+      image: 'orange_lulu.png',
+      stock: 12
     }])
 }
 

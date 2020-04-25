@@ -16,7 +16,7 @@ import Utils from '../util/Utils';
 
 class Navbar extends Component {
     renderLink() {
-        const link = Utils.getAccountIdFromLocalStorage() ? '/account' : '/login';
+        const link = Utils.isAuthenticated() ? '/account' : '/login';
         history.push(link);
     }
 
@@ -31,12 +31,7 @@ class Navbar extends Component {
         };
 
         const getUserAvatarImage = () => {
-            if (account.account.id) {
-                // when user just logged in, retrieve the account state in store 
-                return avatar;
-            } else {
-                return Utils.getAccountIdFromLocalStorage() ? avatar : avatar_default;
-            }
+            return Utils.isAuthenticated() ? avatar : avatar_default;
         };
 
         return (

@@ -12,9 +12,15 @@ export default function reducerShoppingCart(state = SHOPPING_CART_DEFAULT_STATE,
             const existedItem = getExistedItem(state, newProduct)
             const newTotal = state.total + parseInt(newProduct.price, 0)
             if (existedItem) {
+                // 更新产品库存
+                existedItem.stock -= 1;
+                console.log('after stock: ', existedItem.stock);
                 existedItem.quantity += 1
                 return {...state, total: newTotal}
             } else {
+                // 更新产品库存
+                newProduct.stock -= 1;
+                console.log('after stock: ', newProduct.stock);
                 newProduct.quantity = 1
                 return {...state, items: state.items.concat(newProduct), total: newTotal}
             }
@@ -23,7 +29,11 @@ export default function reducerShoppingCart(state = SHOPPING_CART_DEFAULT_STATE,
         case CHANGE_QUANTITY: {
             const product = action.product
             const existedItem = getExistedItem(state, product)
+            // 产品总数量
+            const totalProductNumber = existedItem.quantity + existedItem.stock;
             existedItem.quantity = product.quantity
+            // 更新产品库存
+            existedItem.stock = totalProductNumber - existedItem.quantity;
             const newTotal = calculateTotal(state.items)
             return {...state, total: newTotal}
         }

@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     orders: reducerOrders,
     orderDetail: reducerOrderDetail,
     locale: reducerLocale,
-    account: reducerAccount,
+    account: reducerAccount
 })
 
 export const DEFAULT_STATE = {
@@ -24,7 +24,7 @@ export const DEFAULT_STATE = {
     orders: ORDERS_DEFAULT_STATE,
     orderDetail: ORDER_DETAIL_DEFAULT_STATE,
     locale: LOCALE_DEFAULT_STATE,
-    account: ACCOUNT_DEFAULT_STATE,
+    account: ACCOUNT_DEFAULT_STATE
 }
 
 export default rootReducer

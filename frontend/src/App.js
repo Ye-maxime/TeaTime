@@ -6,7 +6,8 @@ import { IntlProvider } from 'react-intl';
 import Navbar from './components/Navbar';
 import Chatbox from './components/ChatBox';
 import { Switch, Route } from 'react-router-dom';
-import { Home, Menu, Store, Account, ShoppingCart, Login, OnePageCheckout, ConfirmationOrder } from "./pages/bundle";
+import { ProtectedRoute } from "./components/Protected.route";
+import { Home, Menu, Store, Account, ShoppingCart, Login, OnePageCheckout, ConfirmationOrder, PageNotFound } from "./pages/bundle";
 import messages from './locale/messages';
 
 class App extends Component {
@@ -23,9 +24,10 @@ class App extends Component {
                         <Route path='/menu' component={Menu} />
                         <Route path='/store' component={Store} />
                         <Route path='/shopping_cart' component={ShoppingCart} />
-                        <Route path='/account' component={Account} />
-                        <Route path='/onepagecheckout' component={OnePageCheckout} />
-                        <Route path='/confirmation_order' component={ConfirmationOrder} />
+                        <ProtectedRoute path='/account' component={Account} />
+                        <ProtectedRoute path='/onepagecheckout' component={OnePageCheckout} />
+                        <ProtectedRoute path='/confirmation_order' component={ConfirmationOrder} />
+                        <Route path='*' component={PageNotFound} />
                     </Switch>
                 </div>
             </IntlProvider>

@@ -28,4 +28,46 @@ function getAccountInfosFromCache(ctx) {
     });
 }
 
-module.exports = { saveAccountInfosInCache, getAccountInfosFromCache }
+/*
+* 存储产品的库存信息到redis中
+*/
+async function saveProductStockInfosInCache(productsEntity) {
+    for (let product of productsEntity) {
+        await redis.hset('products-stock', product.id, product.stock);
+    }
+}
+
+/*
+* 从redis中获取产品的库存信息
+*/
+function getProductStockInfosFromCache(ctx) {
+    return new Promise(function (resolve, reject) {
+        const products = ctx.request.body;
+        redis.hgetall('products-stock', async (err, data) => {
+            if (err) reject(err);
+            console.log("!!!! getProductStockInfosFromCache data = ")
+            console.log(data);
+            for (let product of products) {
+                if (data[product.id] < product.quantity) {
+                    // cache中的库存少于要买的个数
+                    // TODO只能提醒用户购买数量会变少,显示在opc对应的产品行上
+                    product.quantity = data[product.id];
+                    // 更新cache中当前产品的库存
+                    // increment 原子操作保证库存安全
+                    await redis.hincrby('products-stock', product.id, -data[product.id]);
+                } else {
+                    // 更新cache中当前产品的库存
+                    await redis.hincrby('products-stock', product.id, -product.quantity);
+                }
+            }
+            resolve(products);
+        });
+    });
+}
+
+module.exports = {
+    saveAccountInfosInCache,
+    getAccountInfosFromCache,
+    saveProductStockInfosInCache,
+    getProductStockInfosFromCache
+}

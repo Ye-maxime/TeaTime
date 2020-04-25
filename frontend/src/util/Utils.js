@@ -10,4 +10,8 @@ export default class Utils {
         const time = dates[1] && dates[1].split('.')[0];
         return time ? date + ' ' + time : date;
     }
+
+    static isAuthenticated() {
+        return !!this.getAccountIdFromLocalStorage();
+    }
 };

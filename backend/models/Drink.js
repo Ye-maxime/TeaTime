@@ -5,6 +5,7 @@ module.exports = (database, Sequelize) => {
       price: {type: Sequelize.DECIMAL, allowNull: false},
       collection: {type: Sequelize.ENUM, values: ['LULU', 'BROWN'], allowNull: false},
       image: {type: Sequelize.STRING, allowNull: true},
+      stock: {type: Sequelize.INTEGER, allowNull: false}
     },
     {
       timestamps: false,

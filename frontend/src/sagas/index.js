@@ -4,6 +4,7 @@ import { FETCH_STORES, loadedStores, storesFailure } from "../actions/stores";
 import { FETCH_ORDERS, ADD_ORDER, loadedOrders, addOrderSuccess, ordersFailure } from "../actions/orders";
 import { FETCH_ORDER_DETAIL, loadedOrderDetail, orderDetailFailure } from "../actions/orderDetail";
 import { SIGN_UP, signupSuccess, signupFailure, GET_INFOS, getAccountInfosSuccess, getAccountInfosFailure, LOGIN, loginSuccess, loginFailure } from "../actions/account";
+// import { GET_OPC, getOPCSuccess, getOPCFailure } from "../actions/opc";
 import Utils from '../util/Utils';
 // import Cookies from 'js-cookie';
 
@@ -64,6 +65,29 @@ function* getAllStores() {
     }
 }
 
+//**********************OPC*************************
+// function* getOPC(action) {
+//     try {
+//         const id = Utils.getAccountIdFromLocalStorage();
+//         if (id) {
+//             const options = {
+//                 method: 'POST',
+//                 body: JSON.stringify(action.products),
+//                 headers: new Headers({
+//                     'Content-Type': 'application/json',
+//                     'Authorization': `Bearer ${localStorage.token}`
+//                 })
+//             }
+//             const res = yield call(fetch, 'http://localhost:4000/v1/opc', options)
+//             const result = yield res.json()
+//             yield put(getOPCSuccess(result.availableProducts, result.total));
+//         } else {
+//             throw Error("getOPC : No user logged in!!")
+//         }
+//     } catch (e) {
+//         yield put(getOPCFailure(e.message))
+//     }
+// }
 
 //**********************Orders*************************
 function* getAllOrders(action) {
@@ -240,6 +264,8 @@ function* rootSaga() {
     yield takeLatest(LOGIN, login);
     yield takeLatest(GET_INFOS, getAccountInfomations);
 
+    //********************opc*****************
+    // yield takeLatest(GET_OPC, getOPC);
 }
 
 export default rootSaga;

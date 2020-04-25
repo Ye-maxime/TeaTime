@@ -5,7 +5,13 @@ import { Link } from 'react-router-dom';
 import { getCorrespondDrinkImage } from "../util/ComponentUtil";
 
 class Product extends Component {
-    state = { quantity: this.props.product.quantity }
+    state = {
+        quantity: this.props.product.quantity
+    }
+
+    componentDidMount() {
+        this.maxPurchaseNumber = this.props.product.quantity + this.props.product.stock;
+    }
 
     handleInputChange(event) {
         const newQuantity = parseInt(event.target.value, 0)
@@ -39,7 +45,7 @@ class Product extends Component {
                     </div>
                 </td>
                 <td className="col-sm-1 col-md-1">
-                    <input type="number" className="form-control text-center" min='1' max='10' value={quantity}
+                    <input type="number" className="form-control text-center" min='1' max={this.maxPurchaseNumber} value={quantity}
                         onChange={this.handleInputChange.bind(this)}
                         onKeyDown={this.handleOnKeyDown.bind(this)}
                         tabIndex="0" />
@@ -99,14 +105,14 @@ class ShoppingCartList extends Component {
                                 <Link to={'/'}>
                                     <button type="button" className="btn btn-info">
                                         Continue Shopping
-                                            </button>
+                                    </button>
                                 </Link>
                             </td>
                             <td>
                                 <Link to={'/onepagecheckout'}>
                                     <button type="button" className="btn btn-success">
                                         Checkout
-                                                <span className="fa fa-arrow-circle-right"></span>
+                                        <span className="fa fa-arrow-circle-right"></span>
                                     </button>
                                 </Link>
                             </td>

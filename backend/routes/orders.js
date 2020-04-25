@@ -3,6 +3,6 @@ const router = new Router()
 const Ctrl = require('../controllers/orders')
 
 router.post('/getOrders', Ctrl.findAll)
-router.post('/saveOrder', Ctrl.create)
+router.post('/saveOrder', Ctrl.placeOrder)
 
 module.exports = router.routes()

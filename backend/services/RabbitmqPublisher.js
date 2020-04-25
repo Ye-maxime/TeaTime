@@ -27,7 +27,7 @@ function sendMsg(queueName, data) {
     // Send message to queue
     pubChannel.sendToQueue(
         queueName,
-        Buffer.from(data),
+        Buffer.from(JSON.stringify(data)),
         { persistent: true }
     );
     console.log('Message send :', queueName);
