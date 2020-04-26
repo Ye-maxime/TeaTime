@@ -31,7 +31,7 @@ Account.hasMany(Order, { as: 'Orders' })
 //mettre en commentaire ce block quand lance test
 database.sync({ force: true })
   .then(() => {
-    console.log("models/index.js: create all tables in db successfully")
+    console.log("[models/index.js] : create all tables in db successfully")
     initStore()
     initDrink()
   })

@@ -36,14 +36,14 @@ async function login(ctx) {
 async function getAccountInfos(ctx) {
     const accountInfos = await getAccountInfosFromCache(ctx);
     if (!accountInfos) {
-        console.log("controller/account.js#getAccountInfos : from db");
+        console.log("[controller/account.js#getAccountInfos] : from db");
         const accountId = ctx.request.body.accountId;
         const currentAccount = await Account.findByPk(accountId);
         // redis
         await saveAccountInfosInCache(currentAccount);
         ctx.body = { id: currentAccount.id, firstname: currentAccount.firstname, lastname: currentAccount.lastname, email: currentAccount.email };
     } else {
-        console.log("controller/account.js#getAccountInfos : from redis");
+        console.log("[controller/account.js#getAccountInfos] : from redis");
         ctx.body = accountInfos;
     }
 }

@@ -41,11 +41,11 @@ async function placeOrder(ctx) {
             await productEntity.update({ stock: newStock });
         });
 
-        console.log('controller/order.js#placeOrder : 库存扣减完毕,推送订单到MQ');
+        console.log('[controller/order.js#placeOrder] : 库存扣减完毕,推送订单到MQ');
         await publishToQueue(RabbitmqConstants.QUEUE_NAME, ctx.request.body);
         ctx.body = { success: true };
     } else {
-        console.log('controller/order.js#placeOrder : 库存不足,返回错误');
+        console.log('[controller/order.js#placeOrder] : 库存不足,返回错误');
         ctx.body = { success: false };
     }
 }
@@ -61,7 +61,7 @@ async function createOrder(data) {
         const productInDatabase = await Drink.findByPk(product.id);
         await newOrder.addDrink(productInDatabase, { through: { quantity: product.quantity } });
     });
-    console.log('controller/order.js#createOrder : 数据库订单创建完毕');
+    console.log('[controller/order.js#createOrder] : 数据库订单创建完毕');
 }
 
 module.exports = {

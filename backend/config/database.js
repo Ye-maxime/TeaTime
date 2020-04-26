@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const config = require('./config');
 
-console.log(`database.js : nodeEnv = ${config.nodeEnv}, dbHost = ${config.dbHost}, 
+console.log(`[database.js] : nodeEnv = ${config.nodeEnv}, dbHost = ${config.dbHost}, 
 redisHost = ${config.redisHost}, rabbitmqConnURL=${config.rabbitmqConnURL}`);
 
 module.exports = new Sequelize(config.dbName, config.dbUserName, config.dbUserPwd, {

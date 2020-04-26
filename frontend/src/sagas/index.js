@@ -114,7 +114,7 @@ function* getAllOrders(action) {
             throw Error("getAllOrders : No user logged in!!")
         }
     } catch (e) {
-        console.log('sagas/index.js#getAllOrders : catch ' + e);
+        console.log('[sagas/index.js#getAllOrders] : catch ' + e);
         yield put(ordersFailure(e.message))
     }
 }
@@ -175,7 +175,7 @@ function* signup(action) {
         const result = yield res.json()
         if (result.success) {
             const { success, token, ...account } = result;
-            console.log(`sagas/index.js#signup : account = ${JSON.stringify(account)}`)
+            console.log(`[sagas/index.js#signup] : account = ${JSON.stringify(account)}`)
             yield put(signupSuccess(account, token))
         } else {
             yield put(signupFailure(result.error))
@@ -198,7 +198,7 @@ function* login(action) {
         const result = yield res.json()
         if (result.success) {
             const { success, token, ...account } = result;
-            console.log(`sagas/index.js#login : account = ${JSON.stringify(account)}`)
+            console.log(`[sagas/index.js#login] : account = ${JSON.stringify(account)}`)
             yield put(loginSuccess(account, token))
         } else {
             yield put(loginFailure(result.error))
@@ -228,7 +228,7 @@ function* getAccountInfomations(action) {
             }
             const result = yield res.json()
             const { ...account } = result;
-            console.log(`sagas/index.js#getAccountInfomations : account = ${JSON.stringify(account)}`)
+            console.log(`[sagas/index.js#getAccountInfomations] : account = ${JSON.stringify(account)}`)
             yield put(getAccountInfosSuccess(account))
         } else {
             throw Error("getAccountInfomations : No user logged in!!")

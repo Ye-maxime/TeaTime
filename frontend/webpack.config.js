@@ -24,6 +24,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [{
+                    // loader : 模块转换器，用于把模块原内容按照需求转换成新内容
                     loader: MiniCssExtractPlugin.loader,
                     options: {
                         publicPath: '/dist'
@@ -36,7 +37,7 @@ module.exports = {
                     loader: 'url-loader',
                     options: {
                         // 具体配置见插件官网
-                        limit: 15000, //表示低于16000字节（15KB）的图片会以 base64编码, 大于则不打包
+                        limit: 15000, //表示低于15000字节（15KB）的图片会以 base64编码, 大于则不打包,将图片拷贝到 dist 目录
                         name: '[name]-[hash:5].[ext]', // 输出的文件名称, 其中【ext】占位符是 表示文件的后缀名的
                         outputPath: 'img/', // outputPath所设置的路径，是相对于 webpack 的输出目录。
                         publicPath: 'img/'// publicPath 选项则被许多webpack的插件用于在生产模式下更新内嵌到css、html文件内的 url , 如CDN地址
@@ -81,6 +82,7 @@ module.exports = {
             }
         ]
     },
+    //plugins : 扩展插件，在webpack构建流程中的特定时机注入扩展逻辑来改变构建结果或做你想要做的事情
     plugins: [
         // 打包html文件
         new HtmlWebpackPlugin({
@@ -103,7 +105,7 @@ module.exports = {
         new CleanWebpackPlugin(), //每次打包前清空dist目录
         // 打包导出 CSS 到独立文件 main.css
         new MiniCssExtractPlugin({
-            filename: "[name].css",
+            filename: "css/[name].css",
             chunkFilename: "[id].css"
         }),
         // 压缩 CSS  即丑化代码

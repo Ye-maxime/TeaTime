@@ -36,7 +36,7 @@ app.use((ctx, next) => {
     return next().catch(err => {
             // 这里可以catch 比如不合法的token或者缺少token的情况
             if (401 === err.status) {
-                console.log("server.js : error in jwt = " + JSON.stringify(err))
+                console.log("[server.js] : error in jwt = " + JSON.stringify(err))
                 ctx.status = 401;
                 ctx.body = {
                     ok: false,
@@ -69,7 +69,7 @@ app.use(router.allowedMethods())
 app.use(require('koa-static')('./build'))
 
 database.authenticate()
-    .then(() => console.log("server.js : database connected "))
+    .then(() => console.log("[server.js] : database connected "))
     .catch(error => console.log(error))
 
 // 注册rabbitmq 的消费者
