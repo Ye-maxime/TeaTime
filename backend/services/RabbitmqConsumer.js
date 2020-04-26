@@ -2,7 +2,7 @@ const amqp = require('amqplib/callback_api');
 const RabbitmqConstants = require('./RabbitmqConstants');
 
 function connectConRabbitmq() {
-    console.log('Rabbitmq consumer start !!!');
+    console.log('RabbitmqConsumer.js#connectConRabbitmq : consumer start');
     amqp.connect(RabbitmqConstants.CONN_URL, (connError, connection) => {
         if (connError) {
             console.log('consumer connError: ', connError);
@@ -10,7 +10,7 @@ function connectConRabbitmq() {
             // Create channel
             connection.createChannel((channelError, channel) => {
                 if (channelError) {
-                    console.log('chanelError: ', channelError);
+                    console.log('RabbitmqConsumer.js#chanelError: ', channelError);
                 } else {
                     channel.consume(RabbitmqConstants.QUEUE_NAME, async (msg) => {
                         // 消费事件 生成订单

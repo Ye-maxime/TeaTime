@@ -33,7 +33,7 @@ class CheckoutForm extends Component {
             }).then(res => {
                 return res.json();
             }).then(res => {
-                console.log("get opc success ! res = " + JSON.stringify(res));
+                console.log("CheckoutForm.js#fetchOpcInfos : get opc success, res = " + JSON.stringify(res));
                 this.setState({
                     products: res.availableProducts,
                     total: res.total
@@ -41,7 +41,7 @@ class CheckoutForm extends Component {
 
                 this.registerPaypalButton();
             }).catch(err => {
-                console.log("get opc failed ! err = " + err);
+                console.log("CheckoutForm.js#fetchOpcInfos : get opc failed, err = " + err);
             });
         }
     }
@@ -83,7 +83,7 @@ class CheckoutForm extends Component {
                         }).then(res => {
                             return res.json();
                         }).then(res => {
-                            console.log("fetch save order success ! res = " + JSON.stringify(res));
+                            console.log("CheckoutForm.js#onApprove : fetch save order success, res = " + JSON.stringify(res));
                             if (res.success) {
                                 // Redirect to comfirmation order page
                                 this.setState({
@@ -96,7 +96,7 @@ class CheckoutForm extends Component {
                                 });
                             }
                         }).catch(err => {
-                            console.log("fetch save order failed ! err = " + err);
+                            console.log("CheckoutForm.js#onApprove : fetch save order failed, err = " + err);
                         });
                     }
                 });

@@ -6,12 +6,12 @@ let pubChannel = null;
 function connectPubRabbitmq(queueName, data) {
     amqp.connect(RabbitmqConstants.CONN_URL, (connError, connection) => {
         if (connError) {
-            console.log('publisher connError: ', connError);
+            console.log('RabbitmqPublisher.js#connError: ', connError);
         } else {
             // Create channel
             connection.createChannel((channelError, channel) => {
                 if (channelError) {
-                    console.log('chanelError: ', channelError);
+                    console.log('RabbitmqPublisher.js#chanelError: ', channelError);
                 } else {
                     pubChannel = channel;
                     sendMsg(queueName, data);
@@ -30,17 +30,17 @@ function sendMsg(queueName, data) {
         Buffer.from(JSON.stringify(data)),
         { persistent: true }
     );
-    console.log('Message send :', queueName);
+    console.log('RabbitmqPublisher.js#sendMsg : Message send ', queueName);
 }
 
 // Added a process listener to close the RabbitMQ connection when we kill the process
 process.on('exit', (code) => {
     pubChannel.close();
-    console.log(`Closing rabbitmq channel`);
+    console.log(`RabbitmqPublisher.js#exit : closing rabbitmq channel`);
 });
 
 async function publishToQueue(queueName, data) {
-    console.log('publishToQueue!!!!');
+    console.log('RabbitmqPublisher.js#publishToQueue : publishToQueue');
     if (!pubChannel) {
         connectPubRabbitmq(queueName, data);
     } else {

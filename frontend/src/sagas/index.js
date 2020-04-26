@@ -114,7 +114,7 @@ function* getAllOrders(action) {
             throw Error("getAllOrders : No user logged in!!")
         }
     } catch (e) {
-        console.log('catch = ' + e);
+        console.log('sagas/index.js#getAllOrders : catch ' + e);
         yield put(ordersFailure(e.message))
     }
 }
@@ -175,7 +175,7 @@ function* signup(action) {
         const result = yield res.json()
         if (result.success) {
             const { success, token, ...account } = result;
-            console.log(`saga signup account = ${JSON.stringify(account)}`)
+            console.log(`sagas/index.js#signup : account = ${JSON.stringify(account)}`)
             yield put(signupSuccess(account, token))
         } else {
             yield put(signupFailure(result.error))
@@ -198,7 +198,7 @@ function* login(action) {
         const result = yield res.json()
         if (result.success) {
             const { success, token, ...account } = result;
-            console.log(`saga login account = ${JSON.stringify(account)}`)
+            console.log(`sagas/index.js#login : account = ${JSON.stringify(account)}`)
             yield put(loginSuccess(account, token))
         } else {
             yield put(loginFailure(result.error))
@@ -228,7 +228,7 @@ function* getAccountInfomations(action) {
             }
             const result = yield res.json()
             const { ...account } = result;
-            console.log(`saga getAccountInfomations account = ${JSON.stringify(account)}`)
+            console.log(`sagas/index.js#getAccountInfomations : account = ${JSON.stringify(account)}`)
             yield put(getAccountInfosSuccess(account))
         } else {
             throw Error("getAccountInfomations : No user logged in!!")
@@ -242,7 +242,6 @@ function* getAccountInfomations(action) {
 //就在这个rootSaga里面利用takeLatest去监听action的type
 // rootSaga可以理解为是一个监听函数，在创建store中间件的时候就已经执行了
 function* rootSaga() {
-    console.log("rootSaga !!!!")
     //********************drinks*****************
     yield takeLatest(FETCH_DRINKS, getAllDrinks);
     yield takeLatest(ADD_DRINK, saveDrink);

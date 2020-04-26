@@ -69,7 +69,7 @@ app.use(router.allowedMethods())
 app.use(require('koa-static')('./build'))
 
 database.authenticate()
-    .then(() => console.log("database connected "))
+    .then(() => console.log("server.js : database connected "))
     .catch(error => console.log(error))
 
 // 注册rabbitmq 的消费者

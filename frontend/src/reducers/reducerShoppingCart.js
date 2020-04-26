@@ -14,13 +14,11 @@ export default function reducerShoppingCart(state = SHOPPING_CART_DEFAULT_STATE,
             if (existedItem) {
                 // 更新产品库存
                 existedItem.stock -= 1;
-                console.log('after stock: ', existedItem.stock);
                 existedItem.quantity += 1
                 return {...state, total: newTotal}
             } else {
                 // 更新产品库存
                 newProduct.stock -= 1;
-                console.log('after stock: ', newProduct.stock);
                 newProduct.quantity = 1
                 return {...state, items: state.items.concat(newProduct), total: newTotal}
             }

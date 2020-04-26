@@ -21,7 +21,7 @@ function getAccountInfosFromCache(ctx) {
         const accountId = ctx.request.body.accountId;
         redis.get(`account-${accountId}`, (err, data) => {
             if (err) reject(err);
-            console.log("!!!! getAccountInfosFromCache data = ")
+            console.log("cache.js#getAccountInfosFromCache : data = ")
             console.log(data);
             resolve(data);
         });
@@ -45,7 +45,7 @@ function getProductStockInfosFromCache(ctx) {
         const products = ctx.request.body;
         redis.hgetall('products-stock', async (err, data) => {
             if (err) reject(err);
-            console.log("!!!! getProductStockInfosFromCache data = ")
+            console.log("cache.js#getProductStockInfosFromCache : data = ")
             console.log(data);
             for (let product of products) {
                 if (data[product.id] < product.quantity) {

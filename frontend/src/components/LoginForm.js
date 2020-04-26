@@ -17,7 +17,6 @@ class LoginForm extends Component {
 
     componentDidUpdate() {
         if (this.props.redirect) {
-            console.log("logged in");
             this.props.resetRedirectState();
             // change route,  please not use :  window.location.href = '/';
             history.push('/');

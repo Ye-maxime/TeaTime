@@ -21,7 +21,7 @@ assetsToCache = assetsToCache.map(path => {
 // When the service worker is first added to a computer.
 self.addEventListener('install', event => {
     // Perform install steps.
-    console.log(`[SW] install!!!!`);
+    console.log(`[SW] install`);
 
     // Add core website files to cache during serviceworker installation.  
     // global => Node.js 全局对象
@@ -43,7 +43,7 @@ self.addEventListener('install', event => {
 
 // After the install event.
 self.addEventListener('activate', event => {
-    console.log(`[SW] activate!!!!`);
+    console.log(`[SW] activate`);
 
     // Clean the caches
     event.waitUntil(
@@ -61,7 +61,7 @@ self.addEventListener('activate', event => {
 })
 
 self.addEventListener('message', event => {
-    console.log(`[SW] message!!!!`);
+    console.log(`[SW] message`);
     switch (event.data.action) {
         case 'skipWaiting':
             if (self.skipWaiting) {
@@ -76,7 +76,7 @@ self.addEventListener('message', event => {
 
 self.addEventListener('fetch', event => {
     //在安装 Service Worker 且用户转至其他页面或刷新当前页面后，Service Worker 将开始接收 fetch 事件
-    console.log(`[SW] fetch!!!!`);
+    console.log(`[SW] fetch`);
     const request = event.request;
 
     // Ignore not GET request.
