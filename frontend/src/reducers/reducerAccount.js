@@ -8,7 +8,8 @@ import {
     GET_INFOS,
     GET_INFOS_SUCCESS,
     GET_INFOS_FAILURE,
-    RESET_REDIRECT_STATE
+    RESET_REDIRECT_STATE,
+    LOG_OUT
 } from "../actions/account";
 
 export const ACCOUNT_DEFAULT_STATE = {
@@ -55,6 +56,11 @@ export default function reducerAccount(state = ACCOUNT_DEFAULT_STATE, action) {
             return {
                 ...state,
                 redirect: false,
+            }
+        case LOG_OUT: 
+            return {
+                ...state,
+                account: {}
             }
         default:
             return state

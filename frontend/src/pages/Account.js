@@ -6,6 +6,7 @@ import '../assets/css/page.css';
 import { FormattedMessage } from 'react-intl';
 import { connect } from "react-redux";
 import history from '../history';
+import { logout } from "../actions/account";
 
 const tabs = {
     INFOS: <FormattedMessage
@@ -71,6 +72,8 @@ class Account extends Component {
     }
 
     logout() {
+        // clear account in store
+        this.props.logout();
         // clear localStorage
         localStorage.removeItem("account");
         localStorage.removeItem("token");
@@ -115,4 +118,8 @@ const mapStateToProps = (state) => { //state is from store (type: ACCOUNT_DEFAUL
     }
 }
 
-export default connect(mapStateToProps, {})(Account)
+const mapDispatchToProps = {
+    logout
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Account)

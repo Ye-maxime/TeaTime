@@ -13,6 +13,8 @@ export const GET_INFOS_SUCCESS = 'GET_INFOS_SUCCESS'
 
 export const RESET_REDIRECT_STATE = 'RESET_REDIRECT_STATE'
 
+export const LOG_OUT = 'LOG_OUT'
+
 // action creators
 export function signup(firstname, lastname, email, password) {
     return { type: SIGN_UP, data: { firstname: firstname, lastname: lastname, email: email, password: password } }
@@ -58,4 +60,8 @@ export function getAccountInfosFailure(error) {
 
 export function resetRedirectState() {
     return { type: RESET_REDIRECT_STATE }
+}
+
+export function logout() {
+    return { type: LOG_OUT }
 }

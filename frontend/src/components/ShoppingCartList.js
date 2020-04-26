@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import { getCorrespondDrinkImage } from "../util/ComponentUtil";
 
 class Product extends Component {
-    state = {
-        quantity: this.props.product.quantity
-    }
+    constructor(props) {
+        super(props);
 
-    componentDidMount() {
         this.maxPurchaseNumber = this.props.product.quantity + this.props.product.stock;
-    }
+        this.state = {
+            quantity: this.props.product.quantity
+        };
+      }
 
     handleInputChange(event) {
         const newQuantity = parseInt(event.target.value, 0)
