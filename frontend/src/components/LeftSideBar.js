@@ -1,29 +1,28 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-const TabItem = ({tab, tabSelectedId, onClickTabItem}) => (
+const TabItem = ({ tab, tabSelectedId, onClickTabItem }) => (
     <li className={`list-group-item justify-content-between ${tabSelectedId === tab.id && "tab-selected"}`}
         onClick={onClickTabItem}>
         <span>{tab.name}</span>
     </li>
 )
 
-export default class LeftSideBar extends Component {
-    render() {
-        const {tabSelectedId, tabList, clickTab} = this.props
-        return (
-            <div>
-                <ul className='list-group'>
-                    {tabList.map((tab) =>
-                        <TabItem
-                            key={tab.id}
-                            id={tab.id}
-                            tab={tab}
-                            tabSelectedId={tabSelectedId}
-                            onClickTabItem={() => clickTab(tab)}
-                        />
-                    )}
-                </ul>
-            </div>
-        );
-    }
+const LeftSideBar = props => {
+    return (
+        <div>
+            <ul className='list-group'>
+                {props.tabList.map((tab) =>
+                    <TabItem
+                        key={tab.id}
+                        id={tab.id}
+                        tab={tab}
+                        tabSelectedId={props.tabSelectedId}
+                        onClickTabItem={() => props.clickTab(tab)}
+                    />
+                )}
+            </ul>
+        </div>
+    );
 }
+
+export default LeftSideBar;

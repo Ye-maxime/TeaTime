@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { cleanCart } from '../actions/shoppingCart';
 
-class ConfirmationOrder extends Component {
-    componentDidMount() {
-        this.props.cleanCart();
-    }
+const ConfirmationOrder = props => {
 
-    render() {
-        return (
-            <div className="custom-content">
-                Thanks for your purchase!
-            </div>
-        );
-    }
+    useEffect(() => {
+        props.cleanCart();
+    }, []);
+
+    return (
+        <div className="custom-content">
+            Thanks for your purchase!
+        </div>
+    );
 }
 
 const mapDispatchToProps = {

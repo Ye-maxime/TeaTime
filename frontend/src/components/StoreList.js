@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { fetchStores, showStore, clickStore } from "../actions/stores";
 import { connect } from "react-redux";
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import StoreMap from "./GoogleMap";
 
 const Store = ({ store, selectedStore, clickStore }) => (
@@ -13,36 +13,32 @@ const Store = ({ store, selectedStore, clickStore }) => (
     </div>
 )
 
-class StoreList extends Component {
-    componentDidMount() {
-        this.props.fetchStores()
-    }
+const StoreList = props => {
+    useEffect(() => {
+        props.fetchStores();
+    }, []);
 
-    render() {
-        const { stores, error, showStore, storeSelected, clickStore } = this.props
-
-        return (
-            <Container>
-                <div className="error">{error}</div>
-                <div className="store-page">
-                    <div className="col-md-5 store-map">
-                        <StoreMap stores={stores} showStore={showStore} storeSelected={storeSelected} />
-                    </div>
-                    <div className="col-md-5 store-list">
-                        <div className="store-list-title"> Paris</div>
-                        {stores.map((store) =>
-                            <Store
-                                key={store.id}
-                                id={store.id}
-                                store={store}
-                                selectedStore={storeSelected}
-                                clickStore={() => clickStore(store)}
-                            />)}
-                    </div>
+    return (
+        <Container>
+            <div className="error">{props.error}</div>
+            <div className="store-page">
+                <div className="col-md-5 store-map">
+                    <StoreMap stores={props.stores} showStore={props.showStore} storeSelected={props.storeSelected} />
                 </div>
-            </Container>
-        );
-    }
+                <div className="col-md-5 store-list">
+                    <div className="store-list-title"> Paris</div>
+                    {props.stores.map((store) =>
+                        <Store
+                            key={store.id}
+                            id={store.id}
+                            store={store}
+                            selectedStore={props.storeSelected}
+                            clickStore={() => props.clickStore(store)}
+                        />)}
+                </div>
+            </div>
+        </Container>
+    );
 }
 
 const mapStateToProps = (state) => {

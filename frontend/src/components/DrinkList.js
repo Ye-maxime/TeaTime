@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { fetchDrinks, addDrink } from '../actions/drinks';
 import { FormattedMessage } from 'react-intl';
@@ -9,57 +9,51 @@ const Drink = ({ drink }) => (
     </li>
 )
 
-class DrinkList extends Component {
-    state = { newDrink: '' }
+const DrinkList = props => {
+    const [newDrink, setNewDrink] = useState('');
 
-    componentDidMount() {
-        this.props.fetchDrinks()
-    }
+    useEffect(() => {
+        props.fetchDrinks();
+    }, []);
 
-    addNewDrink(event) {
-        event.preventDefault() // Prevent form from reloading page
-        const { newDrink } = this.state
-
+    const addNewDrink = event => {
+        event.preventDefault(); // Prevent form from reloading page
         if (newDrink) {
-            const drink = { name: newDrink }
-            this.props.addDrink(drink)
-            this.setState({ newDrink: '' })
+            const drink = { name: newDrink };
+            props.addDrink(drink);
+            setNewDrink('');
         }
-    }
+    };
 
-    render() {
-        let { newDrink } = this.state
-        const { drinks, error, isLoading, isSaving } = this.props
-        return (
-            <div className="container">
-                <h1>
-                    <FormattedMessage
-                        id='drinkList.title'
-                        defaultMessage='DEFAULT' />
-                </h1>
-                <div className="error">{error}</div>
-                <form className="form-inline form-add-drink" onSubmit={this.addNewDrink.bind(this)}>
-                    <input className="form-control"
-                        value={newDrink}
-                        placeholder="New drink name"
-                        onChange={(e) => this.setState({ newDrink: e.target.value })} />
+    return (
+        <div className="container">
+            <h1>
+                <FormattedMessage
+                    id='drinkList.title'
+                    defaultMessage='DEFAULT' />
+            </h1>
+            <div className="error">{props.error}</div>
+            <form className="form-inline form-add-drink" onSubmit={addNewDrink}>
+                <input className="form-control"
+                    value={newDrink}
+                    placeholder="New drink name"
+                    onChange={(e) => setNewDrink(e.target.value)} />
 
-                    {(isLoading || isSaving) ? <div className="spinner-border text-primary" role="status" /> :
-                        <button className='btn btn-success'
-                            disabled={isLoading || isSaving}>Add
+                {(props.isLoading || props.isSaving) ? <div className="spinner-border text-primary" role="status" /> :
+                    <button className='btn btn-success'
+                        disabled={props.isLoading || props.isSaving}>Add
                         </button>}
-                </form>
-                <ul className="list-group">
-                    {drinks.map((drink) =>
-                        <Drink
-                            key={drink.id}
-                            id={drink.id}
-                            drink={drink}
-                        />)}
-                </ul>
-            </div>
-        )
-    }
+            </form>
+            <ul className="list-group">
+                {props.drinks.map((drink) =>
+                    <Drink
+                        key={drink.id}
+                        id={drink.id}
+                        drink={drink}
+                    />)}
+            </ul>
+        </div>
+    )
 }
 
 const mapStateToProps = (state) => { //state is from store (type: DRINKS_DEFAULT_STATE)

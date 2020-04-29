@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { fetchOrders } from "../actions/orders";
 import OrderDetail from "./OrderDetail";
@@ -21,62 +21,49 @@ const Order = ({ order, onClickSeeDetail }) => (
     </div>
 )
 
-class OrderList extends Component {
+const OrderList = props => {
+    const [showDetail, setShowDetail] = useState(false);
+    const [currentOrderId, setCurrentOrderId] = useState(0);
 
-    state = {
-        showDetail: false,
-        currentOrderId: 0
-    }
+    const clickSeeDetail = orderId => {
+        setShowDetail(true);
+        setCurrentOrderId(orderId);
+    };
 
-    clickSeeDetail(orderId) {
-        this.setState({
-            showDetail: true,
-            currentOrderId: orderId
-        })
-    }
+    const clickBackToOrderList = () => {
+        setShowDetail(false);
+        setCurrentOrderId(0);
+    };
 
-    clickBackToOrderList() {
-        this.setState({
-            showDetail: false,
-            currentOrderId: 0
-        })
-    }
-
-    componentDidMount() {
-        this.props.fetchOrders()
-    }
-
-    componentDidUpdate() {
-        if (this.props.error) {
+    useEffect(() => {
+        if (props.error) {
             // user not logged in
             history.push('/login');
+        } else {
+            props.fetchOrders();
         }
-    }
+    }, [props.error]);
 
-    render() {
-        let { showDetail, currentOrderId } = this.state
-        const { orders, error, isLoading } = this.props
-        return (
-            <div className='container'>
-                <div className="error">{error}</div>
-                {!showDetail ?
-                    (isLoading ? <div className="spinner-border text-primary" role="status" />
-                        :
-                        orders.map((order) =>
-                            <Order
-                                key={order.id}
-                                id={order.id}
-                                order={order}
-                                onClickSeeDetail={() => this.clickSeeDetail(order.id)}
-                            />))
+    return (
+        <div className='container'>
+            <div className="error">{props.error}</div>
+            {!showDetail ?
+                (props.isLoading ? <div className="spinner-border text-primary" role="status" />
                     :
-                    <OrderDetail
-                        orderId={currentOrderId}
-                        clickBackToOrderList={() => this.clickBackToOrderList()}
-                    />}
-            </div>
-        );
-    }
+                    props.orders.map((order) =>
+                        <Order
+                            key={order.id}
+                            id={order.id}
+                            order={order}
+                            onClickSeeDetail={() => clickSeeDetail(order.id)}
+                        />))
+                :
+                <OrderDetail
+                    orderId={currentOrderId}
+                    clickBackToOrderList={() => clickBackToOrderList()}
+                />}
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

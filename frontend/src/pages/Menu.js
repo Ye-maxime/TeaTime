@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import MenuList from '../components/MenuList';
-export default class Menu extends Component {
-    render() {
-        return (
-            <div className="custom-content">
-                <MenuList/>
-            </div>
-        );
-    }
+
+const Menu = props => {
+    return (
+        <div className="custom-content">
+            <MenuList />
+        </div>
+    );
 }
 
+export default Menu;

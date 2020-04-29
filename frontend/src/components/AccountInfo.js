@@ -1,39 +1,33 @@
-import React, { Component } from "react";
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { getAccountInfos, resetRedirectState } from "../actions/account";
 import history from '../history';
 
-class AccountInfo extends Component {
-    componentDidMount() {
-        this.props.getAccountInfos()
-    }
-
-    componentDidUpdate() {
-        if (this.props.errorAccountInfo) {
-            this.props.resetRedirectState();
+const AccountInfo = props => {
+    useEffect(() => {
+        if (props.errorAccountInfo) {
+            props.resetRedirectState();
             // user not logged in
             history.push('/login');
+        } else {
+            props.getAccountInfos();
         }
-    }
+    }, [props.errorAccountInfo]);
 
-    render() {
-        // let { showDetail, currentOrderId } = this.state
-        const { account, errorAccountInfo, isLoading } = this.props
-        return (
-            <div className='container'>
-                <div className="error">{errorAccountInfo}</div>
-                <div className="row">
-                    <div className="col-sm-6 col-md-4 infos">
-                        <h3>{account.firstname} {account.lastname}</h3>
-                        <p>
-                            <i className="fas fa-envelope iconStyle"></i>
-                            {account.email}
-                        </p>
-                    </div>
+    return (
+        <div className='container'>
+            <div className="error">{props.errorAccountInfo}</div>
+            <div className="row">
+                <div className="col-sm-6 col-md-4 infos">
+                    <h3>{props.account.firstname} {props.account.lastname}</h3>
+                    <p>
+                        <i className="fas fa-envelope iconStyle"></i>
+                        {props.account.email}
+                    </p>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

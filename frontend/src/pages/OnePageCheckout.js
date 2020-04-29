@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import CheckoutForm from '../components/CheckoutForm'
+import React from 'react';
+import CheckoutForm from '../components/CheckoutForm';
 
-export default class OnePageCheckout extends Component {
-    render() {
-        return (
-            <div className="custom-content">
-                <CheckoutForm/>
-            </div>
-        );
-    }
+const OnePageCheckout = props => {
+    return (
+        <div className="custom-content">
+            <CheckoutForm />
+        </div>
+    );
 }
+
+export default OnePageCheckout;

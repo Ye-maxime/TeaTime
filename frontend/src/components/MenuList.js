@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { Container, Row, Col } from 'react-bootstrap';
 import { Modal } from 'antd';
@@ -21,82 +21,75 @@ const Menuitem = ({ menuitem, onAddToShoppingCart }) => (
     </div>
 )
 
-class MenuList extends Component {
-    state = { visible: false };
+const MenuList = props => {
+    const [visible, setVisible] = useState(false);
 
-    componentDidMount() {
-        this.props.fetchDrinks()
-    }
+    useEffect(() => {
+        props.fetchDrinks();
+    }, []);
 
-    onAddToShoppingCart(product) {
-        const productInCart = this.props.shoppingCartItems.find((item) => item.id === product.id);
+    const onAddToShoppingCart = product => {
+        const productInCart = props.shoppingCartItems.find((item) => item.id === product.id);
         const currentStock = productInCart ? productInCart.stock : product.stock;
 
         if (currentStock > 0) {
-            this.props.addToShoppingCart(product);
+            props.addToShoppingCart(product);
         } else {
             // Show modal
-            this.setState({ visible: true });
+            setVisible(true);
         }
-    }
-
-    handleOk = e => {
-        this.setState({
-            visible: false,
-        });
     };
 
-    handleCancel = e => {
-        this.setState({
-            visible: false,
-        });
+    const handleOk = e => {
+        setVisible(false);
     };
 
-    render() {
-        const { drinks, error, isLoading } = this.props
-        return (
-            <div className="container">
-                <Modal
-                    title="Error"
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                >
-                    <p>This product is out of stock!</p>
-                </Modal>
-                <h1 className="menuTitle">
-                    MENU
-                    </h1>
-                <div className="error">{error}</div>
-                {isLoading ? <div className="spinner-border text-primary" role="status" />
-                    :
-                    <Container>
-                        <Row>
-                            <Col>
-                                <div className="menu-table-head">Brown Sugar Deerioca Series</div>
-                                {drinks.filter((drink) => drink.collection === 'BROWN').map((brown) =>
-                                    <Menuitem
-                                        key={brown.id}
-                                        id={brown.id}
-                                        menuitem={brown}
-                                        onAddToShoppingCart={() => this.onAddToShoppingCart(brown)}
-                                    />)}
-                            </Col>
-                            <Col>
-                                <div className="menu-table-head">LULU Fresh Fruit Series</div>
-                                {drinks.filter((drink) => drink.collection === 'LULU').map((lulu) =>
-                                    <Menuitem
-                                        key={lulu.id}
-                                        id={lulu.id}
-                                        menuitem={lulu}
-                                        onAddToShoppingCart={() => this.onAddToShoppingCart(lulu)}
-                                    />)}
-                            </Col>
-                        </Row>
-                    </Container>}
-            </div>
-        )
-    }
+    const handleCancel = e => {
+        setVisible(true);
+    };
+
+    return (
+        <div className="container">
+            <Modal
+                title="Error"
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <p>This product is out of stock!</p>
+            </Modal>
+            <h1 className="menuTitle">
+                MENU
+            </h1>
+            <div className="error">{props.error}</div>
+            {props.isLoading ? <div className="spinner-border text-primary" role="status" />
+                :
+                <Container>
+                    <Row>
+                        <Col>
+                            <div className="menu-table-head">Brown Sugar Deerioca Series</div>
+                            {props.drinks.filter((drink) => drink.collection === 'BROWN').map((brown) =>
+                                <Menuitem
+                                    key={brown.id}
+                                    id={brown.id}
+                                    menuitem={brown}
+                                    onAddToShoppingCart={() => onAddToShoppingCart(brown)}
+                                />)}
+                        </Col>
+                        <Col>
+                            <div className="menu-table-head">LULU Fresh Fruit Series</div>
+                            {props.drinks.filter((drink) => drink.collection === 'LULU').map((lulu) =>
+                                <Menuitem
+                                    key={lulu.id}
+                                    id={lulu.id}
+                                    menuitem={lulu}
+                                    onAddToShoppingCart={() => onAddToShoppingCart(lulu)}
+                                />)}
+                        </Col>
+                    </Row>
+                </Container>}
+        </div>
+    )
 }
 
 const mapStateToProps = (state) => { //state is from store (type: DRINKS_DEFAULT_STATE)

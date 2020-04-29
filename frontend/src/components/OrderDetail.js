@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { fetchOrderDetail } from '../actions/orderDetail'
 import { getCorrespondDrinkImage } from "../util/ComponentUtil";
@@ -22,32 +22,28 @@ const ProductDetail = ({ product }) => (
     </div>
 )
 
-class OrderDetail extends Component {
-    componentDidMount() {
-        const { fetchOrderDetail, orderId } = this.props
-        fetchOrderDetail(orderId)
-    }
+const OrderDetail = props => {
+    useEffect(() => {
+        props.fetchOrderDetail(props.orderId);
+    }, []);
 
-    render() {
-        const { products, error, isLoading, clickBackToOrderList } = this.props
-        return (
-            <div className='container'>
-                <div className="error">{error}</div>
-                {isLoading ? <div className="spinner-border text-primary" role="status" />
-                    : <div className='order-detail-content'>
-                        <button className='btn btn-outline-secondary btn-back-to-list'
-                            onClick={clickBackToOrderList}>Back to my orders
+    return (
+        <div className='container'>
+            <div className="error">{props.error}</div>
+            {props.isLoading ? <div className="spinner-border text-primary" role="status" />
+                : <div className='order-detail-content'>
+                    <button className='btn btn-outline-secondary btn-back-to-list'
+                        onClick={props.clickBackToOrderList}>Back to my orders
                         </button>
-                        {products.map((product) =>
-                            <ProductDetail
-                                key={product.id}
-                                id={product.id}
-                                product={product}
-                            />)}
-                    </div>}
-            </div>
-        );
-    }
+                    {props.products.map((product) =>
+                        <ProductDetail
+                            key={product.id}
+                            id={product.id}
+                            product={product}
+                        />)}
+                </div>}
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {
