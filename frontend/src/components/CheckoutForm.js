@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 import { Modal } from 'antd';
 import Utils from '../util/Utils';
-import { getOPC } from '../actions/opc';
 
 //参考https://github.com/fireship-io/193-paypal-checkout-v2-demos
 
@@ -102,7 +101,7 @@ const CheckoutForm = props => {
     };
 
     const handleCancel = e => {
-        setVisible(true);
+        setVisible(false);
     };
 
     let content;
@@ -146,7 +145,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    getOPC
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm)

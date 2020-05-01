@@ -45,7 +45,7 @@ const MenuList = props => {
     };
 
     const handleCancel = e => {
-        setVisible(true);
+        setVisible(false);
     };
 
     return (
