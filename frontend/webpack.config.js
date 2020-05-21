@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -11,8 +11,10 @@ module.exports = {
     entry: path.join(__dirname, '/src/index.js'),
     mode: 'development',
     output: {
-        filename: 'bundle.[hash].js',
-        path: path.join(__dirname, '/dist')  //会自动打包成一个bundle.js文件 并在index.html里面引用
+        filename: 'bundle.[hash].js', //filename就是对应于entry里面生成出来的文件名
+        path: path.join(__dirname, '/dist'),  //会自动打包成一个bundle.js文件 并在index.html里面引用
+        publicPath: '/', //用于cdn
+        chunkFilename:'js/[name].[chunkhash].js' //chunkname我的理解是未被列在entry中，却又需要被打包出来的文件命名配置  (在按需加载（异步）模块的时候用到)
     },
     module: {
         rules: [
@@ -62,7 +64,7 @@ module.exports = {
                             interlaced: false,
                         },
                         // the webp option will enable WEBP, bug here!!!
-                        // webp: {  
+                        // webp: {
                         //     quality: 70
                         // }
                     }
@@ -105,8 +107,8 @@ module.exports = {
         new CleanWebpackPlugin(), //每次打包前清空dist目录
         // 打包导出 CSS 到独立文件 main.css
         new MiniCssExtractPlugin({
-            filename: "css/[name].css",
-            chunkFilename: "[id].css"
+            filename: 'css/[name].css',
+            chunkFilename: 'css/[name].[chunkhash].css'
         }),
         // 压缩 CSS  即丑化代码
         new OptimizeCssAssetsPlugin({
@@ -133,7 +135,8 @@ module.exports = {
             }),
         ]
     },
-    devServer: { //本地开发环境（webpack-dev-server）对应于frontend/package.json  start
+    // 下面这段代码 只用于本地开发时候，当放进docker容器之后 proxy的配置是从根目录下的nginx.conf读取出来的
+    devServer: { //本地开发环境（webpack-dev-server）对应于frontend/package.json  start命令行
         // contentBase: path.join(__dirname, '/dist'),
         historyApiFallback: true,
         compress: true,

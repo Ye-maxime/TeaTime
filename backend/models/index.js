@@ -26,6 +26,7 @@ Order.belongsToMany(Drink, {
 
 //associate relation one to many between table account and order
 Account.hasMany(Order, { as: 'Orders' })
+Order.belongsTo(Account)
 
 // synchonization the database with models
 //mettre en commentaire ce block quand lance test
