@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { clickIcon, defaultIcon } from '../assets/bundle';
-import { googleMapApiKey } from '../config/config';
 
 const StoreMap = ({ stores, storeSelected, showStore, google }) => {
     const [zoomValue, setZoomValue] = useState(12);
@@ -52,5 +51,5 @@ const StoreMap = ({ stores, storeSelected, showStore, google }) => {
 }
 
 export default GoogleApiWrapper({
-    apiKey: googleMapApiKey
+    apiKey: process.env.GOOGLE_MAP_API_KEY
 })(StoreMap);

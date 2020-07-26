@@ -6,6 +6,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: path.join(__dirname, '/src/index.js'),
@@ -14,7 +15,7 @@ module.exports = {
         filename: 'bundle.[hash].js', //filename就是对应于entry里面生成出来的文件名
         path: path.join(__dirname, '/dist'),  //会自动打包成一个bundle.js文件 并在index.html里面引用
         publicPath: '/', //用于cdn
-        chunkFilename:'js/[name].[chunkhash].js' //chunkname我的理解是未被列在entry中，却又需要被打包出来的文件命名配置  (在按需加载（异步）模块的时候用到)
+        chunkFilename: 'js/[name].[chunkhash].js' //chunkname我的理解是未被列在entry中，却又需要被打包出来的文件命名配置  (在按需加载（异步）模块的时候用到)
     },
     module: {
         rules: [
@@ -122,7 +123,11 @@ module.exports = {
             excludes: ['**/.*', '**/*.map', '*.html'],
         }),
         // 针对manifest.json 文件
-        new ManifestPlugin()
+        new ManifestPlugin(),
+        // 环境变量
+        new Dotenv({
+            path: `./.env.${process.env.NODE_ENV === "production" ? "production" : "development"}`,
+        })
     ],
     optimization: {
         minimize: true, //production 模式下，这里默认是 true

@@ -19,7 +19,7 @@ const CheckoutForm = props => {
     const fetchOpcInfos = () => {
         const id = Utils.getAccountIdFromLocalStorage();
         if (id) {
-            return fetch('http://localhost:4000/v1/opc', {
+            return fetch(process.env.API_BASE_URL + 'opc', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json',
@@ -62,7 +62,7 @@ const CheckoutForm = props => {
                     // Call your server to save the transaction
                     const id = Utils.getAccountIdFromLocalStorage();
                     if (id) {
-                        return fetch('http://localhost:4000/v1/orders/saveOrder', {
+                        return fetch(process.env.API_BASE_URL + 'orders/saveOrder', {
                             method: 'post',
                             headers: {
                                 'content-type': 'application/json',

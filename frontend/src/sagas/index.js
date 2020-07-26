@@ -11,7 +11,7 @@ import Utils from '../util/Utils';
 //**********************Drinks*************************
 function* getAllDrinks() {
     try {
-        const res = yield call(fetch, 'http://localhost:4000/v1/drinks')
+        const res = yield call(fetch, process.env.API_BASE_URL + 'drinks')
         const drinks = yield res.json()
         yield put(loadedDrinks(drinks))
     } catch (e) {
@@ -28,7 +28,7 @@ function* saveDrink(action) {
                 'Content-Type': 'application/json'
             })
         }
-        const res = yield call(fetch, 'http://localhost:4000/v1/drinks', options)
+        const res = yield call(fetch, process.env.API_BASE_URL + 'drinks', options)
         const drink = yield res.json()
         // 就相当dispatch(action)出去，reducer边接收到相应的action.type就会对数据进行相应的操作,最后通过react-redux的connect回到视图中，完成了一次数据驱动视图,
         yield put(addDrinkSuccess(drink))
@@ -39,7 +39,7 @@ function* saveDrink(action) {
 
 // function* deleteDrink(action) {
 //     try {
-//         yield call(fetch, `http://localhost:4000/v1/todos/${action.id}`, {method: 'DELETE'})
+//         yield call(fetch, `${process.env.API_BASE_URL}todos/${action.id}`, {method: 'DELETE'})
 //     } catch (e) {
 //         yield put(todosFailure(e.message))
 //     }
@@ -47,7 +47,7 @@ function* saveDrink(action) {
 //
 // function* updateDrink(action) {
 //     try {
-//         yield call(fetch, `http://localhost:4000/v1/todos/${action.id}`, {method: 'POST'})
+//         yield call(fetch, `${process.env.API_BASE_URL}todos/${action.id}`, {method: 'POST'})
 //     } catch (e) {
 //         yield put(todosFailure(e.message))
 //     }
@@ -57,7 +57,7 @@ function* saveDrink(action) {
 //**********************Stores*************************
 function* getAllStores() {
     try {
-        const res = yield call(fetch, 'http://localhost:4000/v1/stores')
+        const res = yield call(fetch, process.env.API_BASE_URL + 'stores')
         const stores = yield res.json()
         yield put(loadedStores(stores))
     } catch (e) {
@@ -78,7 +78,7 @@ function* getAllStores() {
 //                     'Authorization': `Bearer ${localStorage.token}`
 //                 })
 //             }
-//             const res = yield call(fetch, 'http://localhost:4000/v1/opc', options)
+//             const res = yield call(fetch, process.env.API_BASE_URL + 'opc', options)
 //             const result = yield res.json()
 //             yield put(getOPCSuccess(result.availableProducts, result.total));
 //         } else {
@@ -103,9 +103,9 @@ function* getAllOrders(action) {
                     'Authorization': `Bearer ${localStorage.token}`
                 })
             }
-            const res = yield call(fetch, 'http://localhost:4000/v1/orders/getOrders', options)
+            const res = yield call(fetch, process.env.API_BASE_URL + 'orders/getOrders', options)
             if (res.ok === false) {
-                // error comes from the jwt part in backend/server.js 
+                // error comes from the jwt part in backend/server.js
                 throw Error("getAllOrders : No user logged in!!")
             }
             const orders = yield res.json()
@@ -132,7 +132,7 @@ function* getAllOrders(action) {
 //                     'Authorization': `Bearer ${localStorage.token}`
 //                 })
 //             }
-//             const res = yield call(fetch, 'http://localhost:4000/v1/orders/saveOrder', options)
+//             const res = yield call(fetch, process.env.API_BASE_URL + 'orders/saveOrder', options)
 //             const order = yield res.json()
 //             yield put(addOrderSuccess(order))
 //         } else {
@@ -153,7 +153,7 @@ function* getOrderDetail(action) {
                 'Authorization': `Bearer ${localStorage.token}`
             })
         }
-        const res = yield call(fetch, `http://localhost:4000/v1/order_detail/${action.orderId}`, options)
+        const res = yield call(fetch, `${process.env.API_BASE_URL}order_detail/${action.orderId}`, options)
         const products = yield res.json()
         yield put(loadedOrderDetail(products))
     } catch (e) {
@@ -171,7 +171,7 @@ function* signup(action) {
                 'Content-Type': 'application/json'
             })
         }
-        const res = yield call(fetch, 'http://localhost:4000/v1/account/signup', options)
+        const res = yield call(fetch, process.env.API_BASE_URL + 'account/signup', options)
         const result = yield res.json()
         if (result.success) {
             const { success, token, ...account } = result;
@@ -194,7 +194,7 @@ function* login(action) {
                 'Content-Type': 'application/json'
             })
         }
-        const res = yield call(fetch, 'http://localhost:4000/v1/account/login', options)
+        const res = yield call(fetch, process.env.API_BASE_URL + 'account/login', options)
         const result = yield res.json()
         if (result.success) {
             const { success, token, ...account } = result;
@@ -221,9 +221,9 @@ function* getAccountInfomations(action) {
                     'Authorization': `Bearer ${localStorage.token}`
                 })
             }
-            const res = yield call(fetch, 'http://localhost:4000/v1/account/getAccountInfos', options)
+            const res = yield call(fetch, process.env.API_BASE_URL + 'account/getAccountInfos', options)
             if (res.ok === false) {
-                // error comes from the jwt part in backend/server.js 
+                // error comes from the jwt part in backend/server.js
                 throw Error("getAccountInfomations : No user logged in!!")
             }
             const result = yield res.json()

@@ -1,5 +1,5 @@
 module.exports = {
-    setupFiles: ['<rootDir>/src/config/enzyme.config.js'], // The paths to modules that run some code to configure or set up the testing environment before each test
+    setupFiles: ['<rootDir>/config/enzyme.config.js'], // The paths to modules that run some code to configure or set up the testing environment before each test
     testMatch: ["<rootDir>/src/test/**/*.(spec|test).js?(x)"], //用来匹配test文件夹下的所有test文件
     verbose: true,
     moduleNameMapper: {
