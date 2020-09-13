@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { fetchDrinks, addDrink } from '../actions/drinks';
 import { FormattedMessage } from 'react-intl';
 
-const Drink = ({ drink }) => (
+const Drink = React.memo(({ drink }) => (
     <li className="list-group-item justify-content-between">
         <span>{drink.name} {drink.price}</span>
     </li>
-)
+));
 
 const DrinkList = props => {
     const [newDrink, setNewDrink] = useState('');

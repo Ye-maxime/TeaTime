@@ -4,7 +4,7 @@ import { changeQuantity, removeFromCart } from '../actions/shoppingCart';
 import { Link } from 'react-router-dom';
 import { getCorrespondDrinkImage } from "../util/ComponentUtil";
 
-const Product = ({ product, onRemoveFromCart, onChangeQuantity }) => {
+const Product = React.memo(({ product, onRemoveFromCart, onChangeQuantity }) => {
     const maxPurchaseNumber = product.quantity + product.stock;
 
     const [quantity, setQuantity] = useState(product.quantity);
@@ -57,8 +57,10 @@ const Product = ({ product, onRemoveFromCart, onChangeQuantity }) => {
             </td>
         </tr>
     );
-}
-
+}, (prevProps, nextProps) => {
+    // 只要该Product组件的product内容不变就不重新渲染，即改变其他产品的quantity不会影响剩余Product组件的渲染
+    return prevProps.product === nextProps.product;
+})
 
 const ShoppingCartList = props => {
     return (

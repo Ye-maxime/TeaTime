@@ -14,8 +14,7 @@ import history from './history';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-import {PersistGate} from 'redux-persist/lib/integration/react';
-import { CookiesProvider } from 'react-cookie';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 
 // implement the multi-language context : https://github.com/formatjs/react-intl/blob/master/docs/Upgrade-Guide.md
 require('@formatjs/intl-pluralrules/polyfill');
@@ -51,15 +50,13 @@ sagaMiddleware.run(rootSaga);
 const persistor = persistStore(store);
 
 ReactDOM.render((
-    <CookiesProvider>
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <Router history={history}>
-                    <App />
-                </Router>
-            </PersistGate>
-        </Provider>
-    </CookiesProvider>
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+            <Router history={history}>
+                <App />
+            </Router>
+        </PersistGate>
+    </Provider>
 ), document.getElementById('root'))
 
 registerServiceWorker();

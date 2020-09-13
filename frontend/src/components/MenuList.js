@@ -6,20 +6,27 @@ import { fetchDrinks } from '../actions/drinks';
 import { addToShoppingCart } from "../actions/shoppingCart";
 import { getCorrespondDrinkImage } from "../util/ComponentUtil";
 
-const Menuitem = ({ menuitem, onAddToShoppingCart }) => (
-    <div className="menu-table-list row">
-        <img className="col-md-3"
-            src={getCorrespondDrinkImage(menuitem.image)}
-            alt='product' />
-        <div>
-            <span>{menuitem.name}</span>
-            <span className="menuPrice">{menuitem.price}€</span>
-            <span className="icon addIcon" onClick={onAddToShoppingCart}>
-                <i className="fas fa-plus-circle has-text-success" />
-            </span>
+const Menuitem = React.memo(({ menuitem, onAddToShoppingCart }) => {
+    return (
+        <div className="menu-table-list row">
+            <img className="col-md-3"
+                src={getCorrespondDrinkImage(menuitem.image)}
+                alt='product' />
+            <div>
+                <span>{menuitem.name}</span>
+                <span className="menuPrice">{menuitem.price}€</span>
+                <span className="icon addIcon" onClick={onAddToShoppingCart}>
+                    <i className="fas fa-plus-circle has-text-success" />
+                </span>
+            </div>
         </div>
-    </div>
-)
+    )
+}, (prevProps, nextProps) => {
+    // 只要之前的menuitem 没变就不重新渲染该Menuitem组件
+    // (因为不这样重写这个函数的话 每次渲染的onAddToShoppingCart函数都是指向不一样的引用，就会导致该组件重复渲染)
+    // 这里不用useCallback 来包装onAddToShoppingCart 是因为onAddToShoppingCart在MenuList里面是在(三元运算符)即条件语句里面,hook可以这样用
+    return prevProps.menuitem === nextProps.menuitem;
+})
 
 const MenuList = props => {
     const [visible, setVisible] = useState(false);

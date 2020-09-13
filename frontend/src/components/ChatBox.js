@@ -32,8 +32,8 @@ const ChatBox = props => {
     };
 
     const addNewMessageToList = message => {
-        setMessageList([...messageList, message]);
-        setNewMessagesCount(isOpen ? 0 : newMessagesCount + 1);
+        setMessageList(prevMessageList => [...prevMessageList, message]);
+        setNewMessagesCount(prevMessagesCount => isOpen ? 0 : prevMessagesCount + 1);
     };
 
     const onMessageWasSent = message => {
@@ -42,7 +42,7 @@ const ChatBox = props => {
     };
 
     const handleClick = () => {
-        setIsOpen(!isOpen);
+        setIsOpen(prevIsOpen => !prevIsOpen);
         setNewMessagesCount(0);
     };
 
