@@ -21,13 +21,7 @@ function* getAllDrinks() {
 
 function* saveDrink(action) {
     try {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(action.drink),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        }
+        const options = Utils.createRequestOptions('POST', action.drink);
         const res = yield call(fetch, process.env.API_BASE_URL + 'drinks', options)
         const drink = yield res.json()
         // 就相当dispatch(action)出去，reducer边接收到相应的action.type就会对数据进行相应的操作,最后通过react-redux的connect回到视图中，完成了一次数据驱动视图,
@@ -70,14 +64,7 @@ function* getAllStores() {
 //     try {
 //         const id = Utils.getAccountIdFromLocalStorage();
 //         if (id) {
-//             const options = {
-//                 method: 'POST',
-//                 body: JSON.stringify(action.products),
-//                 headers: new Headers({
-//                     'Content-Type': 'application/json',
-//                     'Authorization': `Bearer ${localStorage.token}`
-//                 })
-//             }
+//             const options = Utils.createRequestOptions('POST', action.products, true);
 //             const res = yield call(fetch, process.env.API_BASE_URL + 'opc', options)
 //             const result = yield res.json()
 //             yield put(getOPCSuccess(result.availableProducts, result.total));
@@ -95,14 +82,7 @@ function* getAllOrders(action) {
         // const token = Cookies.get('jwt');
         const id = Utils.getAccountIdFromLocalStorage();
         if (id) {
-            const options = {
-                method: 'POST',
-                body: JSON.stringify({ accountId: id }),
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.token}`
-                })
-            }
+            const options = Utils.createRequestOptions('POST', { accountId: id }, true);
             const res = yield call(fetch, process.env.API_BASE_URL + 'orders/getOrders', options)
             if (res.ok === false) {
                 // error comes from the jwt part in backend/server.js
@@ -124,14 +104,7 @@ function* getAllOrders(action) {
 //         const id = Utils.getAccountIdFromLocalStorage();
 //         if (id) {
 //             action.data.accountId = id;
-//             const options = {
-//                 method: 'POST',
-//                 body: JSON.stringify(action.data),
-//                 headers: new Headers({
-//                     'Content-Type': 'application/json',
-//                     'Authorization': `Bearer ${localStorage.token}`
-//                 })
-//             }
+//             const options = Utils.createRequestOptions('POST', action.data, true);
 //             const res = yield call(fetch, process.env.API_BASE_URL + 'orders/saveOrder', options)
 //             const order = yield res.json()
 //             yield put(addOrderSuccess(order))
@@ -146,13 +119,7 @@ function* getAllOrders(action) {
 //**********************OrderDetail*************************
 function* getOrderDetail(action) {
     try {
-        const options = {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.token}`
-            })
-        }
+        const options = Utils.createRequestOptions('GET', '', true);
         const res = yield call(fetch, `${process.env.API_BASE_URL}order_detail/${action.orderId}`, options)
         const products = yield res.json()
         yield put(loadedOrderDetail(products))
@@ -164,13 +131,7 @@ function* getOrderDetail(action) {
 //**********************Account*************************
 function* signup(action) {
     try {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(action.data),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        }
+        const options = Utils.createRequestOptions('POST', action.data);
         const res = yield call(fetch, process.env.API_BASE_URL + 'account/signup', options)
         const result = yield res.json()
         if (result.success) {
@@ -187,13 +148,7 @@ function* signup(action) {
 
 function* login(action) {
     try {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(action.data),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        }
+        const options = Utils.createRequestOptions('POST', action.data);
         const res = yield call(fetch, process.env.API_BASE_URL + 'account/login', options)
         const result = yield res.json()
         if (result.success) {
@@ -212,15 +167,7 @@ function* getAccountInfomations(action) {
     try {
         const id = Utils.getAccountIdFromLocalStorage();
         if (id) {
-            const data = { accountId: id }
-            const options = {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.token}`
-                })
-            }
+            const options = Utils.createRequestOptions('POST', { accountId: id }, true);
             const res = yield call(fetch, process.env.API_BASE_URL + 'account/getAccountInfos', options)
             if (res.ok === false) {
                 // error comes from the jwt part in backend/server.js
