@@ -1,24 +1,24 @@
+/* eslint-disable no-use-before-define */
 import React, { useState, useEffect } from 'react';
 import { Launcher } from 'react-chat-window'
 import socketIOClient from 'socket.io-client'
-import { teatime_chatbox } from '../assets/bundle';
+import { teatimeChatbox } from '../assets/bundle';
 
-const message_type = {
+const messageType = {
     CONNECTED: 'connected',
-    NEW_MESSAGE: 'new_message'
+    NEW_MESSAGE: 'new_message',
 }
 
-const ChatBox = props => {
+const ChatBox = () => {
     const socket = socketIOClient('http://localhost:4000/', { transports: ['polling'] });
 
     const [messageList, setMessageList] = useState([]);
     const [newMessagesCount, setNewMessagesCount] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
 
-
     useEffect(() => {
-        emitMessage({ user: 'Maxime' }, message_type.CONNECTED);
-        //listen server message
+        emitMessage({ user: 'Maxime' }, messageType.CONNECTED);
+        // listen server message
         socket.on('connected', (message) => {
             addNewMessageToList(message);
         });
@@ -28,43 +28,44 @@ const ChatBox = props => {
     }, []);
 
     const emitMessage = (message, typeMessage) => {
-        socket.emit(typeMessage, { message: message })
+        socket.emit(typeMessage, { message })
     };
 
-    const addNewMessageToList = message => {
-        setMessageList(prevMessageList => [...prevMessageList, message]);
-        setNewMessagesCount(prevMessagesCount => isOpen ? 0 : prevMessagesCount + 1);
+    const addNewMessageToList = (message) => {
+        setMessageList((prevMessageList) => [...prevMessageList, message]);
+        setNewMessagesCount((prevMessagesCount) => (isOpen ? 0 : prevMessagesCount + 1));
     };
 
-    const onMessageWasSent = message => {
-        emitMessage(message, message_type.NEW_MESSAGE);
+    const onMessageWasSent = (message) => {
+        emitMessage(message, messageType.NEW_MESSAGE);
         addNewMessageToList(message);
     };
 
     const handleClick = () => {
-        setIsOpen(prevIsOpen => !prevIsOpen);
+        setIsOpen((prevIsOpen) => !prevIsOpen);
         setNewMessagesCount(0);
     };
 
-    const onFilesSelected = fileList => {
+    const onFilesSelected = (fileList) => {
         const objectURL = window.URL.createObjectURL(fileList[0]);
         const fileMessage = {
-            type: 'file', author: "me",
+            type: 'file',
+            author: 'me',
             data: {
                 url: objectURL,
-                fileName: fileList[0].name
-            }
+                fileName: fileList[0].name,
+            },
         };
-        emitMessage(fileMessage, message_type.NEW_MESSAGE);
+        emitMessage(fileMessage, messageType.NEW_MESSAGE);
         addNewMessageToList(fileMessage);
     };
 
     return (
-        <div className='chat-box'>
+        <div className="chat-box">
             <Launcher
                 agentProfile={{
                     teamName: 'Customer service',
-                    imageUrl: teatime_chatbox //or 'src/assets/images/teatime_chatbox.png'
+                    imageUrl: teatimeChatbox, // or 'src/assets/images/teatime_chatbox.png'
                 }}
                 onMessageWasSent={onMessageWasSent}
                 handleClick={handleClick}
@@ -72,8 +73,8 @@ const ChatBox = props => {
                 messageList={messageList}
                 isOpen={isOpen}
                 newMessagesCount={newMessagesCount}
-                showEmoji={true}
-                mute={true}
+                showEmoji
+                mute
             />
         </div>
     )

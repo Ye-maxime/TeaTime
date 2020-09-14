@@ -8,7 +8,7 @@ export default class Utils {
         const dates = dateInString.split('T');
         const date = dates[0];
         const time = dates[1] && dates[1].split('.')[0];
-        return time ? date + ' ' + time : date;
+        return time ? `${date} ${time}` : date;
     }
 
     static isAuthenticated() {
@@ -17,7 +17,7 @@ export default class Utils {
 
     static createRequestOptions(method = 'GET', payload = '', needAuthorization = false) {
         const headers = new Headers({
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         });
 
         if (needAuthorization) {
@@ -26,7 +26,7 @@ export default class Utils {
 
         const options = {
             method,
-            headers
+            headers,
         };
 
         if (method === 'POST') {
@@ -35,4 +35,4 @@ export default class Utils {
 
         return options;
     }
-};
+}

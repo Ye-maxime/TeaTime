@@ -1,2 +1,2 @@
-//mock the files for test
+// mock the files for test
 module.exports = 'test-file-stub';

@@ -15,7 +15,7 @@ export function loadedOrders(orders) {
 }
 
 export function addOrder(products, total) {
-    return { type: ADD_ORDER, data: { products: products, total: total } }
+    return { type: ADD_ORDER, data: { products, total } }
 }
 
 export function addOrderSuccess(order) {

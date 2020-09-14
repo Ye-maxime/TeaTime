@@ -9,5 +9,5 @@ async function findAll(ctx) {
 }
 
 module.exports = {
-    findAll
+    findAll,
 }

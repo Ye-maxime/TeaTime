@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { Order, Drink } = require('../models/index')
 const { publishToQueue } = require('../services/RabbitmqPublisher')
 const RabbitmqConstants = require('../services/RabbitmqConstants');
@@ -6,7 +7,7 @@ async function findAll(ctx) {
     const { accountId } = ctx.request.body;
     const orders = await Order.findAll({
         where: {
-            accountId: accountId
+            accountId,
         },
         raw: true, // raw: true => get only dataValues from Sequelize ORM
     });
@@ -18,7 +19,7 @@ async function findAll(ctx) {
 * ctx.request.body 包含了accountId, products, total
 */
 async function placeOrder(ctx) {
-    const products = ctx.request.body.products;
+    const { products } = ctx.request.body;
     const productsEntity = [];
     let allProductsAvailable = true;
 
@@ -35,7 +36,7 @@ async function placeOrder(ctx) {
     }
 
     if (allProductsAvailable) {
-        // 先扣减订单中每个产品的库存 
+        // 先扣减订单中每个产品的库存
         productsEntity.forEach(async (productEntity, index) => {
             const newStock = productEntity.stock - products[index].quantity;
             await productEntity.update({ stock: newStock });
@@ -56,7 +57,7 @@ async function placeOrder(ctx) {
 async function createOrder(data) {
     // 消费MQ队列 来生成订单 (不再需要扣减库存，直接生成订单以及级联表数据)
     const { accountId, products, total } = data;
-    const newOrder = await Order.create({ total: total, accountId: accountId });
+    const newOrder = await Order.create({ total, accountId });
     products.forEach(async (product) => {
         const productInDatabase = await Drink.findByPk(product.id);
         await newOrder.addDrink(productInDatabase, { through: { quantity: product.quantity } });
@@ -67,5 +68,5 @@ async function createOrder(data) {
 module.exports = {
     findAll,
     placeOrder,
-    createOrder
+    createOrder,
 }

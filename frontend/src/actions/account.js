@@ -17,7 +17,13 @@ export const LOG_OUT = 'LOG_OUT'
 
 // action creators
 export function signup(firstname, lastname, email, password) {
-    return { type: SIGN_UP, data: { firstname: firstname, lastname: lastname, email: email, password: password } }
+    // eslint-disable-next-line max-len
+    return {
+        type: SIGN_UP,
+        data: {
+            firstname, lastname, email, password,
+        },
+    }
 }
 
 export function signupSuccess(account, token) {
@@ -33,7 +39,7 @@ export function signupFailure(error) {
 }
 
 export function login(email, password) {
-    return { type: LOGIN, data: { email: email, password: password } }
+    return { type: LOGIN, data: { email, password } }
 }
 
 export function loginSuccess(account, token) {

@@ -5,13 +5,12 @@ const Loading = ({ isLoading, error }) => {
     if (isLoading) {
         return <div className="custom-content">Loading...</div>;
     }
+    if (error) {
     // Handle the error state
-    else if (error) {
         return <div className="custom-content">Sorry, there was a problem loading the page.</div>;
     }
-    else {
-        return null;
-    }
+
+    return null;
 };
 
 export default Loading;

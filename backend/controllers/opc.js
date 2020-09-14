@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const { getProductStockInfosFromCache } = require('../middleware/cache')
 
 async function getOPC(ctx) {
@@ -8,5 +9,5 @@ async function getOPC(ctx) {
 }
 
 module.exports = {
-    getOPC
+    getOPC,
 }

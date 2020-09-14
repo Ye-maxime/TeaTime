@@ -1,11 +1,9 @@
 import React from 'react';
 
-const PageNotFound = props => {
-    return (
-        <div className="custom-content">
-            <h3>404 NOT FOUND</h3>
-        </div>
-    );
-}
+const PageNotFound = () => (
+    <div className="custom-content">
+        <h3>404 NOT FOUND</h3>
+    </div>
+)
 
 export default PageNotFound;

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable max-len */
 const { redis, MAX_AGE } = require('../config/redis')
 
 class RedisAccountInfos {
@@ -17,22 +19,23 @@ async function saveAccountInfosInCache(accountEntity) {
 
 // cache middleware
 function getAccountInfosFromCache(ctx) {
-    return new Promise(function (resolve, reject) {
-        const accountId = ctx.request.body.accountId;
+    return new Promise(((resolve, reject) => {
+        const { accountId } = ctx.request.body;
         redis.get(`account-${accountId}`, (err, data) => {
             if (err) reject(err);
-            console.log("[cache.js#getAccountInfosFromCache] : data = ")
+            console.log('[cache.js#getAccountInfosFromCache] : data = ')
             console.log(data);
             resolve(data);
         });
-    });
+    }));
 }
 
 /*
 * 存储产品的库存信息到redis中
 */
 async function saveProductStockInfosInCache(productsEntity) {
-    for (let product of productsEntity) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const product of productsEntity) {
         await redis.hset('products-stock', product.id, product.stock);
     }
 }
@@ -41,13 +44,14 @@ async function saveProductStockInfosInCache(productsEntity) {
 * 从redis中获取产品的库存信息
 */
 function getProductStockInfosFromCache(ctx) {
-    return new Promise(function (resolve, reject) {
+    return new Promise(((resolve, reject) => {
         const products = ctx.request.body;
         redis.hgetall('products-stock', async (err, data) => {
             if (err) reject(err);
-            console.log("[cache.js#getProductStockInfosFromCache] : data = ")
+            console.log('[cache.js#getProductStockInfosFromCache] : data = ')
             console.log(data);
-            for (let product of products) {
+            // eslint-disable-next-line no-restricted-syntax
+            for (const product of products) {
                 if (data[product.id] < product.quantity) {
                     // cache中的库存少于要买的个数
                     // TODO只能提醒用户购买数量会变少,显示在opc对应的产品行上
@@ -62,12 +66,12 @@ function getProductStockInfosFromCache(ctx) {
             }
             resolve(products);
         });
-    });
+    }));
 }
 
 module.exports = {
     saveAccountInfosInCache,
     getAccountInfosFromCache,
     saveProductStockInfosInCache,
-    getProductStockInfosFromCache
+    getProductStockInfosFromCache,
 }

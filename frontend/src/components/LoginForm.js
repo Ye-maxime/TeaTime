@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from 'react';
-import { connect } from "react-redux";
-import { signup, login, resetRedirectState } from '../actions/account';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import history from '../history';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import history from '../history';
+import { signup, login, resetRedirectState } from '../actions/account';
 
-const LoginForm = props => {
+const LoginForm = ({
+    redirect, errorLogin, errorSignUp, signup, login, resetRedirectState,
+}) => {
     const signupFormRef = useRef(null);
 
     const validateMessages = {
@@ -16,20 +18,20 @@ const LoginForm = props => {
     };
 
     useEffect(() => {
-        if (props.redirect) {
-            props.resetRedirectState();
+        if (redirect) {
+            resetRedirectState();
             // change route,  please not use :  window.location.href = '/';
             history.push('/');
         }
-    }, [props.redirect]);
+    }, [redirect]);
 
-
-    const onFinishLogin = values => {
-        props.login(values.loginEmail, values.loginPassword);
+    const onFinishLogin = (values) => {
+        login(values.loginEmail, values.loginPassword);
     };
 
-    const onFinishSignup = values => {
-        props.signup(values.signUpFirstname, values.signUpLastname, values.signUpEmail, values.signUpPassword);
+    const onFinishSignup = (values) => {
+        // eslint-disable-next-line max-len
+        signup(values.signUpFirstname, values.signUpLastname, values.signUpEmail, values.signUpPassword);
     };
 
     const onReset = () => {
@@ -42,20 +44,23 @@ const LoginForm = props => {
                 <div className="col-md-5">
                     <h6 className="subtitle-login">
                         <FormattedMessage
-                            id='loginForm.subtitle'
-                            defaultMessage='DEFAULT' />
+                            id="loginForm.subtitle"
+                            defaultMessage="DEFAULT"
+                        />
                     </h6>
                     <h4>
                         <FormattedMessage
-                            id='loginForm.title'
-                            defaultMessage='DEFAULT' />
+                            id="loginForm.title"
+                            defaultMessage="DEFAULT"
+                        />
                     </h4>
-                    <div className="error">{props.errorLogin}</div>
+                    <div className="error">{errorLogin}</div>
                     <Form
                         className="form-login"
                         name="loginForm"
                         onFinish={onFinishLogin}
-                        validateMessages={validateMessages}>
+                        validateMessages={validateMessages}
+                    >
                         <Form.Item
                             name="loginEmail"
                             hasFeedback
@@ -74,7 +79,8 @@ const LoginForm = props => {
                                 className="input-login"
                                 prefix={<UserOutlined className="site-form-item-icon" />}
                                 placeholder="Email Address"
-                                id="loginEmail" />
+                                id="loginEmail"
+                            />
                         </Form.Item>
                         <Form.Item
                             name="loginPassword"
@@ -90,37 +96,41 @@ const LoginForm = props => {
                                 prefix={<LockOutlined className="site-form-item-icon" />}
                                 className="input-login"
                                 placeholder="Your password"
-                                id="loginPassword" />
+                                id="loginPassword"
+                            />
                         </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
                                 Login
-                                </Button>
+                            </Button>
                         </Form.Item>
                     </Form>
                 </div>
-                <div className='dividingLine'>
+                <div className="dividingLine">
                 </div>
                 <hr></hr>
 
                 <div className="col-md-5">
                     <h6 className="subtitle-login">
                         <FormattedMessage
-                            id='register.subtitle'
-                            defaultMessage='DEFAULT' />
+                            id="register.subtitle"
+                            defaultMessage="DEFAULT"
+                        />
                     </h6>
                     <h4>
                         <FormattedMessage
-                            id='register.title'
-                            defaultMessage='DEFAULT' />
+                            id="register.title"
+                            defaultMessage="DEFAULT"
+                        />
                     </h4>
-                    <div className="error">{props.errorSignUp}</div>
+                    <div className="error">{errorSignUp}</div>
                     <Form
                         className="form-login"
                         name="signupForm"
                         ref={signupFormRef}
                         onFinish={onFinishSignup}
-                        validateMessages={validateMessages}>
+                        validateMessages={validateMessages}
+                    >
                         <Form.Item
                             name="signUpFirstname"
                             hasFeedback
@@ -162,7 +172,8 @@ const LoginForm = props => {
                             <Input
                                 className="input-login"
                                 placeholder="Email Address"
-                                id="signUpEmail" />
+                                id="signUpEmail"
+                            />
                         </Form.Item>
                         <Form.Item
                             name="signUpPassword"
@@ -177,7 +188,8 @@ const LoginForm = props => {
                             <Input.Password
                                 className="input-login"
                                 placeholder="Your password"
-                                id="signUpPassword" />
+                                id="signUpPassword"
+                            />
                         </Form.Item>
                         <Form.Item
                             name="confirmPassword"
@@ -194,7 +206,7 @@ const LoginForm = props => {
                                             return Promise.resolve();
                                         }
 
-                                        return Promise.reject('The two passwords that you entered do not match!');
+                                        return Promise.reject(new Error('The two passwords that you entered do not match!'));
                                     },
                                 }),
                             ]}
@@ -202,15 +214,16 @@ const LoginForm = props => {
                             <Input.Password
                                 className="input-login"
                                 placeholder="Your confirm password"
-                                id="confirmPassword" />
+                                id="confirmPassword"
+                            />
                         </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
                                 Signup
-                                </Button>
+                            </Button>
                             <Button className="signup-reset-btn" type="secondary" htmlType="button" onClick={onReset}>
                                 Reset
-                                </Button>
+                            </Button>
                         </Form.Item>
                     </Form>
                 </div>
@@ -219,18 +232,17 @@ const LoginForm = props => {
     )
 }
 
-const mapStateToProps = (state) => { //state is from store (type: ACCOUNT_DEFAULT_STATE)
-    return {
-        errorSignUp: state.account.errorSignUp, // error of sign up from backend
-        errorLogin: state.account.errorLogin, // error of login from backend
-        redirect: state.account.redirect
-    }
-}
+// state is from store (type: ACCOUNT_DEFAULT_STATE)
+const mapStateToProps = (state) => ({
+    errorSignUp: state.account.errorSignUp, // error of sign up from backend
+    errorLogin: state.account.errorLogin, // error of login from backend
+    redirect: state.account.redirect,
+})
 
 const mapDispatchToProps = {
     signup,
     login,
-    resetRedirectState
+    resetRedirectState,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

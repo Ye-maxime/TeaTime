@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { cleanCart } from '../actions/shoppingCart';
 
-const ConfirmationOrder = props => {
-
+const ConfirmationOrder = (props) => {
     useEffect(() => {
         props.cleanCart();
     }, []);
@@ -16,7 +15,7 @@ const ConfirmationOrder = props => {
 }
 
 const mapDispatchToProps = {
-    cleanCart
+    cleanCart,
 }
 
 export default connect(null, mapDispatchToProps)(ConfirmationOrder)

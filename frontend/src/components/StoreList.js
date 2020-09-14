@@ -1,11 +1,13 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect } from 'react';
-import { fetchStores, showStore, clickStore } from "../actions/stores";
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { Container } from 'react-bootstrap';
-import StoreMap from "./GoogleMap";
+import { fetchStores, showStore, clickStore } from '../actions/stores';
+import StoreMap from './GoogleMap';
 
 const Store = ({ store, selectedStore, clickStore }) => (
-    <div className={"store-card " + (selectedStore === store.id ? 'storeSelected' : '')} onClick={clickStore}>
+    <div className={`store-card ${selectedStore === store.id ? 'storeSelected' : ''}`} onClick={clickStore}>
         <p className="store-title">{store.name}</p>
         <p className="store-text">{store.address}</p>
         <p className="store-text">{store.telephone}</p>
@@ -13,47 +15,49 @@ const Store = ({ store, selectedStore, clickStore }) => (
     </div>
 )
 
-const StoreList = props => {
+// eslint-disable-next-line react/no-multi-comp
+const StoreList = ({
+    fetchStores, showStore, clickStore, stores, storeSelected, error,
+}) => {
     useEffect(() => {
-        props.fetchStores();
+        fetchStores();
     }, []);
 
     return (
         <Container>
-            <div className="error">{props.error}</div>
+            <div className="error">{error}</div>
             <div className="store-page">
                 <div className="col-md-5 store-map">
-                    <StoreMap stores={props.stores} showStore={props.showStore} storeSelected={props.storeSelected} />
+                    <StoreMap stores={stores} showStore={showStore} storeSelected={storeSelected} />
                 </div>
                 <div className="col-md-5 store-list">
                     <div className="store-list-title"> Paris</div>
-                    {props.stores.map((store) =>
+                    {stores.map((store) => (
                         <Store
                             key={store.id}
                             id={store.id}
                             store={store}
-                            selectedStore={props.storeSelected}
-                            clickStore={() => props.clickStore(store)}
-                        />)}
+                            selectedStore={storeSelected}
+                            clickStore={() => clickStore(store)}
+                        />
+                    ))}
                 </div>
             </div>
         </Container>
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        stores: state.stores.items,
-        error: state.stores.error,
-        isLoading: state.stores.loading,
-        storeSelected: state.stores.storeSelected,
-    }
-}
+const mapStateToProps = (state) => ({
+    stores: state.stores.items,
+    error: state.stores.error,
+    isLoading: state.stores.loading,
+    storeSelected: state.stores.storeSelected,
+})
 
 const mapDispatchToProps = {
     fetchStores,
     showStore,
-    clickStore
+    clickStore,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StoreList)

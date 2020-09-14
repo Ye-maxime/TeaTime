@@ -1,17 +1,25 @@
-import { call, put, takeLatest, /*takeEvery*/ } from 'redux-saga/effects'
-import { FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess } from "../actions/drinks";
-import { FETCH_STORES, loadedStores, storesFailure } from "../actions/stores";
-import { FETCH_ORDERS, ADD_ORDER, loadedOrders, addOrderSuccess, ordersFailure } from "../actions/orders";
-import { FETCH_ORDER_DETAIL, loadedOrderDetail, orderDetailFailure } from "../actions/orderDetail";
-import { SIGN_UP, signupSuccess, signupFailure, GET_INFOS, getAccountInfosSuccess, getAccountInfosFailure, LOGIN, loginSuccess, loginFailure } from "../actions/account";
+/* eslint-disable no-console */
+/* eslint-disable max-len */
+import { call, put, takeLatest /* takeEvery */ } from 'redux-saga/effects'
+import {
+    FETCH_DRINKS, ADD_DRINK, loadedDrinks, drinksFailure, addDrinkSuccess,
+} from '../actions/drinks';
+import { FETCH_STORES, loadedStores, storesFailure } from '../actions/stores';
+import {
+    FETCH_ORDERS, loadedOrders, ordersFailure,
+} from '../actions/orders';
+import { FETCH_ORDER_DETAIL, loadedOrderDetail, orderDetailFailure } from '../actions/orderDetail';
+import {
+    SIGN_UP, signupSuccess, signupFailure, GET_INFOS, getAccountInfosSuccess, getAccountInfosFailure, LOGIN, loginSuccess, loginFailure,
+} from '../actions/account';
 // import { GET_OPC, getOPCSuccess, getOPCFailure } from "../actions/opc";
 import Utils from '../util/Utils';
 // import Cookies from 'js-cookie';
 
-//**********************Drinks*************************
+//* *********************Drinks*************************
 function* getAllDrinks() {
     try {
-        const res = yield call(fetch, process.env.API_BASE_URL + 'drinks')
+        const res = yield call(fetch, `${process.env.API_BASE_URL}drinks`)
         const drinks = yield res.json()
         yield put(loadedDrinks(drinks))
     } catch (e) {
@@ -22,7 +30,7 @@ function* getAllDrinks() {
 function* saveDrink(action) {
     try {
         const options = Utils.createRequestOptions('POST', action.drink);
-        const res = yield call(fetch, process.env.API_BASE_URL + 'drinks', options)
+        const res = yield call(fetch, `${process.env.API_BASE_URL}drinks`, options)
         const drink = yield res.json()
         // 就相当dispatch(action)出去，reducer边接收到相应的action.type就会对数据进行相应的操作,最后通过react-redux的connect回到视图中，完成了一次数据驱动视图,
         yield put(addDrinkSuccess(drink))
@@ -47,11 +55,10 @@ function* saveDrink(action) {
 //     }
 // }
 
-
-//**********************Stores*************************
+//* *********************Stores*************************
 function* getAllStores() {
     try {
-        const res = yield call(fetch, process.env.API_BASE_URL + 'stores')
+        const res = yield call(fetch, `${process.env.API_BASE_URL}stores`)
         const stores = yield res.json()
         yield put(loadedStores(stores))
     } catch (e) {
@@ -59,7 +66,7 @@ function* getAllStores() {
     }
 }
 
-//**********************OPC*************************
+//* *********************OPC*************************
 // function* getOPC(action) {
 //     try {
 //         const id = Utils.getAccountIdFromLocalStorage();
@@ -76,25 +83,25 @@ function* getAllStores() {
 //     }
 // }
 
-//**********************Orders*************************
-function* getAllOrders(action) {
+//* *********************Orders*************************
+function* getAllOrders() {
     try {
         // const token = Cookies.get('jwt');
         const id = Utils.getAccountIdFromLocalStorage();
         if (id) {
             const options = Utils.createRequestOptions('POST', { accountId: id }, true);
-            const res = yield call(fetch, process.env.API_BASE_URL + 'orders/getOrders', options)
+            const res = yield call(fetch, `${process.env.API_BASE_URL}orders/getOrders`, options)
             if (res.ok === false) {
                 // error comes from the jwt part in backend/server.js
-                throw Error("getAllOrders : No user logged in!!")
+                throw Error('getAllOrders : No user logged in!!')
             }
             const orders = yield res.json()
             yield put(loadedOrders(orders))
         } else {
-            throw Error("getAllOrders : No user logged in!!")
+            throw Error('getAllOrders : No user logged in!!')
         }
     } catch (e) {
-        console.log('[sagas/index.js#getAllOrders] : catch ' + e);
+        console.log(`[sagas/index.js#getAllOrders] : catch ${e}`);
         yield put(ordersFailure(e.message))
     }
 }
@@ -116,7 +123,7 @@ function* getAllOrders(action) {
 //     }
 // }
 
-//**********************OrderDetail*************************
+//* *********************OrderDetail*************************
 function* getOrderDetail(action) {
     try {
         const options = Utils.createRequestOptions('GET', '', true);
@@ -128,11 +135,11 @@ function* getOrderDetail(action) {
     }
 }
 
-//**********************Account*************************
+//* *********************Account*************************
 function* signup(action) {
     try {
         const options = Utils.createRequestOptions('POST', action.data);
-        const res = yield call(fetch, process.env.API_BASE_URL + 'account/signup', options)
+        const res = yield call(fetch, `${process.env.API_BASE_URL}account/signup`, options)
         const result = yield res.json()
         if (result.success) {
             const { success, token, ...account } = result;
@@ -149,7 +156,7 @@ function* signup(action) {
 function* login(action) {
     try {
         const options = Utils.createRequestOptions('POST', action.data);
-        const res = yield call(fetch, process.env.API_BASE_URL + 'account/login', options)
+        const res = yield call(fetch, `${process.env.API_BASE_URL}account/login`, options)
         const result = yield res.json()
         if (result.success) {
             const { success, token, ...account } = result;
@@ -163,54 +170,53 @@ function* login(action) {
     }
 }
 
-function* getAccountInfomations(action) {
+function* getAccountInfomations() {
     try {
         const id = Utils.getAccountIdFromLocalStorage();
         if (id) {
             const options = Utils.createRequestOptions('POST', { accountId: id }, true);
-            const res = yield call(fetch, process.env.API_BASE_URL + 'account/getAccountInfos', options)
+            const res = yield call(fetch, `${process.env.API_BASE_URL}account/getAccountInfos`, options)
             if (res.ok === false) {
                 // error comes from the jwt part in backend/server.js
-                throw Error("getAccountInfomations : No user logged in!!")
+                throw Error('getAccountInfomations : No user logged in!!')
             }
             const result = yield res.json()
             const { ...account } = result;
             console.log(`[sagas/index.js#getAccountInfomations] : account = ${JSON.stringify(account)}`)
             yield put(getAccountInfosSuccess(account))
         } else {
-            throw Error("getAccountInfomations : No user logged in!!")
+            throw Error('getAccountInfomations : No user logged in!!')
         }
     } catch (e) {
         yield put(getAccountInfosFailure(e.message))
     }
 }
 
-
-//就在这个rootSaga里面利用takeLatest去监听action的type
+// 就在这个rootSaga里面利用takeLatest去监听action的type
 // rootSaga可以理解为是一个监听函数，在创建store中间件的时候就已经执行了
 function* rootSaga() {
-    //********************drinks*****************
+    //* *******************drinks*****************
     yield takeLatest(FETCH_DRINKS, getAllDrinks);
     yield takeLatest(ADD_DRINK, saveDrink);
     // yield takeLatest(DELETE_DRINK, deleteDrink);
     // yield takeEvery(TOGGLE_DRINK, updateDrink);
 
-    //********************stores*****************
+    //* *******************stores*****************
     yield takeLatest(FETCH_STORES, getAllStores);
 
-    //********************orders*****************
+    //* *******************orders*****************
     yield takeLatest(FETCH_ORDERS, getAllOrders);
     // yield takeLatest(ADD_ORDER, saveOrder);
 
-    //********************order_detail*****************
+    //* *******************order_detail*****************
     yield takeLatest(FETCH_ORDER_DETAIL, getOrderDetail);
 
-    //********************account*****************
+    //* *******************account*****************
     yield takeLatest(SIGN_UP, signup);
     yield takeLatest(LOGIN, login);
     yield takeLatest(GET_INFOS, getAccountInfomations);
 
-    //********************opc*****************
+    //* *******************opc*****************
     // yield takeLatest(GET_OPC, getOPC);
 }
 

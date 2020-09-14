@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
 const config = require('./config');
 
-console.log(`[database.js] : nodeEnv = ${config.nodeEnv}, dbHost = ${config.dbHost}, 
+// eslint-disable-next-line no-console
+console.log(`[database.js] : nodeEnv = ${config.nodeEnv}, dbHost = ${config.dbHost},
 redisHost = ${config.redisHost}, rabbitmqConnURL=${config.rabbitmqConnURL}`);
 
 module.exports = new Sequelize(config.dbName, config.dbUserName, config.dbUserPwd, {
@@ -12,6 +13,6 @@ module.exports = new Sequelize(config.dbName, config.dbUserName, config.dbUserPw
         max: 5,
         min: 0,
         acquire: 30000,
-        idle: 10000
+        idle: 10000,
     },
 });

@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 module.exports = {
     //   endpoint: process.env.API_URL,
     //   masterKey: process.env.API_KEY,
@@ -13,5 +14,5 @@ module.exports = {
     // REDIS
     redisHost: process.env.REDIS_HOST,
     // RABBITMQ
-    rabbitmqConnURL: process.env.RABBITMQ_CONN_URL
+    rabbitmqConnURL: process.env.RABBITMQ_CONN_URL,
 };

@@ -9,8 +9,8 @@ import {
     GET_INFOS_SUCCESS,
     GET_INFOS_FAILURE,
     RESET_REDIRECT_STATE,
-    LOG_OUT
-} from "../actions/account";
+    LOG_OUT,
+} from '../actions/account';
 
 export const ACCOUNT_DEFAULT_STATE = {
     loading: false,
@@ -18,51 +18,61 @@ export const ACCOUNT_DEFAULT_STATE = {
     errorSignUp: '',
     errorLogin: '',
     errorAccountInfo: '',
-    account: { id: '', firstname: '', lastname: '', email: '' }
+    account: {
+        id: '', firstname: '', lastname: '', email: '',
+    },
 }
 
 export default function reducerAccount(state = ACCOUNT_DEFAULT_STATE, action) {
     switch (action.type) {
-        case SIGN_UP:
-        case LOGIN:
-        case GET_INFOS:
-            return { ...state, loading: true, redirect: false, errorSignUp: '', errorLogin: '', errorAccountInfo: '' }
+    case SIGN_UP:
+    case LOGIN:
+    case GET_INFOS:
+        return {
+            ...state, loading: true, redirect: false, errorSignUp: '', errorLogin: '', errorAccountInfo: '',
+        }
 
-        case SIGN_UP_SUCCESS:
-        case LOGIN_SUCCESS:
-            return {
-                ...state,
-                account: action.account,
-                loading: false,
-                redirect: true,
-            }
+    case SIGN_UP_SUCCESS:
+    case LOGIN_SUCCESS:
+        return {
+            ...state,
+            account: action.account,
+            loading: false,
+            redirect: true,
+        }
 
-        case SIGN_UP_FAILURE:
-            return { ...state, loading: false, redirect: false, errorSignUp: action.error }
-        case LOGIN_FAILURE:
-            return { ...state, loading: false, redirect: false, errorLogin: action.error }
-        case GET_INFOS_FAILURE:
-            return { ...state, loading: false, redirect: false, errorAccountInfo: action.error }
+    case SIGN_UP_FAILURE:
+        return {
+            ...state, loading: false, redirect: false, errorSignUp: action.error,
+        }
+    case LOGIN_FAILURE:
+        return {
+            ...state, loading: false, redirect: false, errorLogin: action.error,
+        }
+    case GET_INFOS_FAILURE:
+        return {
+            ...state, loading: false, redirect: false, errorAccountInfo: action.error,
+        }
 
-        case GET_INFOS_SUCCESS:
-            return {
-                ...state,
-                account: action.account,
-                loading: false,
-                redirect: false,
-            }
+    case GET_INFOS_SUCCESS:
+        return {
+            ...state,
+            account: action.account,
+            loading: false,
+            redirect: false,
+        }
 
-        case RESET_REDIRECT_STATE:
-            return {
-                ...state,
-                redirect: false,
-            }
-        case LOG_OUT: 
-            return {
-                ...state,
-                account: {}
-            }
-        default:
-            return state
+    case RESET_REDIRECT_STATE:
+        return {
+            ...state,
+            redirect: false,
+        }
+    case LOG_OUT:
+        return {
+            ...state,
+            account: {},
+        }
+    default:
+        return state
     }
 }

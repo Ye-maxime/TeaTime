@@ -7,21 +7,21 @@ export const CLICK_STORE = 'CLICK_STORE'
 
 // action creators
 export function fetchStores() {
-    return {type: FETCH_STORES}
+    return { type: FETCH_STORES }
 }
 
 export function loadedStores(stores) {
-    return {type: LOADED_STORES, stores}
+    return { type: LOADED_STORES, stores }
 }
 
 export function storesFailure(error) {
-    return {type: STORES_FAILURE, error}
+    return { type: STORES_FAILURE, error }
 }
 
 export function showStore(store) {
-    return {type: SHOW_STORE, store}
+    return { type: SHOW_STORE, store }
 }
 
 export function clickStore(store) {
-    return {type: CLICK_STORE, store}
+    return { type: CLICK_STORE, store }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // We register a service worker to serve assets from local cache.
 
 // This lets the app load faster on subsequent visits in production, and gives
@@ -11,16 +12,16 @@ export default function register() {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker
-                .register('../sw.js')  // 调用sw.js文件来执行sw 的生命周期函数
-                .then(reg => console.log('[SW] Registered (Pages)'))
-                .catch(err => console.log(`[SW] Error: ${err}`));
+                .register('../sw.js') // 调用sw.js文件来执行sw 的生命周期函数
+                .then(() => console.log('[SW] Registered (Pages)'))
+                .catch((err) => console.log(`[SW] Error: ${err}`));
         });
     }
 }
 
 export function unregister() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.ready.then(registration => {
+        navigator.serviceWorker.ready.then((registration) => {
             registration.unregister();
         });
     }

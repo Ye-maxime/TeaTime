@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const amqp = require('amqplib/callback_api');
 const RabbitmqConstants = require('./RabbitmqConstants');
 
@@ -14,10 +15,12 @@ function connectConRabbitmq() {
                 } else {
                     channel.consume(RabbitmqConstants.QUEUE_NAME, async (msg) => {
                         // 消费事件 生成订单
+                        // eslint-disable-next-line global-require
                         await require('../controllers/orders').createOrder(JSON.parse(msg.content));
                         channel.ack(msg);
                     }, { noAck: false });
-                    // If we set the noAck field as true, then the queue will delete the message the moment it is read from the queue.
+                    // If we set the noAck field as true,
+                    // then the queue will delete the message the moment it is read from the queue.
                 }
             });
         }
@@ -25,5 +28,5 @@ function connectConRabbitmq() {
 }
 
 module.exports = {
-    connectConRabbitmq
+    connectConRabbitmq,
 }
