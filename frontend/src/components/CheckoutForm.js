@@ -10,37 +10,37 @@ import Utils from '../util/Utils';
 
 // 参考https://github.com/fireship-io/193-paypal-checkout-v2-demos
 
-const CheckoutForm = (props) => {
+const CheckoutForm = ({ items }) => {
     const [redirect, setRedirect] = useState(false);
     const [visible, setVisible] = useState(false);
     const [products, setProducts] = useState([]);
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
-        fetchOpcInfos();
-    }, []);
+        const fetchOpcInfos = () => {
+            const id = Utils.getAccountIdFromLocalStorage();
+            if (id) {
+                return fetch(`${process.env.API_BASE_URL}opc`, {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `Bearer ${localStorage.token}`,
+                    },
+                    body: JSON.stringify(items),
+                }).then((res) => res.json()).then((res) => {
+                    console.log(`[CheckoutForm.js#fetchOpcInfos] : get opc success, res = ${JSON.stringify(res)}`);
+                    setProducts(res.availableProducts);
+                    setTotal(res.total);
+                    // 传参数给registerPaypalButton 是为了避免取到的total为state中的total  因为可能为0
+                    registerPaypalButton(res.availableProducts, res.total);
+                }).catch((err) => {
+                    console.log(`[CheckoutForm.js#fetchOpcInfos] : get opc failed, err = ${err}`);
+                });
+            }
+        };
 
-    const fetchOpcInfos = () => {
-        const id = Utils.getAccountIdFromLocalStorage();
-        if (id) {
-            return fetch(`${process.env.API_BASE_URL}opc`, {
-                method: 'post',
-                headers: {
-                    'content-type': 'application/json',
-                    authorization: `Bearer ${localStorage.token}`,
-                },
-                body: JSON.stringify(props.items),
-            }).then((res) => res.json()).then((res) => {
-                console.log(`[CheckoutForm.js#fetchOpcInfos] : get opc success, res = ${JSON.stringify(res)}`);
-                setProducts(res.availableProducts);
-                setTotal(res.total);
-                // 传参数给registerPaypalButton 是为了避免取到的total为state中的total  因为可能为0
-                registerPaypalButton(res.availableProducts, res.total);
-            }).catch((err) => {
-                console.log(`[CheckoutForm.js#fetchOpcInfos] : get opc failed, err = ${err}`);
-            });
-        }
-    }
+        fetchOpcInfos();
+    }, [ items ]);
 
     const registerPaypalButton = (products, total) => {
         window.paypal.Buttons({
@@ -106,7 +106,7 @@ const CheckoutForm = (props) => {
         content = (
             <Redirect to={{
                 pathname: '/confirmation_order',
-            // state: { orderId: orderId }
+                // state: { orderId: orderId }
             }}
             />
         );

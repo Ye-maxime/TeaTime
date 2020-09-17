@@ -1,0 +1,4 @@
+{
+    // 保存时， VS Code 会配合eslint修复您的代码
+    "editor.formatOnSave": true
+}

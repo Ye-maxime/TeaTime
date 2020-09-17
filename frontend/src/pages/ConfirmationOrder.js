@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { cleanCart } from '../actions/shoppingCart';
 
-const ConfirmationOrder = (props) => {
+const ConfirmationOrder = ({ cleanCart }) => {
     useEffect(() => {
-        props.cleanCart();
+        cleanCart();
     }, []);
 
     return (
